@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CasesControlModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="NamePerson" Type="varchar" MaxLength="50" />
+          <Property Name="GroupAreas" Type="int" />
+        </EntityType>
+        <EntityType Name="Case">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Units" Type="int" Nullable="false" />
+          <Property Name="ETA" Type="int" Nullable="false" />
+          <Property Name="DateCreation" Type="datetime" Nullable="false" />
+          <Property Name="IsInProduction" Type="bit" Nullable="false" />
+          <Property Name="DateFinish" Type="datetime" />
+          <Property Name="TimeInproduction" Type="int" />
+        </EntityType>
+        <EntityType Name="CaseControl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="int" />
+          <Property Name="dtRecive" Type="datetime" />
+          <Property Name="dtStart" Type="datetime" />
+          <Property Name="dtFinish" Type="datetime" />
+          <Property Name="idTechnitian" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Technitian">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TechnitianXArea">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdArea" Type="int" />
+          <Property Name="Technitian" Type="int" />
+        </EntityType>
+        <Association Name="FK_CaseControl_Technitian">
+          <End Role="Technitian" Type="Self.Technitian" Multiplicity="1" />
+          <End Role="CaseControl" Type="Self.CaseControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technitian">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CaseControl">
+              <PropertyRef Name="idTechnitian" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TechnitianXArea_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+          <End Role="TechnitianXArea" Type="Self.TechnitianXArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TechnitianXArea">
+              <PropertyRef Name="IdArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TechnitianXArea_Technitian">
+          <End Role="Technitian" Type="Self.Technitian" Multiplicity="0..1" />
+          <End Role="TechnitianXArea" Type="Self.TechnitianXArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technitian">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TechnitianXArea">
+              <PropertyRef Name="Technitian" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CasesControlModelStoreContainer">
+          <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Case" EntityType="Self.Case" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CaseControl" EntityType="Self.CaseControl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Technitian" EntityType="Self.Technitian" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TechnitianXArea" EntityType="Self.TechnitianXArea" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CaseControl_Technitian" Association="Self.FK_CaseControl_Technitian">
+            <End Role="Technitian" EntitySet="Technitian" />
+            <End Role="CaseControl" EntitySet="CaseControl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TechnitianXArea_Area" Association="Self.FK_TechnitianXArea_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="TechnitianXArea" EntitySet="TechnitianXArea" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TechnitianXArea_Technitian" Association="Self.FK_TechnitianXArea_Technitian">
+            <End Role="Technitian" EntitySet="Technitian" />
+            <End Role="TechnitianXArea" EntitySet="TechnitianXArea" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CasesControlModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CasesControlEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Areas" EntityType="CasesControlModel.Area" />
+          <EntitySet Name="CaseControls" EntityType="CasesControlModel.CaseControl" />
+          <EntitySet Name="Technitians" EntityType="CasesControlModel.Technitian" />
+          <EntitySet Name="TechnitianXAreas" EntityType="CasesControlModel.TechnitianXArea" />
+          <AssociationSet Name="FK_TechnitianXArea_Area" Association="CasesControlModel.FK_TechnitianXArea_Area">
+            <End Role="Area" EntitySet="Areas" />
+            <End Role="TechnitianXArea" EntitySet="TechnitianXAreas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CaseControl_Technitian" Association="CasesControlModel.FK_CaseControl_Technitian">
+            <End Role="Technitian" EntitySet="Technitians" />
+            <End Role="CaseControl" EntitySet="CaseControls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TechnitianXArea_Technitian" Association="CasesControlModel.FK_TechnitianXArea_Technitian">
+            <End Role="Technitian" EntitySet="Technitians" />
+            <End Role="TechnitianXArea" EntitySet="TechnitianXAreas" />
+          </AssociationSet>
+          <EntitySet Name="Cases" EntityType="CasesControlModel.Case" />
+        </EntityContainer>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TechnitianXAreas" Relationship="CasesControlModel.FK_TechnitianXArea_Area" FromRole="Area" ToRole="TechnitianXArea" />
+          <Property Name="NamePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GroupAreas" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CaseControl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="Int32" />
+          <Property Name="dtRecive" Type="DateTime" Precision="3" />
+          <Property Name="dtStart" Type="DateTime" Precision="3" />
+          <Property Name="dtFinish" Type="DateTime" Precision="3" />
+          <Property Name="idTechnitian" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Technitian" Relationship="CasesControlModel.FK_CaseControl_Technitian" FromRole="CaseControl" ToRole="Technitian" />
+        </EntityType>
+        <EntityType Name="Technitian">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CaseControls" Relationship="CasesControlModel.FK_CaseControl_Technitian" FromRole="Technitian" ToRole="CaseControl" />
+          <NavigationProperty Name="TechnitianXAreas" Relationship="CasesControlModel.FK_TechnitianXArea_Technitian" FromRole="Technitian" ToRole="TechnitianXArea" />
+        </EntityType>
+        <EntityType Name="TechnitianXArea">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdArea" Type="Int32" />
+          <Property Name="Technitian" Type="Int32" />
+          <NavigationProperty Name="Area" Relationship="CasesControlModel.FK_TechnitianXArea_Area" FromRole="TechnitianXArea" ToRole="Area" />
+          <NavigationProperty Name="Technitian1" Relationship="CasesControlModel.FK_TechnitianXArea_Technitian" FromRole="TechnitianXArea" ToRole="Technitian" />
+        </EntityType>
+        <Association Name="FK_TechnitianXArea_Area">
+          <End Type="CasesControlModel.Area" Role="Area" Multiplicity="0..1" />
+          <End Type="CasesControlModel.TechnitianXArea" Role="TechnitianXArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TechnitianXArea">
+              <PropertyRef Name="IdArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CaseControl_Technitian">
+          <End Type="CasesControlModel.Technitian" Role="Technitian" Multiplicity="1" />
+          <End Type="CasesControlModel.CaseControl" Role="CaseControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technitian">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CaseControl">
+              <PropertyRef Name="idTechnitian" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TechnitianXArea_Technitian">
+          <End Type="CasesControlModel.Technitian" Role="Technitian" Multiplicity="0..1" />
+          <End Type="CasesControlModel.TechnitianXArea" Role="TechnitianXArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technitian">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TechnitianXArea">
+              <PropertyRef Name="Technitian" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Case">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Units" Type="Int32" Nullable="false" />
+          <Property Name="ETA" Type="Int32" Nullable="false" />
+          <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsInProduction" Type="Boolean" Nullable="false" />
+          <Property Name="DateFinish" Type="DateTime" Precision="3" />
+          <Property Name="TimeInproduction" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CasesControlModelStoreContainer" CdmEntityContainer="CasesControlEntities" >
+          <EntitySetMapping Name="Areas">
+            <EntityTypeMapping TypeName="CasesControlModel.Area">
+              <MappingFragment StoreEntitySet="Area">
+                <ScalarProperty Name="GroupAreas" ColumnName="GroupAreas" />
+                <ScalarProperty Name="NamePerson" ColumnName="NamePerson" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CaseControls">
+            <EntityTypeMapping TypeName="CasesControlModel.CaseControl">
+              <MappingFragment StoreEntitySet="CaseControl">
+                <ScalarProperty Name="idTechnitian" ColumnName="idTechnitian" />
+                <ScalarProperty Name="dtFinish" ColumnName="dtFinish" />
+                <ScalarProperty Name="dtStart" ColumnName="dtStart" />
+                <ScalarProperty Name="dtRecive" ColumnName="dtRecive" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Technitians">
+            <EntityTypeMapping TypeName="CasesControlModel.Technitian">
+              <MappingFragment StoreEntitySet="Technitian">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TechnitianXAreas">
+            <EntityTypeMapping TypeName="CasesControlModel.TechnitianXArea">
+              <MappingFragment StoreEntitySet="TechnitianXArea">
+                <ScalarProperty Name="Technitian" ColumnName="Technitian" />
+                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cases">
+            <EntityTypeMapping TypeName="CasesControlModel.Case">
+              <MappingFragment StoreEntitySet="Case">
+                <ScalarProperty Name="TimeInproduction" ColumnName="TimeInproduction" />
+                <ScalarProperty Name="DateFinish" ColumnName="DateFinish" />
+                <ScalarProperty Name="IsInProduction" ColumnName="IsInProduction" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="ETA" ColumnName="ETA" />
+                <ScalarProperty Name="Units" ColumnName="Units" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
