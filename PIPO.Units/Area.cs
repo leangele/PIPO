@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PIPO.Units
+namespace LabTrack
 {
     using System;
     using System.Collections.Generic;
@@ -24,6 +24,7 @@ namespace PIPO.Units
         public string Name { get; set; }
         public string NamePerson { get; set; }
         public Nullable<int> GroupAreas { get; set; }
+        public string Symbol { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TechnitianXArea> TechnitianXAreas { get; set; }

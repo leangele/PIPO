@@ -1,0 +1,1010 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XMsgLib</name>
+    </assembly>
+    <members>
+        <member name="T:XMsgLib.Dlg.DlgClasses.DlgMgrBase">
+            <summary>
+            Dialog Manager base class
+            </summary>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgClasses.DlgMgrBase.SetHook">
+            <summary>
+            Installs CBT hook procedure
+            </summary>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgClasses.DlgMgrBase.HookIsValid">
+            <summary>
+            Returns True if CBT hook has been installed
+            </summary>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgClasses.DlgMgrBase.ReleaseHook">
+            <summary>
+            Removes CBT hook procedure
+            </summary>
+        </member>
+        <member name="T:XMsgLib.Dlg.XMessageBoxMonitorEffectiveArea">
+            <summary>
+            Maximum percentage of width and height of active monitor that MessageBox dialog is allowed to occupy.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxMonitorEffectiveArea.MonitorEffectWidth">
+            <summary>
+            Maximum percentage of active monitor's width
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxMonitorEffectiveArea.MonitorEffectHeight">
+            <summary>
+            Maximum percentage of active monitor's height
+            </summary>
+        </member>
+        <member name="T:XMsgLib.Dlg.XMessageBoxHatchStyle">
+            <summary>
+            Hatch styles that can be used for dialog backgrounds
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxHatchStyle.HatchStyleNone">
+            <summary>
+            Solid color
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxHatchStyle.HatchStyleHorizontal">
+            <summary>
+            A pattern of horizontal lines.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxHatchStyle.HatchStyleVertical">
+            <summary>
+            A pattern of vertical lines.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxHatchStyle.HatchStyleDiagonalForward">
+            <summary>
+            A pattern of lines on a diagonal from upper left to lower right.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxHatchStyle.HatchStyleDiagonalBackward">
+            <summary>
+            A pattern of lines on a diagonal from upper right to lower left.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxHatchStyle.HatchStyleCross">
+            <summary>
+            Specifies horizontal and vertical lines that cross.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxHatchStyle.HatchStyleDiagonalCross">
+            <summary>
+            A pattern of crisscross diagonal lines.
+            </summary>
+        </member>
+        <member name="T:XMsgLib.Dlg.XMessageBoxBackground">
+            <summary>
+            Enumeration of MessageBox windows with background
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxBackground.DlgWindow">
+            <summary>
+            Main dialog window.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxBackground.ToolBarWindow">
+            <summary>
+            The window that contains all dialog buttons.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxBackground.HeaderWindow">
+            <summary>
+            Not implemented.
+            </summary>
+        </member>
+        <member name="T:XMsgLib.Dlg.XMessageBoxIcon">
+            <summary>
+            Enumeration of icons that can be displayed in a MessageBox.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxIcon.None">
+            <summary>
+            The message box contains no symbols.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxIcon.Error">
+            <summary>
+            The message box contains a symbol consisting of white X in a circle with a red background.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxIcon.Hand">
+            <summary>
+            The message box contains a symbol consisting of a white X in a circle with a red background.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxIcon.Stop">
+            <summary>
+            The message box contains a symbol consisting of white X in a circle with a red background.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxIcon.Question">
+            <summary>
+            The message box contains a symbol consisting of a question mark in a circle.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxIcon.Exclamation">
+            <summary>
+            The message box contains a symbol consisting of an exclamation point in a triangle with a yellow background.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxIcon.Warning">
+            <summary>
+            The message box contains a symbol consisting of an exclamation point in a triangle with a yellow background.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxIcon.Information">
+            <summary>
+            The message box contains a symbol consisting of a lowercase letter i in a circle.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxIcon.Asterisk">
+            <summary>
+            The message box contains a symbol consisting of a lowercase letter i in a circle.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxIcon.UserIcon">
+            <summary>
+            The message box contains a user-defined icon.
+            </summary>
+        </member>
+        <member name="T:XMsgLib.Dlg.XMessageBoxButton">
+            <summary>
+            Enumeration of buttons that can be displayed in a MessageBox.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.ButtonOk">
+            <summary>
+            OK
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.ButtonCancel">
+            <summary>
+            Cancel
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.ButtonAbort">
+            <summary>
+            Abort
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.ButtonRetry">
+            <summary>
+            Retry
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.ButtonIgnore">
+            <summary>
+            Ignore
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.ButtonYes">
+            <summary>
+            Yes
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.ButtonNo">
+            <summary>
+            No
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.Button07">
+            <summary>
+            This button type is not used.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.ButtonHelp">
+            <summary>
+            Help
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.ButtonTryAgain">
+            <summary>
+            Try Again
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.ButtonContinue">
+            <summary>
+            Continue
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.ButtonAux01">
+            <summary>
+            Additional button 01 implemenented in Extended MessageBox
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.ButtonAux02">
+            <summary>
+            Additional button 02 implemenented in Extended MessageBox
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxButton.ButtonAux03">
+            <summary>
+            Additional button 03 implemenented in Extended MessageBox
+            </summary>
+        </member>
+        <member name="T:XMsgLib.Dlg.XMessageBoxPositionMode">
+            <summary>
+            Specifies the way the MessageBox dialog is positioned on screen when AssignDlgPosition is called 
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxPositionMode.AbsolutePosition">
+            <summary>
+            The dialog is positioned on the desktop through providing absolute coordinates
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxPositionMode.AlignedToScreen">
+            <summary>
+            The dialog is aligned within active monitor
+            </summary>
+        </member>
+        <member name="T:XMsgLib.Dlg.XMessageBoxHorizontalAlign">
+            <summary>
+            Constants defining MessageBox horizontal alignment (XMessageBoxPositionMode.AlignedToScreen)
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxHorizontalAlign.LeftAligned">
+            <summary>
+            Aligned to active monitor's left border
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxHorizontalAlign.Centered">
+            <summary>
+            Centered horizontally in active monitor
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxHorizontalAlign.RightAligned">
+            <summary>
+            Aligned to active monitor's right border
+            </summary>
+        </member>
+        <member name="T:XMsgLib.Dlg.XMessageBoxVerticalAlign">
+            <summary>
+            Constants defining MessageBox vertical alignment (XMessageBoxPositionMode.AlignedToScreen)
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxVerticalAlign.TopAligned">
+            <summary>
+            Aligned to active monitor's top border
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxVerticalAlign.Centered">
+            <summary>
+            Centered vertically in active monitor
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxVerticalAlign.BottomAligned">
+            <summary>
+            Aligned to active monitor's bottom border
+            </summary>
+        </member>
+        <member name="T:XMsgLib.Dlg.XMessageBoxEditControlStyles">
+            <summary>
+            Styles that can be applied to the Input Text control shown in MessageBox dialog. These are Windows ES_ constants.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.None">
+            <summary>
+            All default
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.AutoHScroll">
+            <summary>
+            Automatically scrolls text to the right by 10 characters when the user types a character at the end of the line.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.AutoVScroll">
+            <summary>
+            Automatically scrolls text up one page when the user presses the ENTER key on the last line.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.Center">
+            <summary>
+             Centers text.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.Lowercase">
+            <summary>
+            Converts all characters to lowercase as they are typed into the edit control.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.Multiline">
+            <summary>
+            Designates a multiline edit control.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.NoHideSel">
+            <summary>
+            The selected text is inverted, even if the control does not have the focus.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.Number">
+            <summary>
+            Allows only digits to be entered into the edit control.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.OemConvert">
+            <summary>
+            Converts text entered in the edit control.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.Password">
+            <summary>
+            Displays an asterisk (*) for each character typed into the edit control.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.ReadOnly">
+            <summary>
+            Prevents the user from typing or editing text in the edit control.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.Right">
+            <summary>
+            Right-aligns text.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.Uppercase">
+            <summary>
+            Converts all characters to uppercase as they are typed into the edit control.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.XMessageBoxEditControlStyles.WantReturn">
+            <summary>
+            Specifies that a carriage return be inserted when the user presses the ENTER key while entering text into a multiline edit control in a dialog box.
+            </summary>
+        </member>
+        <member name="T:XMsgLib.Dlg.DlgMgr">
+            <summary>
+            Extended MessageBox public interface
+            </summary>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ResetToDefault">
+            <summary>
+            Resets all extended MessageBox settings.
+            </summary>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ResetDlgButtons">
+            <summary>
+            For all buttons resets all extended settings: caption, font, tooltip, enable|disable status
+            </summary>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignMessageFont(System.Drawing.Font)">
+            <summary>
+            Sets the font of the dialog message based on a Font object.
+            </summary>
+            <param name="f">A Font object.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignMessageFont(System.String)">
+            <summary>
+            Sets the font of the dialog message based on a font name with the rest of font settings set to system default values.
+            </summary>
+            <param name="newfontname">Font name.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignMessageFont(System.String,System.Int32)">
+            <summary>
+            Sets the font of the dialog message based on a font name and size with the rest of font settings set to system default values.
+            </summary>
+            <param name="newfontname">Font name.</param>
+            <param name="newfontsize">Font size in points.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignMessageFont(System.String,System.Int32,System.Int32)">
+            <summary>
+            Sets the font of the dialog message based on a font name, size and Italic flag with the rest of font settings set to system default values.
+            </summary>
+            <param name="newfontname">Font name.</param>
+            <param name="newfontsize">Font size in points.</param>
+            <param name="newfontitalic">Font Italic flag.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignMessageFont(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets the font of the dialog message based on a font name, size, and also Italic and Bold flags with the rest of font settings set to system default values.
+            </summary>
+            <param name="newfontname">Font name.</param>
+            <param name="newfontsize">Font size in points.</param>
+            <param name="newfontitalic">Font Italic flag.</param>
+            <param name="newfontbold">Font Bold flag.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignMessageFont(System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets the font of the dialog message based on a font name, size, and also Italic, Bold, Underlined and Strikeout flags, and charset.
+            </summary>
+            <param name="newfontname">Font name.</param>
+            <param name="newfontsize">Font size in points.</param>
+            <param name="newfontitalic">Font Italic flag.</param>
+            <param name="newfontbold">Font Bold flag.</param>
+            <param name="newfontunderlined">Font Underlined flag.</param>
+            <param name="newfontstrikeout">Font StrikeOut flag.</param>
+            <param name="newfontcharset">Font Charset.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignButtonFont(XMsgLib.Dlg.XMessageBoxButton,System.Drawing.Font)">
+            <summary>
+            Sets the font of a dialog button based on a Font object.
+            </summary>
+            <param name="dlgButton">XMessageBoxButton enumeration member.</param>
+            <param name="f">Font object, button caption's font to be based on.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignButtonFont(XMsgLib.Dlg.XMessageBoxButton,System.String)">
+            <summary>
+            Sets the font of a dialog button based on a font name with the rest of font settings set to system default values.
+            </summary>
+            <param name="dlgButton">XMessageBoxButton enumeration member.</param>
+            <param name="newfontname">Font name for the button's caption.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignButtonFont(XMsgLib.Dlg.XMessageBoxButton,System.String,System.Int32)">
+            <summary>
+            Sets the font of a dialog button based on a font name and size with the rest of font settings set to system default values.
+            </summary>
+            <param name="dlgButton">XMessageBoxButton enumeration member.</param>
+            <param name="newfontname">Font name for the button's caption.</param>
+            <param name="newfontsize">Font size for the button's caption.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignButtonFont(XMsgLib.Dlg.XMessageBoxButton,System.String,System.Int32,System.Int32)">
+            <summary>
+            Sets the font of a dialog button based on a font name, size and Italic flag with the rest of font settings set to system default values.
+            </summary>
+            <param name="dlgButton">XMessageBoxButton enumeration member.</param>
+            <param name="newfontname">Font name for the button's caption.</param>
+            <param name="newfontsize">Font size for the button's caption.</param>
+            <param name="newfontitalic">Font Italic flag for the button's caption.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignButtonFont(XMsgLib.Dlg.XMessageBoxButton,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets the font of a dialog button based on a font name, size, Italic and Bold flags with the rest of font settings set to system default values.
+            </summary>
+            <param name="dlgButton">XMessageBoxButton enumeration member.</param>
+            <param name="newfontname">Font name for the button's caption.</param>
+            <param name="newfontsize">Font size for the button's caption.</param>
+            <param name="newfontitalic">Font Italic flag for the button's caption.</param>
+            <param name="newfontbold">Font Bold flag for the button's caption.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignButtonFont(XMsgLib.Dlg.XMessageBoxButton,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets the font of a dialog button based on a font name, size, and also Italic, Bold, Underlined and Strikeout flags, and charset.
+            </summary>
+            <param name="dlgButton">XMessageBoxButton enumeration member.</param>
+            <param name="newfontname">Font name for the button's caption.</param>
+            <param name="newfontsize">Font size for the button's caption.</param>
+            <param name="newfontitalic">Font Italic flag for the button's caption.</param>
+            <param name="newfontbold">Font Bold flag for the button's caption.</param>
+            <param name="newfontunderlined">Font Underlined flag for the button's caption.</param>
+            <param name="newfontstrikeout">Font Strikeout flag for the button's caption.</param>
+            <param name="newfontcharset">Font charset for the button's caption.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignButtonCaption(XMsgLib.Dlg.XMessageBoxButton)">
+            <summary>
+            Sets the caption of a dialog button to empty string.
+            </summary>
+            <param name="dlgButton">XMessageBoxButton enumeration member.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignButtonCaption(XMsgLib.Dlg.XMessageBoxButton,System.String)">
+            <summary>
+            Sets the caption of a dialog button.
+            </summary>
+            <param name="dlgButton">XMessageBoxButton enumeration member.</param>
+            <param name="newcaption">New caption for the button.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignButtonEnabled(XMsgLib.Dlg.XMessageBoxButton,System.Boolean)">
+            <summary>
+            Sets enabled or disabled state for a dialog button.
+            </summary>
+            <param name="dlgButton">XMessageBoxButton enumeration member.</param>
+            <param name="enabled">The dialog button is enabled.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignButtonToolTip(XMsgLib.Dlg.XMessageBoxButton)">
+            <summary>
+            Removes tooltip from a dialog button.
+            </summary>
+            <param name="dlgButton">XMessageBoxButton enumeration member.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignButtonToolTip(XMsgLib.Dlg.XMessageBoxButton,System.String)">
+            <summary>
+            Sets the tooltip of a dialog button.
+            </summary>
+            <param name="dlgButton">XMessageBoxButton enumeration member.</param>
+            <param name="tooltip">Tooltip to be displayed.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ResetBackColor(XMsgLib.Dlg.XMessageBoxBackground)">
+            <summary>
+            Paints the background of the dialog or one dialog's child window using OS default color.
+            </summary>
+            <remarks>Default color scheme for the MessageBox varies across Windows versions. It can also be affected by user-specified Windows Desktop settings.</remarks>
+            <param name="bgwindow">XMessageBoxBackground enumeration member.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadBackColorFromSolidColor(XMsgLib.Dlg.XMessageBoxBackground,System.Drawing.Color)">
+            <summary>
+            Paints dialog's background using a solid color based on a Color object.
+            </summary>
+            <param name="bgwindow">XMessageBoxBackground enumeration member.</param>
+            <param name="crColor">A Color object.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadBackColorFromSolidColor(XMsgLib.Dlg.XMessageBoxBackground,System.Int32)">
+            <summary>
+            Paints dialog's background using a solid color based on RGB value.
+            </summary>
+            <param name="bgwindow">XMessageBoxBackground enumeration member.</param>
+            <param name="crColor">RGB value.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadBackColorFromSolidColor(XMsgLib.Dlg.XMessageBoxBackground,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Paints dialog's background using a solid color based on three channel values.
+            </summary>
+            <param name="bgwindow">XMessageBoxBackground enumeration member.</param>
+            <param name="red">Red channel.</param>
+            <param name="green">Green channel.</param>
+            <param name="blue">Blue channel.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadBackcolorFromSystemColor(XMsgLib.Dlg.XMessageBoxBackground,System.Int32)">
+            <summary>
+            Paints dialog's background with a system color specified by a system color index.
+            </summary>
+            <remarks>
+            For a list of System Color Index values open MSDN page describing GetSysColor API function.
+            http://msdn.microsoft.com/en-us/library/ms724371(VS.85).aspx
+            </remarks>
+            <param name="bgwindow">XMessageBoxBackground enumeration member.</param>
+            <param name="syscolorindex">System Color index value.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadBackcolorFromHatchBrush(XMsgLib.Dlg.XMessageBoxBackground,XMsgLib.Dlg.XMessageBoxHatchStyle,System.Drawing.Color)">
+            <summary>
+            Paints dialog's background using a hatch brush as a pattern. Specifies a hatch style and brushe's color based on a Color object.
+            </summary>
+            <remarks>
+            For a list of Hatch styles open MSDN description for CreateHatchBrush API function.
+            http://msdn.microsoft.com/en-us/library/dd183504(VS.85).aspx
+            </remarks>
+            <param name="bgwindow">XMessageBoxBackground enumeration member.</param>
+            <param name="hatchstyle">Hatch style value.</param>
+            <param name="crColor">A Color object.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadBackcolorFromHatchBrush(XMsgLib.Dlg.XMessageBoxBackground,XMsgLib.Dlg.XMessageBoxHatchStyle,System.Int32)">
+            <summary>
+            Paints dialog's background using a hatch brush as a pattern. Specifies a hatch style and brushe's color as RGB value.
+            </summary>
+            <remarks>
+            For a list of Hatch styles open MSDN description for CreateHatchBrush API function.
+            http://msdn.microsoft.com/en-us/library/dd183504(VS.85).aspx
+            </remarks>
+            <param name="bgwindow">XMessageBoxBackground enumeration member.</param>
+            <param name="hatchstyle">Hatch style value.</param>
+            <param name="crColor">RGB value.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadBackcolorFromHatchBrush(XMsgLib.Dlg.XMessageBoxBackground,XMsgLib.Dlg.XMessageBoxHatchStyle,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Paints dialog's background using a hatch brush as a pattern. Specifies a hatch style and brushe's color as three color channels.
+            </summary>
+            <remarks>
+            For a list of Hatch styles open MSDN description for CreateHatchBrush API function.
+            http://msdn.microsoft.com/en-us/library/dd183504(VS.85).aspx
+            </remarks>
+            <param name="bgwindow">XMessageBoxBackground enumeration member.</param>
+            <param name="hatchstyle">Hatch style value.</param>
+            <param name="red">Red channel.</param>
+            <param name="green">Green channel.</param>
+            <param name="blue">Blue channel.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadBackcolorFromResourceFile(XMsgLib.Dlg.XMessageBoxBackground,System.String,System.Int32)">
+            <summary>
+            Paints dialog's background using an Image resource.
+            </summary>
+            <param name="bgwindow">XMessageBoxBackground enumeration member.</param>
+            <param name="resourcefile">The full path to a resource file.</param>
+            <param name="resourceindex">Bitmap Resource index in the specified resource file.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadBackcolorFromBitmapFile(XMsgLib.Dlg.XMessageBoxBackground,System.String)">
+            <summary>
+            Paints specified dialog's background using a bitmap file as a pattern.
+            </summary>
+            <param name="bgwindow">XMessageBoxBackground enumeration member.</param>
+            <param name="bitmapfile">The full path to a bitmap file.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadBackcolorFromHbitmap(XMsgLib.Dlg.XMessageBoxBackground,System.IntPtr)">
+            <summary>
+            Paints specified dialog's background using a HBITMAP handle.
+            </summary>
+            <param name="bgwindow">XMessageBoxBackground enumeration member.</param>
+            <param name="hbitmap">HBITMAP handle.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadBackcolorFromHbrush(XMsgLib.Dlg.XMessageBoxBackground,System.IntPtr)">
+            <summary>
+            Paints specified dialog's background using a HBRUSH handle.
+            </summary>
+            <param name="bgwindow">XMessageBoxBackground enumeration member.</param>
+            <param name="hbrush">HBRUSH handle.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadIconFromResourceFile(XMsgLib.Dlg.XMessageBoxIcon,System.String,System.Int32)">
+            <summary>
+            Sets the dialog icon to be loaded from an Icon resource.
+            </summary>
+            <param name="icon">XMessageBoxIcon enumeration member.</param>
+            <param name="resourcefile">The full path to a resource file.</param>
+            <param name="iconindex">Icon Resource index in the specified resource file.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadIconFromIconFile(XMsgLib.Dlg.XMessageBoxIcon,System.String)">
+            <summary>
+            Sets the dialog icon to be loaded from an ICO file.
+            </summary>
+            <param name="icon">XMessageBoxIcon enumeration member.</param>
+            <param name="iconfile">The name of a ICO file.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadIconFromFileType(XMsgLib.Dlg.XMessageBoxIcon,System.String)">
+            <summary>
+            Sets the dialog icon to an icon the OS associates with a file type.
+            </summary>
+            <remarks>Provide either full path, or file name, or even a partial name like *.doc, or *.pdf.</remarks>
+            <param name="icon">XMessageBoxIcon enumeration member.</param>
+            <param name="filetype">Full or partial (wildcard) file name.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.LoadIconFromHicon(XMsgLib.Dlg.XMessageBoxIcon,System.IntPtr)">
+            <summary>
+            Sets the dialog icon to be loaded from HICON handle.
+            </summary>
+            <param name="icon">XMessageBoxIcon enumeration member.</param>
+            <param name="hIcon">HICON handle.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AddWebLinkToIcon">
+            <summary>
+            When called with no parameters, removes web link from the dialog icon.
+            </summary>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AddWebLinkToIcon(System.String)">
+            <summary>
+            Click on the dialog icon opens the specified URL in the default browser.
+            </summary>
+            <param name="webAddress">The URL of a resource to display in default browser when the dialog icon is clicked.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AddWebLinkToMessage">
+            <summary>
+            When called with no parameters, removes web link from the dialog message.
+            </summary>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AddWebLinkToMessage(System.String)">
+            <summary>
+            Click on the dialog message opens the specified URL in the default browser.
+            </summary>
+            <param name="webAddress">The URL of a resource to display in default browser when the dialog message is clicked.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableHrefCtrl(System.String)">
+            <summary>
+            Sets HRef control to appear on the dialog linked to specified URL.
+            </summary>
+            <param name="webAddress">The URL of a resource to display in default browser when the HRef control is clicked.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableHrefCtrl(System.String,System.String)">
+            <summary>
+            Sets HRef control to appear on the dialog linked to specified URL and alias.
+            </summary>
+            <param name="webAddress">The URL of a resource to display in default browser when the HRef control is clicked.</param>
+            <param name="alias">A caption to be displayed instead of a URL.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableHrefCtrl(System.String,System.String,System.Drawing.Color)">
+            <summary>
+            Sets HRef control to appear on the dialog linked to specified URL and alias. The text color is based on a Color object.
+            </summary>
+            <param name="webAddress">The URL of a resource to display in default browser when the HRef control is clicked.</param>
+            <param name="alias">A caption to be displayed instead of a URL.</param>
+            <param name="crColor">Specifies the text color for the control.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableHrefCtrl(System.String,System.String,System.Int32)">
+            <summary>
+            Sets HRef control to appear on the dialog linked to specified URL and alias. The text color is based on RGB value.
+            </summary>
+            <param name="webAddress">The URL of a resource to display in default browser when the HRef control is clicked.</param>
+            <param name="alias">A caption to be displayed instead of a URL.</param>
+            <param name="crColor">Specifies the text color for the control.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableCheckBoxCtrl">
+            <summary>
+            Sets Check Box control not to appear on the dialog (no input parameters).
+            </summary>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableCheckBoxCtrl(System.String)">
+            <summary>
+            Sets Check Box control to appear on the dialog, and specifies control's caption.
+            </summary>
+            <param name="caption">Control's caption.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableCheckBoxCtrl(System.String,System.Boolean)">
+            <summary>
+            Sets Check Box control to appear on the dialog, and specifies control's caption and check state.
+            </summary>
+            <param name="caption">Control's caption.</param>
+            <param name="ischecked">Control's initial Checked status.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableTextInputCtrl">
+            <summary>
+            Sets Text Input control not to appear on the dialog (no input parameters).
+            </summary>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableTextInputCtrl(System.String)">
+            <summary>
+            Sets Text Input control to appear on the dialog. Specifies control's caption.
+            </summary>
+            <remarks>The width, the length, and the style (single-line) of the text box control will be set to default values.</remarks>
+            <param name="caption">A prompt to be displayed above Text Box control.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableTextInputCtrl(System.String,System.Int32)">
+            <summary>
+            Sets Text Input control to appear on the dialog. Specifies control's caption and the width of the text box.
+            </summary>
+            <param name="caption">A prompt to be displayed above Text Box control.</param>
+            <param name="textBoxWidth">The width of the text box in pixels.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableTextInputCtrl(System.String,System.Int32,System.Int32)">
+            <summary>
+            Sets Text Input control to appear on the dialog. Specifies control's caption, the width and the height of the text box.
+            </summary>
+            <param name="caption">A prompt to be displayed above Text Box control.</param>
+            <param name="textBoxWidth">The width of the text box in pixels.</param>
+            <param name="textBoxHeight">The height of the text box in pixels.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableTextInputCtrl(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets Text Input control to appear on the dialog. Specifies control's caption, the width and the height of the text box, and control style (Int).
+            </summary>
+            <param name="caption">A prompt to be displayed above Text Box control.</param>
+            <param name="textBoxWidth">The width of the text box in pixels.</param>
+            <param name="textBoxHeight">The height of the text box in pixels.</param>
+            <param name="ctrlStyle">A combination of XMessageBoxEditControlStyles enumeration members.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableTextInputCtrl(System.String,System.Int32,System.Int32,XMsgLib.Dlg.XMessageBoxEditControlStyles)">
+            <summary>
+            Sets Text Input control to appear on the dialog. Specifies control's caption, the width and the height of the text box, and control style (enumeration).
+            </summary>
+            <param name="caption">A prompt to be displayed above Text Box control.</param>
+            <param name="textBoxWidth">The width of the text box in pixels.</param>
+            <param name="textBoxHeight">The height of the text box in pixels.</param>
+            <param name="ctrlStyle">A combination of XMessageBoxEditControlStyles enumeration members.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.EnableTextInputCtrl(System.String,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Sets Text Input control to appear on the dialog. Specifies control's caption, the width and the height of the text box, control style, and default value.
+            </summary>
+            <param name="caption">A prompt to be displayed above Text Box control.</param>
+            <param name="textBoxWidth">The width of the text box in pixels.</param>
+            <param name="textBoxHeight">The height of the text box in pixels.</param>
+            <param name="ctrlStyle">A value representing control style for the text box (ES_ constants).</param>
+            <param name="defaultValue">A default value to be put in the text box control.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignDlgMaxSize">
+            <summary>
+            The maximum size of the dialog window is restricted only by the size of the active monitor.
+            </summary>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignDlgMaxSize(System.Int32)">
+            <summary>
+            Sets the maximum width for the dialog window. The height is restricted only by the height of the active monitor.
+            </summary>
+            <remarks>Positive value set the upper limit. Negative value forces the dimension to that absolute value. Screen dimensions have precedence. There are lower limits, the dialog dimensions cannot drop below.</remarks>
+            <param name="maxwidth">Maximum width of the dialog window in pixels.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignDlgMaxSize(System.Int32,System.Int32)">
+            <summary>
+            Sets the maximum size for the dialog window based on a width, and a height.
+            </summary>
+            <remarks>Positive value set the upper limit. Negative value forces the dimension to that absolute value. Screen dimensions have precedence. There are lower limits, the dialog dimensions cannot drop below.</remarks>
+            <param name="maxwidth">Maximum width of the dialog window in pixels.</param>
+            <param name="maxheight">Maximum height of the dialog window in pixels.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignDlgPosition">
+            <summary>
+            The dialog will be centered on the active monitor. This is the default setting.
+            </summary>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignDlgPosition(XMsgLib.Dlg.XMessageBoxHorizontalAlign,XMsgLib.Dlg.XMessageBoxVerticalAlign)">
+            <summary>
+            Aligns the dialog to the screen borders based on horizontal and vertical alignment constants.
+            </summary>
+            <remarks>With multiple monitors, the positioning coordinates are relative to the active monitor.</remarks>
+            <param name="horizalign">XMessageBoxHorizontalAlign enumeration.</param>
+            <param name="vertalign">XMessageBoxVerticalAlign enumeration.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignDlgPosition(System.Int32,System.Int32)">
+            <summary>
+            Specifies the distance between the left top corner of the dialog and the left corner edge of the active monitor.
+            </summary>
+            <remarks>With multiple monitors, the positioning coordinates are relative to the active monitor.</remarks>
+            <param name="x">Distance between the left edge of the dialog and the left edge of the active monitor.</param>
+            <param name="y">Distance between the top edge of the dialog and the top edge of the active monitor.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.AssignDlgPosition(System.Int32,System.Int32,XMsgLib.Dlg.XMessageBoxPositionMode)">
+            <summary>
+            Specifies the distance between the left top corner of the dialog and the left corner edge of the active monitor.
+            </summary>
+            <remarks>With multiple monitors, the positioning coordinates are relative to the active monitor.</remarks>
+            <param name="x">XMessageBoxHorizontalAlign enumeration or distance between the left edge of the dialog and the left edge of the active monitor.</param>
+            <param name="y">XMessageBoxVerticalAlign enumeration or distance between the top edge of the dialog and the top edge of the active monitor.</param>
+            <param name="positionmode">XMessageBoxPositionMode enumeration.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ShowDialog(System.String)">
+            <summary>
+            Displays a message box with specified text.
+            </summary>
+            <param name="text">The text to display in the message box.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ShowDialog(System.String,System.String)">
+            <summary>
+            Displays a message box with specified text and caption.
+            </summary>
+            <param name="text">The text to display in the message box.</param>
+            <param name="caption">The text to display in the title bar of the message box.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ShowDialog(System.Windows.Forms.IWin32Window,System.String)">
+            <summary>
+            Displays a message box with specified owner window and text.
+            </summary>
+            <param name="owner">A window that owns the dialog.</param>
+            <param name="text">The text to display in the message box.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ShowDialog(System.String,System.String,System.Windows.Forms.MessageBoxButtons)">
+            <summary>
+            Displays a message box with specified text, caption, and buttons.
+            </summary>
+            <param name="text">The text to display in the message box.</param>
+            <param name="caption">The text to display in the title bar of the message box.</param>
+            <param name="buttons">One of the MessageBoxButtons values that specifies which buttons to display in the message box.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ShowDialog(System.Windows.Forms.IWin32Window,System.String,System.String)">
+            <summary>
+            Displays a message box with specified owner window, text, and caption.
+            </summary>
+            <param name="owner">A window that owns the dialog.</param>
+            <param name="text">The text to display in the message box.</param>
+            <param name="caption">The text to display in the title bar of the message box.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ShowDialog(System.String,System.String,System.Windows.Forms.MessageBoxButtons,XMsgLib.Dlg.XMessageBoxIcon)">
+            <summary>
+            Displays a message box with specified text, caption, buttons, and icon.
+            </summary>
+            <param name="text">The text to display in the message box.</param>
+            <param name="caption">The text to display in the title bar of the message box.</param>
+            <param name="buttons">One of the MessageBoxButtons values that specifies which buttons to display in the message box.</param>
+            <param name="icon">One of the XMessageBoxIcon values that specifies which icon to display in the message box.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ShowDialog(System.Windows.Forms.IWin32Window,System.String,System.String,System.Windows.Forms.MessageBoxButtons)">
+            <summary>
+            Displays a message box with specified owner window, text, caption, and buttons.
+            </summary>
+            <param name="owner">A window that owns the dialog.</param>
+            <param name="text">The text to display in the message box.</param>
+            <param name="caption">The text to display in the title bar of the message box.</param>
+            <param name="buttons">One of the MessageBoxButtons values that specifies which buttons to display in the message box.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ShowDialog(System.String,System.String,System.Windows.Forms.MessageBoxButtons,XMsgLib.Dlg.XMessageBoxIcon,System.Windows.Forms.MessageBoxDefaultButton)">
+            <summary>
+            Displays a message box with specified text, caption, buttons, icon, and default button.
+            </summary>
+            <param name="text">The text to display in the message box.</param>
+            <param name="caption">The text to display in the title bar of the message box.</param>
+            <param name="buttons">One of the MessageBoxButtons values that specifies which buttons to display in the message box.</param>
+            <param name="icon">One of the XMessageBoxIcon values that specifies which icon to display in the message box.</param>
+            <param name="defaultButton">One of the MessageBoxDefaultButton values that specifies the default button for the message box.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ShowDialog(System.Windows.Forms.IWin32Window,System.String,System.String,System.Windows.Forms.MessageBoxButtons,XMsgLib.Dlg.XMessageBoxIcon)">
+            <summary>
+            Displays a message box with specified owner window, text, caption, buttons, and icon.
+            </summary>
+            <param name="owner">A window that owns the dialog.</param>
+            <param name="text">The text to display in the message box.</param>
+            <param name="caption">The text to display in the title bar of the message box.</param>
+            <param name="buttons">One of the MessageBoxButtons values that specifies which buttons to display in the message box.</param>
+            <param name="icon">One of the XMessageBoxIcon values that specifies which icon to display in the message box.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ShowDialog(System.String,System.String,System.Windows.Forms.MessageBoxButtons,XMsgLib.Dlg.XMessageBoxIcon,System.Windows.Forms.MessageBoxDefaultButton,System.Windows.Forms.MessageBoxOptions)">
+            <summary>
+            Displays a message box with specified text, caption, buttons, icon, default button, and options.
+            </summary>
+            <param name="text">The text to display in the message box.</param>
+            <param name="caption">The text to display in the title bar of the message box.</param>
+            <param name="buttons">One of the MessageBoxButtons values that specifies which buttons to display in the message box.</param>
+            <param name="icon">One of the XMessageBoxIcon values that specifies which icon to display in the message box.</param>
+            <param name="defaultButton">One of the MessageBoxDefaultButton values that specifies the default button for the message box.</param>
+            <param name="options">One of the MessageBoxOptions values that specifies which display and association options will be used for the message box. You may pass in 0 if you wish to use the defaults.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ShowDialog(System.Windows.Forms.IWin32Window,System.String,System.String,System.Windows.Forms.MessageBoxButtons,XMsgLib.Dlg.XMessageBoxIcon,System.Windows.Forms.MessageBoxDefaultButton)">
+            <summary>
+            Displays a message box with specified owner window, text, caption, buttons, icon, and default button.
+            </summary>
+            <param name="owner">A window that owns the dialog.</param>
+            <param name="text">The text to display in the message box.</param>
+            <param name="caption">The text to display in the title bar of the message box.</param>
+            <param name="buttons">One of the MessageBoxButtons values that specifies which buttons to display in the message box.</param>
+            <param name="icon">One of the XMessageBoxIcon values that specifies which icon to display in the message box.</param>
+            <param name="defaultButton">One of the MessageBoxDefaultButton values that specifies the default button for the message box.</param>
+        </member>
+        <member name="M:XMsgLib.Dlg.DlgMgr.ShowDialog(System.Windows.Forms.IWin32Window,System.String,System.String,System.Windows.Forms.MessageBoxButtons,XMsgLib.Dlg.XMessageBoxIcon,System.Windows.Forms.MessageBoxDefaultButton,System.Windows.Forms.MessageBoxOptions)">
+            <summary>
+            Displays a message box with specified owner window, text, caption, buttons, icon, default button, and options.
+            </summary>
+            <param name="owner">A window that owns the dialog.</param>
+            <param name="text">The text to display in the message box.</param>
+            <param name="caption">The text to display in the title bar of the message box.</param>
+            <param name="buttons">One of the MessageBoxButtons values that specifies which buttons to display in the message box.</param>
+            <param name="icon">One of the XMessageBoxIcon values that specifies which icon to display in the message box.</param>
+            <param name="defaultButton">One of the MessageBoxDefaultButton values that specifies the default button for the message box.</param>
+            <param name="options">One of the MessageBoxOptions values that specifies which display and association options will be used for the message box. You may pass in 0 if you wish to use the defaults.</param>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.CheckBoxState">
+            <summary>
+            Gets or sets the check state of the check box control.
+            </summary>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.AuxButtonPressed">
+            <summary>
+            Gets a value indicating an auxiliary button pressed to close the dialog.
+            </summary>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.TextInputValue">
+            <summary>
+            Gets a value stored in the Text Input control before the dialog closed.
+            </summary>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.About">
+            <summary>
+            Gets a brief About information about the assembly.
+            </summary>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.Version">
+            <summary>
+            Gets assembly's Version information.
+            </summary>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.DlgMonitorEnabled">
+            <summary>
+            Gets or sets the MessageBox monitor status. With the monitor on, the assembly adjusts regular MessageBox calls on the fly.
+            </summary>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.ClosedOnTimeout">
+            <summary>
+            Returns True when the dialog has been closed on timeout. Read-only.
+            </summary>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.TimeoutMilliseconds">
+            <summary>
+            Gets or sets the number of milliseconds for the MessageBox to be displayed without input from the keyboard or the mouse.
+            </summary>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.MessageFontColor">
+            <summary>
+            Gets or sets the text color of the dialog message.
+            </summary>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.UdfButtonCaptionsEnabled">
+            <summary>
+            Gets or sets a value indicating whether user-defined button captions are enabled.
+            </summary>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.UdfBackcolorsEnabled">
+            <summary>
+            Gets or sets a value indicating whether user-defined background colors are enabled.
+            </summary>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.UdfIconsEnabled">
+            <summary>
+            Gets or sets a value indicating whether user-defined icons are enabled.
+            </summary>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.MonitorEffectiveArea">
+            <summary>
+            Sets the maximum percent of the active monitor that the dialog can expand to.
+            </summary>
+        </member>
+        <member name="P:XMsgLib.Dlg.DlgMgr.UnwrappedCharCount">
+            <summary>
+            Specifies when the automatic text wrapping kicks in: the longest unwrapped string.
+            </summary>
+        </member>
+        <member name="F:XMsgLib.Dlg.DlgClasses.NativeMethods.NONCLIENTMETRICS.lfCaptionFont">
+            <summary>
+            Since <see cref="T:XMsgLib.Dlg.DlgClasses.NativeMethods.LOGFONT"/> is a struct instead of a class,
+            we don't have to do any special marshalling here.  Much 
+            simpler this way.
+            </summary>
+        </member>
+    </members>
+</doc>

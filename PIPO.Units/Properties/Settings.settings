@@ -1,9 +1,25 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PIPO.Units.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LabTrack.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="bgColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">0, 192, 0</Value>
+    </Setting>
+    <Setting Name="CasesControlConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=LAPTOP-5635D6I8\THREESHAPEDENTAL;Initial Catalog=CasesControl;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=LAPTOP-5635D6I8\THREESHAPEDENTAL;Initial Catalog=CasesControl;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="CasesControlConnectionStringReport" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=serverdds.cloudapp.net;Initial Catalog=CasesControl;Persist Security Info=True;User ID=Prod;Password=prod&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=serverdds.cloudapp.net;Initial Catalog=CasesControl;Persist Security Info=True;User ID=Prod;Password=prod</Value>
     </Setting>
   </Settings>
 </SettingsFile>

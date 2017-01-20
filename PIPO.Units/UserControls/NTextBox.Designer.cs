@@ -1,4 +1,4 @@
-﻿namespace PIPO.Units.UserControls
+﻿namespace LabTrack.UserControls
 {
     partial class NTextBox
     {

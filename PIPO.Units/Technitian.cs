@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PIPO.Units
+namespace LabTrack
 {
     using System;
     using System.Collections.Generic;
@@ -17,15 +17,12 @@ namespace PIPO.Units
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Technitian()
         {
-            this.CaseControls = new HashSet<CaseControl>();
             this.TechnitianXAreas = new HashSet<TechnitianXArea>();
         }
     
         public int id { get; set; }
         public string name { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CaseControl> CaseControls { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TechnitianXArea> TechnitianXAreas { get; set; }
     }

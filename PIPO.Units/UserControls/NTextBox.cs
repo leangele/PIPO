@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace PIPO.Units.UserControls
+namespace LabTrack.UserControls
 {
     public partial class NTextBox : UserControl
     {

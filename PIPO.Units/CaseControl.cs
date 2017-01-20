@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PIPO.Units
+namespace LabTrack
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,5 @@ namespace PIPO.Units
         public Nullable<System.DateTime> dtStart { get; set; }
         public Nullable<System.DateTime> dtFinish { get; set; }
         public int idTechnitian { get; set; }
-    
-        public virtual Technitian Technitian { get; set; }
     }
 }

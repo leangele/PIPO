@@ -1,10 +1,10 @@
-﻿using PIPO.Units.DTO;
-using PIPO.Units.Interfaces;
+﻿using LabTrack.DTO;
+using LabTrack.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PIPO.Units.DAL
+namespace LabTrack.DAL
 {
     public class DalCasesControl : IDalCasesControl
     {
@@ -18,19 +18,46 @@ namespace PIPO.Units.DAL
         public List<CaseControlDto> ListCases()
         {
             var listCases = _context.
-                CaseControls.
-                Select(
-                    y => new CaseControlDto
-                    {
-                        Id = y.Id,
-                        IdArea = y.idTechnitian,
-                        Area = y.Technitian.name,
-                        Code = y.code,
-                        DtFinish = y.dtFinish,
-                        DtRecive = y.dtRecive,
-                        DtStart = y.dtStart
-                    }).
+                CaseControls.Join(_context.Areas, cc => cc.idTechnitian, x => x.Id, (cc, x) => new { cc, x }).
+                Select(y => new CaseControlDto
+                {
+                    Id = y.cc.Id,
+                    IdArea = y.cc.idTechnitian,
+                    Area = y.x.Name,
+                    Incharge = y.x.NamePerson,
+                    Code = y.cc.code,
+                    DtFinish = y.cc.dtFinish,
+                    DtRecive = y.cc.dtRecive,
+                    DtStart = y.cc.dtStart
+                }).
                 ToList();
+            return listCases;
+        }
+
+        public CaseControl GetCaseById(int idCaseContro)
+        {
+            return _context.CaseControls.SingleOrDefault(x => x.Id == idCaseContro);
+        }
+
+        public List<CaseControlDto> ListCasesByCode(int code)
+        {
+            var listCases = _context.CaseControls
+              .Where(x => x.code == code)
+              .OrderBy(y => y.idTechnitian)
+              .Join(_context.Areas, cc => cc.idTechnitian, x => x.Id, (cc, x) => new { cc, x })
+              .Select(y => new CaseControlDto
+              {
+                  Id = y.cc.Id,
+                  IdArea = y.cc.idTechnitian,
+                  Area = y.x.Name,
+                  Incharge = y.x.NamePerson,
+                  Code = y.cc.code,
+                  DtFinish = y.cc.dtFinish,
+                  DtRecive = y.cc.dtRecive,
+                  DtStart = y.cc.dtStart
+              }).
+
+              ToList();
             return listCases;
         }
 
@@ -42,6 +69,8 @@ namespace PIPO.Units.DAL
 
         public CaseControl GetCaseControlByIdAreaAndCode(int nro, int idArea)
         {
+
+
             return _context.CaseControls.SingleOrDefault(x => x.code == nro && x.idTechnitian == idArea);
         }
     }

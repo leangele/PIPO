@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using PIPO.Units.MDI;
+using LabTrack.MDI;
 
-namespace PIPO.Units
+namespace LabTrack
 {
     static class Program
     {

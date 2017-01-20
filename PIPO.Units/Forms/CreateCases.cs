@@ -1,30 +1,39 @@
-﻿using PIPO.Units.DAL;
-using PIPO.Units.Interfaces;
-using PIPO.Units.Properties;
+﻿using LabTrack.DAL;
+using LabTrack.Interfaces;
+using LabTrack.Properties;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PIPO.Units.Forms
+namespace LabTrack.Forms
 {
     public partial class CreateCases : Form
     {
-        private IUnitOfWork _unitOfWork { get; set; }
-        private List<Case> listCases { get; set; }
-        public CreateCases()
+        public bool IsAdministrationOn { get; set; }
+        private static IUnitOfWork UnitOfWork { get; set; }
+        private List<Case> ListCases { get; set; }
+        Case _objCase;
+        public CreateCases(UnitOfWork unitOfWork, bool isAdministrationOn)
         {
-            _unitOfWork = new UnitOfWork(new CasesControlEntities());
+            UnitOfWork = unitOfWork;
+            IsAdministrationOn = isAdministrationOn;
             InitializeComponent();
             InitialLoad();
+            var listConfig = UnitOfWork.ListConfigurations();
+            var singleOrDefault = listConfig.SingleOrDefault(x => x.Name == "xETADefault");
+            if (singleOrDefault != null)
+                lblMessageETA.Text = string.Format("Time production by default is {0} days", singleOrDefault.Value);
         }
 
         private void InitialLoad()
         {
-            listCases = _unitOfWork.DalCases.ListCases();
-            lboxCases.DataSource = listCases;
+            ListCases = UnitOfWork.DalCases.ListCases().OrderByDescending(x => x.DateCreation).ToList();
+            lboxCases.DataSource = ListCases;
             lboxCases.ValueMember = "Id";
             lboxCases.DisplayMember = "code";
+
         }
 
         private void CreateCases_Load(object sender, EventArgs e)
@@ -39,43 +48,46 @@ namespace PIPO.Units.Forms
                 {
                     Code = int.Parse(txtCode.Text),
                     DateCreation = DateTime.Now,
-                    ETA = int.Parse(txtETA.Text),
+                    ETA = int.Parse(nudTimeETA.Text),
                     IsInProduction = false,
-                    Units = int.Parse(txtunits.Text)
+                    Units = int.Parse(nudUnitsManual.Text)
                 };
-                _unitOfWork.DalCases.CreateCase(objCase);
-                _unitOfWork.SaveData();
+                UnitOfWork.DalCases.CreateCase(objCase);
+                UnitOfWork.SaveData();
                 InitialLoad();
             }
-            SearchAndCleanControl(tabPage1.Controls);
+            SearchAndCleanControl(tpManual.Controls);
+            SearchAndCleanControl(tpScan.Controls);
         }
 
         private static void SearchAndCleanControl(Control.ControlCollection controlList)
         {
-            foreach (Control control in controlList.Cast<Control>().Where(control => control.GetType() == typeof(TextBox)))
+            foreach (var control in controlList.Cast<Control>().Where(control => control.GetType() == typeof(TextBox)))
             {
                 control.Text = string.Empty;
             }
+            foreach (var control in controlList.Cast<Control>().Where(control => control.GetType() == typeof(NumericUpDown)))
+            {
+                control.Text = @"1";
+            }
+
         }
 
         private bool ValidateCases()
         {
-            if (string.IsNullOrWhiteSpace(txtCode.Text))
+            if (!string.IsNullOrWhiteSpace(txtCode.Text))
             {
-                MessageBox.Show(Resources.CreateCases_ValidateCases_Case_number_Required);
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(txtETA.Text))
-            {
+                if (!string.IsNullOrWhiteSpace(nudTimeETA.Text))
+                {
+                    if (!string.IsNullOrWhiteSpace(nudUnitsManual.Text)) return true;
+                    MessageBox.Show(Resources.CreateCases_ValidateCases_Units_Required);
+                    return false;
+                }
                 MessageBox.Show(Resources.CreateCases_ValidateCases_Time_production_required);
                 return false;
             }
-            if (string.IsNullOrWhiteSpace(txtunits.Text))
-            {
-                MessageBox.Show(Resources.CreateCases_ValidateCases_Units_Required);
-                return false;
-            }
-            return true;
+            MessageBox.Show(Resources.CreateCases_ValidateCases_Case_number_Required);
+            return false;
         }
 
         private void txtCode_KeyPress(object sender, KeyPressEventArgs e)
@@ -84,25 +96,7 @@ namespace PIPO.Units.Forms
 
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                txtunits.Focus();
-            }
-        }
-
-        private void txtunits_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            General.ValidNumber(e);
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
-                txtETA.Focus();
-            }
-        }
-
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            General.ValidNumber(e);
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
-                btnSave.Focus();
+                nudUnitsManual.Focus();
             }
         }
 
@@ -112,7 +106,7 @@ namespace PIPO.Units.Forms
             if (!string.IsNullOrWhiteSpace(txtCodeFind.Text))
             {
                 var nro = int.Parse(txtCodeFind.Text);
-                lboxCases.DataSource = listCases.Where(x => x.Code == nro).ToList();
+                lboxCases.DataSource = ListCases.Where(x => x.Code == nro).ToList();
             }
             else
             {
@@ -122,14 +116,20 @@ namespace PIPO.Units.Forms
 
         private void lboxCases_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var objCase = (Case)lboxCases.SelectedItem;
+            _objCase = (Case)lboxCases.SelectedItem;
+            ChargeValuesText();
+            nudUnitsManual.Enabled = _objCase.DateFinish == null;
+            nudUnitsScaner.Enabled = _objCase.DateFinish == null;
+        }
 
-            txtCode.Text = objCase.Code.ToString();
-            txtBarCodeScanned.Text = objCase.Code.ToString();
-            txtDateCreation.Text = objCase.DateCreation.ToString();
-            txtETA.Text = objCase.ETA.ToString();
-            txtunits.Text = objCase.Units.ToString();
-            lblUnits.Text = objCase.Units.ToString();
+        private void ChargeValuesText()
+        {
+            txtCode.Text = _objCase.Code.ToString();
+            txtBarCodeScanned.Text = _objCase.Code.ToString();
+            txtDateCreation.Text = _objCase.DateCreation.ToString(CultureInfo.InvariantCulture);
+            nudTimeETA.Text = _objCase.ETA.ToString();
+            nudUnitsManual.Text = _objCase.Units.ToString();
+            nudUnitsScaner.Text = _objCase.Units.ToString();
         }
 
         private void txtCodeBCS_KeyPress(object sender, KeyPressEventArgs e)
@@ -137,15 +137,17 @@ namespace PIPO.Units.Forms
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
                 CreateCase();
+
+                txtBarCodeScanned.Focus();
             }
-            SearchAndCleanControl(tabPage2.Controls);
-            txtBarCodeScanned.Focus();
+
         }
 
         private void CreateCase()
         {
-            var code = Convert.ToInt16(txtBarCodeScanned.Text);
-            var iCode = listCases.FirstOrDefault(c => c.Code == code);
+            int code = Convert.ToInt16(txtBarCodeScanned.Text.Length == 5 ? txtBarCodeScanned.Text.Substring(1) : txtBarCodeScanned.Text);
+
+            var iCode = ListCases.FirstOrDefault(c => c.Code == code);
             if (iCode != null)
             {
                 if (ValidateCase(iCode)) return;
@@ -153,48 +155,90 @@ namespace PIPO.Units.Forms
             }
             else
             {
-                var objCase = new Case
+                var singleOrDefault = UnitOfWork.ListConfigurations().SingleOrDefault(x => x.Name == "xETADefault");
+                if (singleOrDefault != null)
                 {
-                    Code = code,
-                    DateCreation = DateTime.Now,
-                    ETA = int.Parse(string.IsNullOrWhiteSpace(txtETA.Text) ? "5" : txtETA.Text),
-                    IsInProduction = false,
-                    Units = int.Parse(string.IsNullOrWhiteSpace(txtunits.Text) ? "1" : txtunits.Text)
-                };
-                _unitOfWork.DalCases.CreateCase(objCase);
+                    //var units = tabScan.Visible ? "1" : txtunits.Text;
+                    var objCase = new Case
+                    {
+                        Code = code,
+                        DateCreation = DateTime.Now,
+                        ETA = int.Parse(string.IsNullOrWhiteSpace(nudTimeETA.Text) ? singleOrDefault.Value : nudTimeETA.Text),
+                        IsInProduction = false,
+                        Units = int.Parse(string.IsNullOrWhiteSpace(nudUnitsManual.Text) ? "1" : nudUnitsManual.Text)
+                    };
+                    UnitOfWork.DalCases.CreateCase(objCase);
+                }
             }
 
-            _unitOfWork.SaveData();
+            UnitOfWork.SaveData();
             InitialLoad();
+            SearchAndCleanControl(tpManual.Controls);
+            SearchAndCleanControl(tpScan.Controls);
         }
 
         private static bool ValidateCase(Case iCode)
         {
-            if (iCode.Units == 64)
+            var singleOrDefault = UnitOfWork.ListConfigurations().SingleOrDefault(x => x.Name == "MaxUnitsPerCase");
+
+            if (singleOrDefault != null && iCode.Units >= int.Parse(singleOrDefault.Value))
             {
                 MessageBox.Show(Resources.CreateCases_ValidateCase_you_can_t_add_more_units_to_this_case);
                 return true;
             }
-            if (iCode.DateFinish != null)
-            {
-                MessageBox.Show($"you can't add more units to this case was closed {iCode.DateFinish}");
-                return true;
-            }
-            return false;
+            if (iCode.DateFinish == null) return false;
+            MessageBox.Show($"you can't add more units to this case was closed {iCode.DateFinish}");
+            return true;
         }
 
         private void txtCode_Enter(object sender, EventArgs e)
         {
-            SearchAndCleanControl(tabPage1.Controls);
+            SearchAndCleanControl(tpManual.Controls);
+            nudUnitsScaner.Text = Resources.CreateCases_txtBarCodeScanned_Enter__0;
+            nudUnitsManual.Text = Resources.CreateCases_txtBarCodeScanned_Enter__0;
+            nudTimeETA.Text = Resources.CreateCases_txtBarCodeScanned_Enter__0;
         }
 
         private void txtBarCodeScanned_Enter(object sender, EventArgs e)
         {
-            SearchAndCleanControl(tabPage2.Controls);
-            lblUnits.Text = "0";
+            SearchAndCleanControl(tpScan.Controls);
+            SearchAndCleanControl(tpManual.Controls);
+            nudUnitsScaner.Text = Resources.CreateCases_txtBarCodeScanned_Enter__0;
         }
 
-        private void txtBarCodeScanned_Leave(object sender, EventArgs e)
+
+        private void AddRemoveUnitsScaner(bool isScanner)
+        {
+            _objCase.Units = _objCase != null && isScanner
+                ? int.Parse(nudUnitsScaner.Text)
+                : int.Parse(nudUnitsManual.Text);
+            UnitOfWork.SaveData();
+        }
+
+
+        private void nudUnits_Click(object sender, EventArgs e)
+        {
+            AddRemoveUnitsScaner(true);
+            ChargeValuesText();
+        }
+
+        private void nudUnitsManual_Click(object sender, EventArgs e)
+        {
+            AddRemoveUnitsScaner(false);
+            ChargeValuesText();
+        }
+
+        private void nudTimeETA_Click(object sender, EventArgs e)
+        {
+            AddRemoveEtaScaner();
+        }
+
+        private void AddRemoveEtaScaner()
+        {
+            _objCase.ETA = int.Parse(nudTimeETA.Text);
+        }
+
+        private void nudUnitsScaner_ValueChanged(object sender, EventArgs e)
         {
 
         }

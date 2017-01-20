@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="CasesControlDataSet" targetNamespace="http://tempuri.org/CasesControlDataSet.xsd" xmlns:mstns="http://tempuri.org/CasesControlDataSet.xsd" xmlns="http://tempuri.org/CasesControlDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="CasesControlConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="CasesControlConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.ReportProTrack.Properties.Settings.GlobalReference.Default.CasesControlConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="CountCasesTableAdapter" GeneratorDataComponentClassName="CountCasesTableAdapter" Name="CountCases" UserDataComponentName="CountCasesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="CasesControlConnectionString (Settings)" DbObjectName="CasesControl.dbo.CountCases" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Name, NamePerson, countName, dt, Estado FROM dbo.CountCases</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Name" DataSetColumn="Name" />
+              <Mapping SourceColumn="NamePerson" DataSetColumn="NamePerson" />
+              <Mapping SourceColumn="countName" DataSetColumn="countName" />
+              <Mapping SourceColumn="dt" DataSetColumn="dt" />
+              <Mapping SourceColumn="Estado" DataSetColumn="Estado" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="CasesControlDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="CasesControlDataSet" msprop:Generator_UserDSName="CasesControlDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="CountCases" msprop:Generator_TableClassName="CountCasesDataTable" msprop:Generator_TableVarName="tableCountCases" msprop:Generator_TablePropName="CountCases" msprop:Generator_RowDeletingName="CountCasesRowDeleting" msprop:Generator_RowChangingName="CountCasesRowChanging" msprop:Generator_RowEvHandlerName="CountCasesRowChangeEventHandler" msprop:Generator_RowDeletedName="CountCasesRowDeleted" msprop:Generator_UserTableName="CountCases" msprop:Generator_RowChangedName="CountCasesRowChanged" msprop:Generator_RowEvArgName="CountCasesRowChangeEvent" msprop:Generator_RowClassName="CountCasesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NamePerson" msprop:Generator_ColumnVarNameInTable="columnNamePerson" msprop:Generator_ColumnPropNameInRow="NamePerson" msprop:Generator_ColumnPropNameInTable="NamePersonColumn" msprop:Generator_UserColumnName="NamePerson" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="countName" msprop:Generator_ColumnVarNameInTable="columncountName" msprop:Generator_ColumnPropNameInRow="countName" msprop:Generator_ColumnPropNameInTable="countNameColumn" msprop:Generator_UserColumnName="countName" type="xs:int" minOccurs="0" />
+              <xs:element name="dt" msprop:Generator_ColumnVarNameInTable="columndt" msprop:Generator_ColumnPropNameInRow="dt" msprop:Generator_ColumnPropNameInTable="dtColumn" msprop:Generator_UserColumnName="dt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Estado" msprop:Generator_ColumnVarNameInTable="columnEstado" msprop:Generator_ColumnPropNameInRow="Estado" msprop:Generator_ColumnPropNameInTable="EstadoColumn" msprop:Generator_UserColumnName="Estado">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="7" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

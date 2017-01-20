@@ -1,4 +1,4 @@
-﻿namespace PIPO.Units.Forms
+﻿namespace LabTrack.Forms
 {
     partial class CreateCases
     {
@@ -36,25 +36,28 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtDateCreation = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtETA = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtunits = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtCode = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCodeFind = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.lblUnits = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tabScan = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label9 = new System.Windows.Forms.Label();
+            this.tpManual = new System.Windows.Forms.TabPage();
+            this.nudTimeETA = new System.Windows.Forms.NumericUpDown();
+            this.nudUnitsManual = new System.Windows.Forms.NumericUpDown();
+            this.tpScan = new System.Windows.Forms.TabPage();
+            this.nudUnitsScaner = new System.Windows.Forms.NumericUpDown();
             this.txtBarCodeScanned = new System.Windows.Forms.TextBox();
+            this.lblMessageETA = new System.Windows.Forms.Label();
             this.tabScan.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tpManual.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimeETA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudUnitsManual)).BeginInit();
+            this.tpScan.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudUnitsScaner)).BeginInit();
             this.SuspendLayout();
             // 
             // lboxCases
@@ -127,14 +130,6 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "Date Creation";
             // 
-            // txtETA
-            // 
-            this.txtETA.Location = new System.Drawing.Point(97, 84);
-            this.txtETA.Name = "txtETA";
-            this.txtETA.Size = new System.Drawing.Size(100, 20);
-            this.txtETA.TabIndex = 5;
-            this.txtETA.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
-            // 
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -143,14 +138,6 @@
             this.label4.Size = new System.Drawing.Size(88, 19);
             this.label4.TabIndex = 4;
             this.label4.Text = "Time Prod";
-            // 
-            // txtunits
-            // 
-            this.txtunits.Location = new System.Drawing.Point(97, 47);
-            this.txtunits.Name = "txtunits";
-            this.txtunits.Size = new System.Drawing.Size(100, 20);
-            this.txtunits.TabIndex = 3;
-            this.txtunits.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtunits_KeyPress);
             // 
             // label2
             // 
@@ -205,15 +192,6 @@
             this.label8.TabIndex = 6;
             this.label8.Text = "Code";
             // 
-            // lblUnits
-            // 
-            this.lblUnits.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUnits.Location = new System.Drawing.Point(94, 48);
-            this.lblUnits.Name = "lblUnits";
-            this.lblUnits.Size = new System.Drawing.Size(41, 17);
-            this.lblUnits.TabIndex = 7;
-            this.lblUnits.Text = "0";
-            // 
             // label10
             // 
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -225,61 +203,106 @@
             // 
             // tabScan
             // 
-            this.tabScan.Controls.Add(this.tabPage1);
-            this.tabScan.Controls.Add(this.tabPage2);
+            this.tabScan.Controls.Add(this.tpScan);
+            this.tabScan.Controls.Add(this.tpManual);
             this.tabScan.Location = new System.Drawing.Point(10, 72);
             this.tabScan.Name = "tabScan";
             this.tabScan.SelectedIndex = 0;
             this.tabScan.Size = new System.Drawing.Size(224, 373);
             this.tabScan.TabIndex = 11;
             // 
-            // tabPage1
+            // tpManual
             // 
-            this.tabPage1.Controls.Add(this.btnSave);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.txtId);
-            this.tabPage1.Controls.Add(this.txtCode);
-            this.tabPage1.Controls.Add(this.txtDateFinish);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.txtunits);
-            this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.txtDateCreation);
-            this.tabPage1.Controls.Add(this.txtETA);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(216, 347);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Manual";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tpManual.Controls.Add(this.nudTimeETA);
+            this.tpManual.Controls.Add(this.nudUnitsManual);
+            this.tpManual.Controls.Add(this.btnSave);
+            this.tpManual.Controls.Add(this.label1);
+            this.tpManual.Controls.Add(this.txtId);
+            this.tpManual.Controls.Add(this.txtCode);
+            this.tpManual.Controls.Add(this.txtDateFinish);
+            this.tpManual.Controls.Add(this.label2);
+            this.tpManual.Controls.Add(this.label7);
+            this.tpManual.Controls.Add(this.label6);
+            this.tpManual.Controls.Add(this.label4);
+            this.tpManual.Controls.Add(this.txtDateCreation);
+            this.tpManual.Controls.Add(this.label5);
+            this.tpManual.Location = new System.Drawing.Point(4, 22);
+            this.tpManual.Name = "tpManual";
+            this.tpManual.Padding = new System.Windows.Forms.Padding(3);
+            this.tpManual.Size = new System.Drawing.Size(216, 347);
+            this.tpManual.TabIndex = 0;
+            this.tpManual.Text = "Manual";
+            this.tpManual.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // nudTimeETA
             // 
-            this.tabPage2.Controls.Add(this.txtBarCodeScanned);
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.lblUnits);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(216, 347);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Scan";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.nudTimeETA.Location = new System.Drawing.Point(97, 85);
+            this.nudTimeETA.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudTimeETA.Name = "nudTimeETA";
+            this.nudTimeETA.Size = new System.Drawing.Size(100, 20);
+            this.nudTimeETA.TabIndex = 24;
+            this.nudTimeETA.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudTimeETA.Click += new System.EventHandler(this.nudTimeETA_Click);
             // 
-            // label9
+            // nudUnitsManual
             // 
-            this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.Color.Red;
-            this.label9.Location = new System.Drawing.Point(11, 97);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(176, 13);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "Time production by default is 5 days";
+            this.nudUnitsManual.Location = new System.Drawing.Point(97, 48);
+            this.nudUnitsManual.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudUnitsManual.Name = "nudUnitsManual";
+            this.nudUnitsManual.Size = new System.Drawing.Size(100, 20);
+            this.nudUnitsManual.TabIndex = 23;
+            this.nudUnitsManual.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudUnitsManual.Click += new System.EventHandler(this.nudUnitsManual_Click);
+            // 
+            // tpScan
+            // 
+            this.tpScan.Controls.Add(this.nudUnitsScaner);
+            this.tpScan.Controls.Add(this.txtBarCodeScanned);
+            this.tpScan.Controls.Add(this.lblMessageETA);
+            this.tpScan.Controls.Add(this.label10);
+            this.tpScan.Controls.Add(this.label8);
+            this.tpScan.Location = new System.Drawing.Point(4, 22);
+            this.tpScan.Name = "tpScan";
+            this.tpScan.Padding = new System.Windows.Forms.Padding(3);
+            this.tpScan.Size = new System.Drawing.Size(216, 347);
+            this.tpScan.TabIndex = 1;
+            this.tpScan.Text = "Scan";
+            this.tpScan.UseVisualStyleBackColor = true;
+            // 
+            // nudUnitsScaner
+            // 
+            this.nudUnitsScaner.Location = new System.Drawing.Point(97, 52);
+            this.nudUnitsScaner.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudUnitsScaner.Name = "nudUnitsScaner";
+            this.nudUnitsScaner.Size = new System.Drawing.Size(100, 20);
+            this.nudUnitsScaner.TabIndex = 22;
+            this.nudUnitsScaner.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudUnitsScaner.ValueChanged += new System.EventHandler(this.nudUnitsScaner_ValueChanged);
+            this.nudUnitsScaner.Click += new System.EventHandler(this.nudUnits_Click);
             // 
             // txtBarCodeScanned
             // 
@@ -289,7 +312,16 @@
             this.txtBarCodeScanned.TabIndex = 12;
             this.txtBarCodeScanned.Enter += new System.EventHandler(this.txtBarCodeScanned_Enter);
             this.txtBarCodeScanned.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodeBCS_KeyPress);
-            this.txtBarCodeScanned.Leave += new System.EventHandler(this.txtBarCodeScanned_Leave);
+            // 
+            // lblMessageETA
+            // 
+            this.lblMessageETA.AutoSize = true;
+            this.lblMessageETA.ForeColor = System.Drawing.Color.Red;
+            this.lblMessageETA.Location = new System.Drawing.Point(11, 97);
+            this.lblMessageETA.Name = "lblMessageETA";
+            this.lblMessageETA.Size = new System.Drawing.Size(22, 13);
+            this.lblMessageETA.TabIndex = 9;
+            this.lblMessageETA.Text = "xxx";
             // 
             // CreateCases
             // 
@@ -304,10 +336,13 @@
             this.Text = "CreateCases";
             this.Load += new System.EventHandler(this.CreateCases_Load);
             this.tabScan.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tpManual.ResumeLayout(false);
+            this.tpManual.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimeETA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudUnitsManual)).EndInit();
+            this.tpScan.ResumeLayout(false);
+            this.tpScan.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudUnitsScaner)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -319,13 +354,10 @@
         private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.TextBox txtDateFinish;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtETAtxtTimeProduction;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtDateCreation;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtETA;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtunits;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtCode;
         private System.Windows.Forms.Label label1;
@@ -333,12 +365,14 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label lblUnits;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TabControl tabScan;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TabPage tpManual;
+        private System.Windows.Forms.TabPage tpScan;
+        private System.Windows.Forms.Label lblMessageETA;
         private System.Windows.Forms.TextBox txtBarCodeScanned;
+        private System.Windows.Forms.NumericUpDown nudUnitsScaner;
+        private System.Windows.Forms.NumericUpDown nudUnitsManual;
+        private System.Windows.Forms.NumericUpDown nudTimeETA;
     }
 }

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PIPO.Units
+namespace LabTrack
 {
     using System;
     using System.Collections.Generic;

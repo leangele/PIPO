@@ -1,4 +1,4 @@
-﻿namespace PIPO.Units.DTO
+﻿namespace LabTrack.DTO
 {
     class CaseDto
     {

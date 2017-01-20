@@ -1,7 +1,7 @@
-﻿using PIPO.Units.DTO;
+﻿using LabTrack.DTO;
 using System.Collections.Generic;
 
-namespace PIPO.Units.Interfaces
+namespace LabTrack.Interfaces
 {
     public interface IDalCasesControl
     {
@@ -9,5 +9,7 @@ namespace PIPO.Units.Interfaces
         CaseControl GetCaseControlByIdAreaAndCode(int nro, int idArea);
         List<CaseControlDto> ListCases();
 
+        CaseControl GetCaseById(int idCaseContro);
+        List<CaseControlDto> ListCasesByCode(int code);
     }
 }

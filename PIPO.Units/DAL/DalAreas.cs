@@ -1,8 +1,8 @@
-﻿using PIPO.Units.Interfaces;
+﻿using LabTrack.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PIPO.Units.DAL
+namespace LabTrack.DAL
 {
     public class DalAreas : IDalAreas
     {

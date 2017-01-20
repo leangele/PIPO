@@ -7,13 +7,13 @@
     <ProjectGuid>{E78CC9D8-E5EF-47EC-988B-8D94A9C878DD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PIPO.Units</RootNamespace>
-    <AssemblyName>PIPO.Units</AssemblyName>
+    <RootNamespace>LabTrack</RootNamespace>
+    <AssemblyName>LabTrack</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>ftp://localhost/app/</PublishUrl>
+    <PublishUrl>ftp://ddsserver.cloudapp.net/LabTrack/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -23,10 +23,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://localhost/PIPO.Units/</InstallUrl>
+    <InstallUrl>http://ddsserver.cloudapp.net/LabTrack/</InstallUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>31</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -52,10 +52,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>FCB5F84E99465BA0F2B473BD4FD3C15D06BD9EA7</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E73178C73351F47EFE088E099192A1119F536D28</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>PIPO.Units_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>LabTrack_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -72,31 +72,16 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -114,28 +99,68 @@
     <Compile Include="CaseControl.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Configuration.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\DalCases.cs" />
-    <Compile Include="DAL\IDalCases.cs" />
+    <Compile Include="DAL\DalConfig.cs" />
+    <Compile Include="DAL\DalStoredProcedures.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="DAL\DalAreas.cs" />
     <Compile Include="DAL\DalCasesControl.cs" />
     <Compile Include="DTO\CaseControlDto.cs" />
     <Compile Include="DTO\CaseDTO.cs" />
+    <Compile Include="DTO\SearchInformationDto.cs" />
+    <Compile Include="DTO\SearchInformationOutDto.cs" />
+    <Compile Include="Forms\AutoClosingMessageBox.cs" />
+    <Compile Include="Forms\ConfigurationParams.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConfigurationParams.Designer.cs">
+      <DependentUpon>ConfigurationParams.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CreateCases.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\CreateCases.Designer.cs">
       <DependentUpon>CreateCases.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ProductivityForm.cs">
+    <Compile Include="Forms\DataCases.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ProductivityForm.Designer.cs">
-      <DependentUpon>ProductivityForm.cs</DependentUpon>
+    <Compile Include="Forms\DataCases.Designer.cs">
+      <DependentUpon>DataCases.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin.Designer.cs">
+      <DependentUpon>Admin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Report.Designer.cs">
+      <DependentUpon>Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Productivity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Productivity.Designer.cs">
+      <DependentUpon>Productivity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TrackingCases.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TrackingCases.Designer.cs">
+      <DependentUpon>TrackingCases.cs</DependentUpon>
     </Compile>
     <Compile Include="General.cs" />
     <Compile Include="Interfaces\IDalAreas.cs" />
+    <Compile Include="Interfaces\IDalCases.cs" />
     <Compile Include="Interfaces\IDalCasesControl.cs" />
+    <Compile Include="Interfaces\IDalConfig.cs" />
+    <Compile Include="Interfaces\IDalStoredProcedures.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="MDI\ProductivityControl.cs">
       <SubType>Form</SubType>
@@ -160,6 +185,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchInformation_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Technitian.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -172,11 +200,33 @@
     <Compile Include="UserControls\NTextBox.Designer.cs">
       <DependentUpon>NTextBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TimerMessageBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TimerMessageBox.Designer.cs">
+      <DependentUpon>TimerMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TypeMessage.cs" />
+    <EmbeddedResource Include="Forms\ConfigurationParams.resx">
+      <DependentUpon>ConfigurationParams.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreateCases.resx">
       <DependentUpon>CreateCases.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ProductivityForm.resx">
-      <DependentUpon>ProductivityForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\DataCases.resx">
+      <DependentUpon>DataCases.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin.resx">
+      <DependentUpon>Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report.resx">
+      <DependentUpon>Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Productivity.resx">
+      <DependentUpon>Productivity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TrackingCases.resx">
+      <DependentUpon>TrackingCases.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MDI\ProductivityControl.resx">
       <DependentUpon>ProductivityControl.cs</DependentUpon>
@@ -194,15 +244,20 @@
     <EmbeddedResource Include="UserControls\NTextBox.resx">
       <DependentUpon>NTextBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TimerMessageBox.resx">
+      <DependentUpon>TimerMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="LabTrack_TemporaryKey.pfx" />
     <None Include="Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="PIPO.Units_TemporaryKey.pfx" />
+    <None Include="Properties\DataSources\PIPO.Units.DTO.SearchInformationOutDto.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -230,6 +285,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Resources\1484272050_Hourglass.ico" />
+    <None Include="Resources\Logo.ico" />
+    <None Include="Resources\beep_short_on.wav" />
     <None Include="Resources\1483065496_play-circle-outline.png" />
     <None Include="Resources\1483065445_play-circle-outline.png" />
   </ItemGroup>
@@ -244,6 +302,41 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reports\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Microsoft.ReportViewer.Common">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.ReportViewer.DataVisualization">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.ReportViewer.ProcessingObjectModel">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

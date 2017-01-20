@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PIPO.Units.Properties {
+namespace LabTrack.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -32,6 +32,28 @@ namespace PIPO.Units.Properties {
             }
             set {
                 this["bgColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-5635D6I8\\THREESHAPEDENTAL;Initial Catalog=CasesControl;Integra" +
+            "ted Security=True")]
+        public string CasesControlConnectionString {
+            get {
+                return ((string)(this["CasesControlConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=serverdds.cloudapp.net;Initial Catalog=CasesControl;Persist Security " +
+            "Info=True;User ID=Prod;Password=prod")]
+        public string CasesControlConnectionStringReport {
+            get {
+                return ((string)(this["CasesControlConnectionStringReport"]));
             }
         }
     }

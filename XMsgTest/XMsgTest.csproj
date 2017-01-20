@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8C390863-2285-4F6C-93A6-BE4E47A65CA8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XMsgTest</RootNamespace>
+    <AssemblyName>XMsgTest</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="XMsgLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>xmsg\XMsgLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutXmsgDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutXmsgDemo.Designer.cs">
+      <DependentUpon>AboutXmsgDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BackgroundSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BackgroundSettings.Designer.cs">
+      <DependentUpon>BackgroundSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CheckBoxCtrlSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CheckBoxCtrlSettings.Designer.cs">
+      <DependentUpon>CheckBoxCtrlSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ColorSelect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ColorSelect.Designer.cs">
+      <DependentUpon>ColorSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DialogButtonsSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DialogButtonsSettings.Designer.cs">
+      <DependentUpon>DialogButtonsSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DialogButtonSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DialogButtonSettings.Designer.cs">
+      <DependentUpon>DialogButtonSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DimensionSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DimensionSettings.Designer.cs">
+      <DependentUpon>DimensionSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratedCode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GeneratedCode.Designer.cs">
+      <DependentUpon>GeneratedCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HrefCtrlSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HrefCtrlSettings.Designer.cs">
+      <DependentUpon>HrefCtrlSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IconSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IconSettings.Designer.cs">
+      <DependentUpon>IconSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MessageSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MessageSettings.Designer.cs">
+      <DependentUpon>MessageSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PositionSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PositionSettings.Designer.cs">
+      <DependentUpon>PositionSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutXmsgDemo.resx">
+      <DependentUpon>AboutXmsgDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BackgroundSettings.resx">
+      <DependentUpon>BackgroundSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckBoxCtrlSettings.resx">
+      <DependentUpon>CheckBoxCtrlSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorSelect.resx">
+      <DependentUpon>ColorSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogButtonsSettings.resx">
+      <DependentUpon>DialogButtonsSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogButtonSettings.resx">
+      <DependentUpon>DialogButtonSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DimensionSettings.resx">
+      <DependentUpon>DimensionSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GeneratedCode.resx">
+      <DependentUpon>GeneratedCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HrefCtrlSettings.resx">
+      <DependentUpon>HrefCtrlSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IconSettings.resx">
+      <DependentUpon>IconSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageSettings.resx">
+      <DependentUpon>MessageSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PositionSettings.resx">
+      <DependentUpon>PositionSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IconSelect.resx">
+      <DependentUpon>IconSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextInputCtrlSettings.resx">
+      <DependentUpon>TextInputCtrlSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IconSelect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IconSelect.Designer.cs">
+      <DependentUpon>IconSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TextInputCtrlSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TextInputCtrlSettings.Designer.cs">
+      <DependentUpon>TextInputCtrlSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XMsgTestUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XMsgTestUserControl.Designer.cs">
+      <DependentUpon>XMsgTestUserControl.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

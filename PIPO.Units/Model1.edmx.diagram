@@ -5,14 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="84b5b01b9c674531bacfc35fd0a113fb" Name="Diagram1" >
-        <EntityTypeShape EntityType="CasesControlModel.Area" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="CasesControlModel.CaseControl" Width="1.5" PointX="3" PointY="6.125" />
-        <EntityTypeShape EntityType="CasesControlModel.Technitian" Width="1.5" PointX="0.75" PointY="3.625" />
-        <EntityTypeShape EntityType="CasesControlModel.TechnitianXArea" Width="1.5" PointX="3" PointY="2.5" />
+        <EntityTypeShape EntityType="CasesControlModel.Area" Width="1.5" PointX="0.75" PointY="0.875" />
+        <EntityTypeShape EntityType="CasesControlModel.Case" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CasesControlModel.CaseControl" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CasesControlModel.Configuration" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CasesControlModel.Technitian" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="CasesControlModel.TechnitianXArea" Width="1.5" PointX="3" PointY="1" />
         <AssociationConnector Association="CasesControlModel.FK_TechnitianXArea_Area" />
-        <AssociationConnector Association="CasesControlModel.FK_CaseControl_Technitian" />
         <AssociationConnector Association="CasesControlModel.FK_TechnitianXArea_Technitian" />
-        <EntityTypeShape EntityType="CasesControlModel.Case" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

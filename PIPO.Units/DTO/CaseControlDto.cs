@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PIPO.Units.DTO
+namespace LabTrack.DTO
 {
     public class CaseControlDto
     {
@@ -11,5 +11,17 @@ namespace PIPO.Units.DTO
         public DateTime? DtFinish { get; set; }
         public string Area { get; set; }
         public int IdArea { get; set; }
+        public string Incharge { get; set; }
+
+        //public double TimeAverage
+        //{
+        //    get { return TimeAverage; }
+        //    set
+        //    {
+        //        if (DtFinish != null && DtStart != null)
+        //            TimeAverage = ((DateTime)DtFinish).Subtract(((DateTime)DtStart)).TotalMinutes;
+        //        TimeAverage = value;
+        //    }
+        //}
     }
 }

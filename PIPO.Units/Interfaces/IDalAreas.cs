@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PIPO.Units.Interfaces
+namespace LabTrack.Interfaces
 {
     public interface IDalAreas
     {

@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using LabTrack.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
+using LabTrack.DTO;
 
-namespace PIPO.Units.DAL
+namespace LabTrack.DAL
 {
     public class DalCases : IDalCases
     {
@@ -25,6 +28,12 @@ namespace PIPO.Units.DAL
         public Case FindCaseByCode(int nro)
         {
             return _context.Cases.FirstOrDefault(x => x.Code == nro);
+        }
+
+        public List<Case> FindCasesByRange(IEnumerable<CaseControlDto> closedThisWeek)
+        {
+            var nroCases= (from item in closedThisWeek where item.Code != null select (int) item.Code).ToList();
+            return _context.Cases.Where(x => nroCases.Contains(x.Code)).ToList();
         }
     }
 }

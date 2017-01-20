@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PIPO.Units
+namespace LabTrack
 {
     public class General
     {
@@ -15,9 +15,9 @@ namespace PIPO.Units
             }
         }
 
-        private static HashSet<DateTime> GetHolidays(int year)
+        public static List<DateTime> GetHolidays(int year)
         {
-            HashSet<DateTime> holidays = new HashSet<DateTime>();
+            List<DateTime> holidays = new List<DateTime>();
             //NEW YEARS 
             DateTime newYearsDate = AdjustForWeekendHoliday(new DateTime(year, 1, 1).Date);
             holidays.Add(newYearsDate);
@@ -57,7 +57,8 @@ namespace PIPO.Units
             return holidays;
         }
 
-        public static DateTime AdjustForWeekendHoliday(DateTime holiday)
+
+        private static DateTime AdjustForWeekendHoliday(DateTime holiday)
         {
             if (holiday.DayOfWeek == DayOfWeek.Saturday)
             {
@@ -71,6 +72,33 @@ namespace PIPO.Units
             {
                 return holiday;
             }
+        }
+
+        public static int DaysLeft(DateTime startDate, DateTime endDate, Boolean excludeWeekends, List<DateTime> excludeDates)
+        {
+            int count = 0;
+            for (DateTime index = startDate; index < endDate; index = index.AddDays(1))
+            {
+                if (excludeWeekends && index.DayOfWeek != DayOfWeek.Sunday && index.DayOfWeek != DayOfWeek.Saturday)
+                {
+                    bool excluded = false; ;
+                    for (int i = 0; i < excludeDates.Count; i++)
+                    {
+                        if (index.Date.CompareTo(excludeDates[i].Date) == 0)
+                        {
+                            excluded = true;
+                            break;
+                        }
+                    }
+
+                    if (!excluded)
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
         }
     }
 }

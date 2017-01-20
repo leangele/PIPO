@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PIPO.Units.Properties {
+namespace LabTrack.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace PIPO.Units.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PIPO.Units.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LabTrack.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -81,6 +81,42 @@ namespace PIPO.Units.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream beep_short_on {
+            get {
+                return ResourceManager.GetStream("beep_short_on", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 5.
+        /// </summary>
+        internal static string ChangeAreas {
+            get {
+                return ResourceManager.GetString("ChangeAreas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.
+        /// </summary>
+        internal static string CreateCases_nudUnits_Click__1 {
+            get {
+                return ResourceManager.GetString("CreateCases_nudUnits_Click__1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0.
+        /// </summary>
+        internal static string CreateCases_txtBarCodeScanned_Enter__0 {
+            get {
+                return ResourceManager.GetString("CreateCases_txtBarCodeScanned_Enter__0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to you can&apos;t add more units to this case.
         /// </summary>
         internal static string CreateCases_ValidateCase_you_can_t_add_more_units_to_this_case {
@@ -117,6 +153,25 @@ namespace PIPO.Units.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Hourglass {
+            get {
+                object obj = ResourceManager.GetObject("Hourglass", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Area not found..
+        /// </summary>
+        internal static string ProductivityForm_CreateCase_Area_not_found_ {
+            get {
+                return ResourceManager.GetString("ProductivityForm_CreateCase_Area_not_found_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Case not created previously.
         /// </summary>
         internal static string ProductivityForm_CreateCase_Case_not_created_previously {
@@ -128,18 +183,27 @@ namespace PIPO.Units.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 5.
         /// </summary>
-        internal static string xHoursMaximun {
+        internal static string xDaysMaximun {
             get {
-                return ResourceManager.GetString("xHoursMaximun", resourceCulture);
+                return ResourceManager.GetString("xDaysMaximun", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 3.
         /// </summary>
-        internal static string xHoursMinimun {
+        internal static string xDaysMinimun {
             get {
-                return ResourceManager.GetString("xHoursMinimun", resourceCulture);
+                return ResourceManager.GetString("xDaysMinimun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 5.
+        /// </summary>
+        internal static string xEATDefault {
+            get {
+                return ResourceManager.GetString("xEATDefault", resourceCulture);
             }
         }
     }
