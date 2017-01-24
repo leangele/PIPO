@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportProTrack", "ReportPro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMsgTest", "XMsgTest\XMsgTest.csproj", "{8C390863-2285-4F6C-93A6-BE4E47A65CA8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Third Party", "Third Party", "{8904E7E1-C023-44F6-AF60-54497889819D}"
+	ProjectSection(SolutionItems) = preProject
+		Third Party\XMsgLib.dll = Third Party\XMsgLib.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

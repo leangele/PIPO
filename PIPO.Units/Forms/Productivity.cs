@@ -13,6 +13,8 @@ namespace LabTrack.Forms
 {
     public partial class Productivity : Form
     {
+        public int Second { get; set; }
+        public int SecondsForLoop { get; set; }
         public bool IsAdministrationOn { get; set; }
         //public IUnitOfWork InitOfWork { get; set; }
         private List<CaseControlDto> _listCases;
@@ -25,11 +27,13 @@ namespace LabTrack.Forms
 
         public Productivity(UnitOfWork unitOfWork, bool isAdministrationOn)
         {
+
             IsAdministrationOn = isAdministrationOn;
             _unitOfWork = unitOfWork;
             InitializeComponent();
             InitialCharge();
             _listConfig = _unitOfWork.ListConfigurations();
+            Second = 0;
             timer1.Interval = 1000;
             timer1.Start();
 
@@ -37,7 +41,7 @@ namespace LabTrack.Forms
 
         private void InitialCharge()
         {
-            FillDataGrid();
+            FillListForDataGrid();
             dgvData.DataSource = _listCases;
             dgvDataEnd.DataSource = _listCasesClosed;
             _listAreas = _unitOfWork.DalAreas.ListAreas();
@@ -48,7 +52,7 @@ namespace LabTrack.Forms
             cbxAreaFilter.DisplayMember = "name";
         }
 
-        private void FillDataGrid(int intFilter = 0)
+        private void FillListForDataGrid(int intFilter = 0)
         {
             if (intFilter == 0)
             {
@@ -76,7 +80,6 @@ namespace LabTrack.Forms
         private void CreateCase()
         {
             int nro;
-            var message = string.Empty;
             var idScanner = txtCode.Text[0];
             int.TryParse(txtCode.Text.Substring(1), out nro);
             var singleOrDefault =
@@ -84,10 +87,6 @@ namespace LabTrack.Forms
                     x => string.Equals(x.Symbol, idScanner.ToString(), StringComparison.CurrentCultureIgnoreCase));
             if (singleOrDefault == null) return;
             var idArea = singleOrDefault.Id;
-            if (idArea == 0)
-            {
-                message = Resources.ProductivityForm_CreateCase_Case_not_created_previously;
-            }
             var objCase = _unitOfWork.DalCases.FindCaseByCode(nro);
             if (objCase != null)
             {
@@ -95,13 +94,48 @@ namespace LabTrack.Forms
             }
             else
             {
-                message = Resources.ProductivityForm_CreateCase_Case_not_created_previously;
+                string message = $"Case num: {nro} not exist,\r\ndo you want to create it?";
+
+
+                if (AutoClosingMessageBox.Show(message, "Error", 5000, MessageBoxButtons.OKCancel) != DialogResult.OK)
+                    return;
+                if (IsAdministrationOn)
+                {
+                    CreateCase(nro);
+                    CreateModifyCaseControl(nro, idArea, objCase);
+                }
+                else
+                {
+                    var objAdmin = new Admin(_unitOfWork, IsAdministrationOn);
+                    objAdmin.ShowDialog();
+                    IsAdministrationOn = objAdmin.IsLoged;
+                    if (IsAdministrationOn)
+                    {
+                        CreateCase(nro);
+                        CreateModifyCaseControl(nro, idArea, objCase);
+                    }
+                }
+                IsAdministrationOn = false;
             }
-            if (!string.IsNullOrWhiteSpace(message))
-            {
-                AutoClosingMessageBox.Show(Resources.ProductivityForm_CreateCase_Case_not_created_previously, "Error",
-                    5000);
-            }
+            cbxAreaFilter.SelectedValue = IdArea;
+
+        }
+
+        private static void CreateCase(int nro)
+        {
+            var objCase = new Case();
+            var singleOrDefault = _unitOfWork.ListConfigurations().SingleOrDefault(x => x.Name == "xETADefault");
+            if (singleOrDefault != null)
+                objCase = new Case
+                {
+                    Code = nro,
+                    DateCreation = DateTime.Now,
+                    ETA = int.Parse(singleOrDefault.Value),
+                    IsInProduction = false,
+                    Units = int.Parse("1")
+                };
+            _unitOfWork.DalCases.CreateCase(objCase);
+            _unitOfWork.SaveData();
         }
 
         [SuppressMessage("ReSharper", "PossibleInvalidOperationException")]
@@ -111,7 +145,6 @@ namespace LabTrack.Forms
             var message = string.Empty;
             var data = _unitOfWork.DalCasesControl.GetCaseControlByIdAreaAndCode(nro, idArea);
 
-            DialogResult rspt;
             if (data != null)
             {
                 if (data.dtFinish != null || data.dtStart != null)
@@ -135,6 +168,7 @@ namespace LabTrack.Forms
                                 var seconds =
                                     ((DateTime)objCase.DateFinish).Subtract(((DateTime)data.dtStart)).TotalSeconds;
 
+                                var time = General.DaysLeft((DateTime)data.dtStart, (DateTime)objCase.DateFinish, true, General.GetHolidays(DateTime.Now.Year));
                                 if (data.dtRecive != null)
                                 {
                                     objCase.TimeInproduction = (int)seconds;
@@ -171,7 +205,7 @@ namespace LabTrack.Forms
                 title = "Successfull";
                 message = $"Case number {nro}\r\nWill be Created at {DateTime.Now}";
             }
-            rspt = AutoClosingMessageBox.Show(message, title, 10000, MessageBoxButtons.OKCancel);
+            var rspt = AutoClosingMessageBox.Show(message, title, 10000, MessageBoxButtons.OKCancel);
             if (rspt != DialogResult.OK)
             {
                 return;
@@ -233,19 +267,57 @@ namespace LabTrack.Forms
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         private void ProductivityForm_Load(object sender, EventArgs e)
         {
-            lblRed.Text =
-                $"Cases open with more than:\r\n{_listConfig.SingleOrDefault(x => x.Name == "xDaysMaximun").Value} days.";
-            lblYellow.Text =
-                $"Cases open between:\r\n{_listConfig.SingleOrDefault(x => x.Name == "xDaysMinimun").Value} " +
-                $" and  {_listConfig.SingleOrDefault(x => x.Name == "xDaysMaximun").Value} days.";
-            lblGreen.Text =
-                $"Cases open with less than:\r\n{_listConfig.SingleOrDefault(x => x.Name == "xDaysMinimun").Value} days.";
+            try
+            {
+                lblRed.Text =
+                                $"Cases open with more than:\r\n{_listConfig.SingleOrDefault(x => x.Name == "xDaysMaximun").Value} days.";
+                lblYellow.Text =
+                    $"Cases open between:\r\n{_listConfig.SingleOrDefault(x => x.Name == "xDaysMinimun").Value} " +
+                    $" and  {_listConfig.SingleOrDefault(x => x.Name == "xDaysMaximun").Value} days.";
+                lblGreen.Text =
+                    $"Cases open with less than:\r\n{_listConfig.SingleOrDefault(x => x.Name == "xDaysMinimun").Value} days.";
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             lblTime.Text = DateTime.Now.ToString("hh:mm:ss tt");
+            if (Second > 5)
+            {
+                if (!txtCode.Focused)
+                {
+                    txtCode.Focus();
+                    Second = 0;
+                }
+            }
+
+            var firstOrDefault = _listConfig.FirstOrDefault(x => x.Name == "ChangeAreasSeconds");
+            if (firstOrDefault != null && SecondsForLoop >= int.Parse(firstOrDefault.Value))
+            {
+                var i = cbxAreaFilter.SelectedIndex;
+                if (i >= cbxAreaFilter.Items.Count - 1)
+                {
+                    i = 1;
+                    cbxAreaFilter.SelectedIndex = i;
+                }
+                else
+                {
+                    cbxAreaFilter.SelectedIndex = i + 1;
+                }
+                SecondsForLoop = 0;
+
+            }
+            Second++;
+            SecondsForLoop++;
         }
+
+
 
         private void btnInfo_Click(object sender, EventArgs e)
         {
@@ -327,7 +399,7 @@ namespace LabTrack.Forms
 
         private void ReloadGrids()
         {
-            FillDataGrid(((Area)cbxAreaFilter.SelectedItem).Id);
+            FillListForDataGrid(((Area)cbxAreaFilter.SelectedItem).Id);
             dgvData.DataSource = _listCases;
             dgvDataEnd.DataSource = _listCasesClosed;
         }
@@ -437,12 +509,25 @@ namespace LabTrack.Forms
 
         private void txtCode_Enter(object sender, EventArgs e)
         {
-            txtCode.BackColor = Color.Gray;
+            txtCode.BackColor = Color.LightGray;
         }
 
         private void txtCode_Leave(object sender, EventArgs e)
         {
             txtCode.BackColor = Color.White;
+        }
+
+        private void cbxNonStared_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbxNonStared.Checked)
+            {
+                dgvData.DataSource = ((List<CaseControlDto>)dgvData.DataSource).Where(
+                    x => x.DtStart != null ).ToList();
+            }
+            else
+            {
+                dgvData.DataSource = _listCases;
+            }
         }
     }
 }

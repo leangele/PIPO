@@ -88,6 +88,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="XMsgLib">
+      <HintPath>..\Third Party\XMsgLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Area.cs">
@@ -137,6 +140,7 @@
     <Compile Include="Forms\Admin.Designer.cs">
       <DependentUpon>Admin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ExtendedMsgBox.cs" />
     <Compile Include="Forms\Report.cs">
       <SubType>Form</SubType>
     </Compile>

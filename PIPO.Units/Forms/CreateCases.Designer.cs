@@ -45,19 +45,19 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tabScan = new System.Windows.Forms.TabControl();
-            this.tpManual = new System.Windows.Forms.TabPage();
-            this.nudTimeETA = new System.Windows.Forms.NumericUpDown();
-            this.nudUnitsManual = new System.Windows.Forms.NumericUpDown();
             this.tpScan = new System.Windows.Forms.TabPage();
             this.nudUnitsScaner = new System.Windows.Forms.NumericUpDown();
             this.txtBarCodeScanned = new System.Windows.Forms.TextBox();
             this.lblMessageETA = new System.Windows.Forms.Label();
+            this.tpManual = new System.Windows.Forms.TabPage();
+            this.nudTimeETA = new System.Windows.Forms.NumericUpDown();
+            this.nudUnitsManual = new System.Windows.Forms.NumericUpDown();
             this.tabScan.SuspendLayout();
+            this.tpScan.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudUnitsScaner)).BeginInit();
             this.tpManual.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeETA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudUnitsManual)).BeginInit();
-            this.tpScan.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudUnitsScaner)).BeginInit();
             this.SuspendLayout();
             // 
             // lboxCases
@@ -168,10 +168,11 @@
             // 
             // txtCodeFind
             // 
-            this.txtCodeFind.Location = new System.Drawing.Point(95, 32);
+            this.txtCodeFind.Location = new System.Drawing.Point(111, 32);
             this.txtCodeFind.Name = "txtCodeFind";
             this.txtCodeFind.Size = new System.Drawing.Size(100, 20);
             this.txtCodeFind.TabIndex = 5;
+            this.txtCodeFind.Enter += new System.EventHandler(this.txtCodeFind_Enter);
             this.txtCodeFind.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodeFind_KeyPress);
             // 
             // label3
@@ -179,9 +180,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(7, 33);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 17);
+            this.label3.Size = new System.Drawing.Size(98, 19);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Code";
+            this.label3.Text = "Search code:";
             // 
             // label8
             // 
@@ -210,6 +211,59 @@
             this.tabScan.SelectedIndex = 0;
             this.tabScan.Size = new System.Drawing.Size(224, 373);
             this.tabScan.TabIndex = 11;
+            // 
+            // tpScan
+            // 
+            this.tpScan.Controls.Add(this.nudUnitsScaner);
+            this.tpScan.Controls.Add(this.txtBarCodeScanned);
+            this.tpScan.Controls.Add(this.lblMessageETA);
+            this.tpScan.Controls.Add(this.label10);
+            this.tpScan.Controls.Add(this.label8);
+            this.tpScan.Location = new System.Drawing.Point(4, 22);
+            this.tpScan.Name = "tpScan";
+            this.tpScan.Padding = new System.Windows.Forms.Padding(3);
+            this.tpScan.Size = new System.Drawing.Size(216, 347);
+            this.tpScan.TabIndex = 1;
+            this.tpScan.Text = "Scan";
+            this.tpScan.UseVisualStyleBackColor = true;
+            // 
+            // nudUnitsScaner
+            // 
+            this.nudUnitsScaner.Location = new System.Drawing.Point(97, 52);
+            this.nudUnitsScaner.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudUnitsScaner.Name = "nudUnitsScaner";
+            this.nudUnitsScaner.Size = new System.Drawing.Size(100, 20);
+            this.nudUnitsScaner.TabIndex = 22;
+            this.nudUnitsScaner.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudUnitsScaner.ValueChanged += new System.EventHandler(this.nudUnitsScaner_ValueChanged);
+            this.nudUnitsScaner.Click += new System.EventHandler(this.nudUnits_Click);
+            // 
+            // txtBarCodeScanned
+            // 
+            this.txtBarCodeScanned.Location = new System.Drawing.Point(97, 12);
+            this.txtBarCodeScanned.Name = "txtBarCodeScanned";
+            this.txtBarCodeScanned.Size = new System.Drawing.Size(100, 20);
+            this.txtBarCodeScanned.TabIndex = 12;
+            this.txtBarCodeScanned.Enter += new System.EventHandler(this.txtBarCodeScanned_Enter);
+            this.txtBarCodeScanned.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodeBCS_KeyPress);
+            // 
+            // lblMessageETA
+            // 
+            this.lblMessageETA.AutoSize = true;
+            this.lblMessageETA.ForeColor = System.Drawing.Color.Red;
+            this.lblMessageETA.Location = new System.Drawing.Point(11, 97);
+            this.lblMessageETA.Name = "lblMessageETA";
+            this.lblMessageETA.Size = new System.Drawing.Size(22, 13);
+            this.lblMessageETA.TabIndex = 9;
+            this.lblMessageETA.Text = "xxx";
             // 
             // tpManual
             // 
@@ -270,59 +324,6 @@
             0});
             this.nudUnitsManual.Click += new System.EventHandler(this.nudUnitsManual_Click);
             // 
-            // tpScan
-            // 
-            this.tpScan.Controls.Add(this.nudUnitsScaner);
-            this.tpScan.Controls.Add(this.txtBarCodeScanned);
-            this.tpScan.Controls.Add(this.lblMessageETA);
-            this.tpScan.Controls.Add(this.label10);
-            this.tpScan.Controls.Add(this.label8);
-            this.tpScan.Location = new System.Drawing.Point(4, 22);
-            this.tpScan.Name = "tpScan";
-            this.tpScan.Padding = new System.Windows.Forms.Padding(3);
-            this.tpScan.Size = new System.Drawing.Size(216, 347);
-            this.tpScan.TabIndex = 1;
-            this.tpScan.Text = "Scan";
-            this.tpScan.UseVisualStyleBackColor = true;
-            // 
-            // nudUnitsScaner
-            // 
-            this.nudUnitsScaner.Location = new System.Drawing.Point(97, 52);
-            this.nudUnitsScaner.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudUnitsScaner.Name = "nudUnitsScaner";
-            this.nudUnitsScaner.Size = new System.Drawing.Size(100, 20);
-            this.nudUnitsScaner.TabIndex = 22;
-            this.nudUnitsScaner.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudUnitsScaner.ValueChanged += new System.EventHandler(this.nudUnitsScaner_ValueChanged);
-            this.nudUnitsScaner.Click += new System.EventHandler(this.nudUnits_Click);
-            // 
-            // txtBarCodeScanned
-            // 
-            this.txtBarCodeScanned.Location = new System.Drawing.Point(97, 12);
-            this.txtBarCodeScanned.Name = "txtBarCodeScanned";
-            this.txtBarCodeScanned.Size = new System.Drawing.Size(100, 20);
-            this.txtBarCodeScanned.TabIndex = 12;
-            this.txtBarCodeScanned.Enter += new System.EventHandler(this.txtBarCodeScanned_Enter);
-            this.txtBarCodeScanned.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodeBCS_KeyPress);
-            // 
-            // lblMessageETA
-            // 
-            this.lblMessageETA.AutoSize = true;
-            this.lblMessageETA.ForeColor = System.Drawing.Color.Red;
-            this.lblMessageETA.Location = new System.Drawing.Point(11, 97);
-            this.lblMessageETA.Name = "lblMessageETA";
-            this.lblMessageETA.Size = new System.Drawing.Size(22, 13);
-            this.lblMessageETA.TabIndex = 9;
-            this.lblMessageETA.Text = "xxx";
-            // 
             // CreateCases
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -336,13 +337,13 @@
             this.Text = "CreateCases";
             this.Load += new System.EventHandler(this.CreateCases_Load);
             this.tabScan.ResumeLayout(false);
+            this.tpScan.ResumeLayout(false);
+            this.tpScan.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudUnitsScaner)).EndInit();
             this.tpManual.ResumeLayout(false);
             this.tpManual.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeETA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudUnitsManual)).EndInit();
-            this.tpScan.ResumeLayout(false);
-            this.tpScan.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudUnitsScaner)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

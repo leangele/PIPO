@@ -10,7 +10,7 @@ namespace LabTrack.DAL
         public IDalAreas DalAreas { get; set; }
         public IDalCasesControl DalCasesControl { get; set; }
         public IDalCases DalCases { get; set; }
-        public IDalConfig DalConfig { get; set; }
+        public static IDalConfig DalConfig { get; set; }
         public IDalStoredProcedures DalStoredProcedures { get; set; }
 
 
@@ -30,6 +30,7 @@ namespace LabTrack.DAL
         {
             _context.SaveChanges();
         }
+
 
         public List<Configuration> ListConfigurations()
         {

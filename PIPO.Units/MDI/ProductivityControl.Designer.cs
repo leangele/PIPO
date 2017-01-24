@@ -235,6 +235,7 @@ namespace LabTrack.MDI
             this.Name = "ProductivityControl";
             this.Text = "LabTrack by dds";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.ProductivityControl_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);

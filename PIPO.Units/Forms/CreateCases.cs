@@ -1,5 +1,4 @@
-﻿using LabTrack.DAL;
-using LabTrack.Interfaces;
+﻿using LabTrack.Interfaces;
 using LabTrack.Properties;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ namespace LabTrack.Forms
         private static IUnitOfWork UnitOfWork { get; set; }
         private List<Case> ListCases { get; set; }
         Case _objCase;
-        public CreateCases(UnitOfWork unitOfWork, bool isAdministrationOn)
+        public CreateCases(IUnitOfWork unitOfWork, bool isAdministrationOn)
         {
             UnitOfWork = unitOfWork;
             IsAdministrationOn = isAdministrationOn;
@@ -24,7 +23,7 @@ namespace LabTrack.Forms
             var listConfig = UnitOfWork.ListConfigurations();
             var singleOrDefault = listConfig.SingleOrDefault(x => x.Name == "xETADefault");
             if (singleOrDefault != null)
-                lblMessageETA.Text = string.Format("Time production by default is {0} days", singleOrDefault.Value);
+                lblMessageETA.Text = $"Time production by default is {singleOrDefault.Value} days";
         }
 
         private void InitialLoad()
@@ -42,23 +41,28 @@ namespace LabTrack.Forms
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (ValidateCases())
-            {
-                var objCase = new Case
-                {
-                    Code = int.Parse(txtCode.Text),
-                    DateCreation = DateTime.Now,
-                    ETA = int.Parse(nudTimeETA.Text),
-                    IsInProduction = false,
-                    Units = int.Parse(nudUnitsManual.Text)
-                };
-                UnitOfWork.DalCases.CreateCase(objCase);
-                UnitOfWork.SaveData();
-                InitialLoad();
-            }
-            SearchAndCleanControl(tpManual.Controls);
-            SearchAndCleanControl(tpScan.Controls);
+            //if (ValidateCases())
+            //{
+            //    var objCase = new Case
+            //    {
+            //        Code = int.Parse(txtCode.Text),
+            //        DateCreation = DateTime.Now,
+            //        ETA = int.Parse(nudTimeETA.Text),
+            //        IsInProduction = false,
+            //        Units = int.Parse(nudUnitsManual.Text)
+            //    };
+            //    UnitOfWork.DalCases.CreateCase(objCase);
+            //    UnitOfWork.SaveData();
+            //    InitialLoad();
+            //}
+            //SearchAndCleanControl(tpManual.Controls);
+            //SearchAndCleanControl(tpScan.Controls);
+
+
+            ExtendedMsgBox.ExtendeMessagesShow();
         }
+
+
 
         private static void SearchAndCleanControl(Control.ControlCollection controlList)
         {
@@ -186,8 +190,8 @@ namespace LabTrack.Forms
                 MessageBox.Show(Resources.CreateCases_ValidateCase_you_can_t_add_more_units_to_this_case);
                 return true;
             }
-            if (iCode.DateFinish == null) return false;
-            MessageBox.Show($"you can't add more units to this case was closed {iCode.DateFinish}");
+            //if (iCode.DateFinish == null) return false;
+            //MessageBox.Show($"you can't add more units to this case was closed {iCode.DateFinish}");
             return true;
         }
 
@@ -241,6 +245,11 @@ namespace LabTrack.Forms
         private void nudUnitsScaner_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtCodeFind_Enter(object sender, EventArgs e)
+        {
+            txtCodeFind.Text = string.Empty;
         }
     }
 }

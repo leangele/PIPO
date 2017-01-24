@@ -128,5 +128,16 @@ namespace LabTrack.MDI
         {
             OpenForm("formAdmin", FormWindowState.Normal);
         }
+
+        private void ProductivityControl_Load(object sender, EventArgs e)
+        {
+            if (!_unitOfWork.CheckConection(new CasesControlEntities())) return;
+            var b = new Productivity(_unitOfWork, IsAdministrationOn)
+            {
+                WindowState = FormWindowState.Normal,
+                MdiParent = this
+            };
+            b.Show();
+        }
     }
 }
