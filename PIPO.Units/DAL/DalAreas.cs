@@ -16,5 +16,10 @@ namespace LabTrack.DAL
         {
             return _context.Areas.ToList();
         }
+
+        public Area GetAreaForId(int idArea)
+        {
+            return _context.Areas.SingleOrDefault(x => x.Id == idArea);
+        }
     }
 }

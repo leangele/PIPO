@@ -49,7 +49,7 @@ namespace LabTrack.Forms
             {
                 ChangeStatusLog(true);
             }
-            else if (btnLogin.Text != @"Log out")
+            else if (txtPassword.Enabled)
             {
                 var Title = "Error";
                 var message = $"Password incorrect!";

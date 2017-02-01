@@ -19,5 +19,6 @@ namespace LabTrack
         public string Grouping { get; set; }
         public string Value { get; set; }
         public string ValueXml { get; set; }
+        public Nullable<bool> IsProtected { get; set; }
     }
 }

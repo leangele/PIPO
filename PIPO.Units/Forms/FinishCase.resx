@@ -117,61 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="1483065445_play-circle-outline" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1483065445_play-circle-outline.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CreateCases_ValidateCases_Case_number_Required" xml:space="preserve">
-    <value>Case number Required!</value>
-  </data>
-  <data name="1483065496_play-circle-outline" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1483065496_play-circle-outline.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CreateCases_ValidateCases_Time_production_required" xml:space="preserve">
-    <value>Time production required</value>
-  </data>
-  <data name="CreateCases_ValidateCases_Units_Required" xml:space="preserve">
-    <value>Units Required</value>
-  </data>
-  <data name="ProductivityForm_CreateCase_Case_not_created_previously" xml:space="preserve">
-    <value>Case not created previously</value>
-  </data>
-  <data name="xDaysMaximun" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="xDaysMinimun" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="CreateCases_ValidateCase_you_can_t_add_more_units_to_this_case" xml:space="preserve">
-    <value>you can't add more units to this case</value>
-  </data>
-  <data name="ChangeAreas" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="xEATDefault" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="ProductivityForm_CreateCase_Area_not_found_" xml:space="preserve">
-    <value>Area not found.</value>
-  </data>
-  <data name="CreateCases_txtBarCodeScanned_Enter__0" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="CreateCases_nudUnits_Click__1" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="beep_short_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\beep_short_on.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Hourglass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\1484272050_hourglass.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  
-  <data name="CasePerRangeWithUnits" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Reports\CasePerRangeWithUnits.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="CasePerRangeWithUnits1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Reports\CasePerRangeWithUnits.rpt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
- 
+  <metadata name="dataGridViewTextBoxColumn15.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Unit1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn20.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn16.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn17.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn18.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn19.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn21.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="IdArea1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Company1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

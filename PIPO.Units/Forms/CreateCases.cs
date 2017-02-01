@@ -1,6 +1,8 @@
-﻿using LabTrack.Interfaces;
+﻿using LabTrack.DAL;
+using LabTrack.Interfaces;
 using LabTrack.Properties;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -13,6 +15,8 @@ namespace LabTrack.Forms
         public bool IsAdministrationOn { get; set; }
         private static IUnitOfWork UnitOfWork { get; set; }
         private List<Case> ListCases { get; set; }
+        private List<Area> ListArea { get; set; }
+        private List<Company> ListCompanies { get; set; }
         Case _objCase;
         public CreateCases(IUnitOfWork unitOfWork, bool isAdministrationOn)
         {
@@ -29,79 +33,45 @@ namespace LabTrack.Forms
         private void InitialLoad()
         {
             ListCases = UnitOfWork.DalCases.ListCases().OrderByDescending(x => x.DateCreation).ToList();
-            lboxCases.DataSource = ListCases;
-            lboxCases.ValueMember = "Id";
-            lboxCases.DisplayMember = "code";
-
+            ListCompanies = UnitOfWork.DalCompany.ListCompanies().OrderBy(x => x.Id).ToList();
+            ListArea = UnitOfWork.DalAreas.ListAreas();
         }
 
         private void CreateCases_Load(object sender, EventArgs e)
         {
-
+            ChargeList();
         }
+
+        private void ChargeList()
+        {
+            FillListBox(lboxCases, ListCases, "Id", "code");
+            FillListBox(lbxCompany, ListCompanies, "Id", "Name");
+        }
+
+        private static void FillListBox(ListControl controlListBox, IEnumerable source, string valueMember, string displayMember)
+        {
+            controlListBox.DataSource = source;
+            controlListBox.ValueMember = valueMember;
+            controlListBox.DisplayMember = displayMember;
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //if (ValidateCases())
-            //{
-            //    var objCase = new Case
-            //    {
-            //        Code = int.Parse(txtCode.Text),
-            //        DateCreation = DateTime.Now,
-            //        ETA = int.Parse(nudTimeETA.Text),
-            //        IsInProduction = false,
-            //        Units = int.Parse(nudUnitsManual.Text)
-            //    };
-            //    UnitOfWork.DalCases.CreateCase(objCase);
-            //    UnitOfWork.SaveData();
-            //    InitialLoad();
-            //}
-            //SearchAndCleanControl(tpManual.Controls);
-            //SearchAndCleanControl(tpScan.Controls);
-
-
             ExtendedMsgBox.ExtendeMessagesShow();
         }
 
-
-
-        private static void SearchAndCleanControl(Control.ControlCollection controlList)
+        private static void SearchAndCleanControl(IEnumerable controlList)
         {
-            foreach (var control in controlList.Cast<Control>().Where(control => control.GetType() == typeof(TextBox)))
+            var enumerable = controlList as IList<object> ?? controlList.Cast<object>().ToList();
+            foreach (var control in enumerable.Cast<Control>().Where(control => control.GetType() == typeof(TextBox)))
             {
                 control.Text = string.Empty;
             }
-            foreach (var control in controlList.Cast<Control>().Where(control => control.GetType() == typeof(NumericUpDown)))
+            foreach (var control in enumerable.Cast<Control>().Where(control => control.GetType() == typeof(NumericUpDown)))
             {
                 control.Text = @"1";
             }
 
-        }
-
-        private bool ValidateCases()
-        {
-            if (!string.IsNullOrWhiteSpace(txtCode.Text))
-            {
-                if (!string.IsNullOrWhiteSpace(nudTimeETA.Text))
-                {
-                    if (!string.IsNullOrWhiteSpace(nudUnitsManual.Text)) return true;
-                    MessageBox.Show(Resources.CreateCases_ValidateCases_Units_Required);
-                    return false;
-                }
-                MessageBox.Show(Resources.CreateCases_ValidateCases_Time_production_required);
-                return false;
-            }
-            MessageBox.Show(Resources.CreateCases_ValidateCases_Case_number_Required);
-            return false;
-        }
-
-        private void txtCode_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            General.ValidNumber(e);
-
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
-                nudUnitsManual.Focus();
-            }
         }
 
         private void txtCodeFind_KeyPress(object sender, KeyPressEventArgs e)
@@ -115,6 +85,7 @@ namespace LabTrack.Forms
             else
             {
                 InitialLoad();
+                ChargeList();
             }
         }
 
@@ -138,13 +109,19 @@ namespace LabTrack.Forms
 
         private void txtCodeBCS_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
-                CreateCase();
+            if (e.KeyChar != Convert.ToChar(Keys.Enter)) return;
+            CreateCase();
+            txtBarCodeScanned.Focus();
+        }
 
-                txtBarCodeScanned.Focus();
-            }
-
+        private void CreateCaseControl()
+        {
+            var nro = Convert.ToInt16(txtBarCodeScanned.Text.Length == 5 ? txtBarCodeScanned.Text.Substring(1) : txtBarCodeScanned.Text);
+            var singleOrDefault = ListArea.SingleOrDefault(x => x.IsStart);
+            if (singleOrDefault == null) return;
+            var today = DateTime.Now;
+            var data = new CaseControl();
+            General.CreateCaseControl((UnitOfWork)UnitOfWork, nro, data, today, singleOrDefault);
         }
 
         private void CreateCase()
@@ -154,7 +131,7 @@ namespace LabTrack.Forms
             var iCode = ListCases.FirstOrDefault(c => c.Code == code);
             if (iCode != null)
             {
-                if (ValidateCase(iCode)) return;
+                if (!ValidateCase(iCode)) return;
                 iCode.Units++;
             }
             else
@@ -162,21 +139,27 @@ namespace LabTrack.Forms
                 var singleOrDefault = UnitOfWork.ListConfigurations().SingleOrDefault(x => x.Name == "xETADefault");
                 if (singleOrDefault != null)
                 {
-                    //var units = tabScan.Visible ? "1" : txtunits.Text;
                     var objCase = new Case
                     {
                         Code = code,
                         DateCreation = DateTime.Now,
                         ETA = int.Parse(string.IsNullOrWhiteSpace(nudTimeETA.Text) ? singleOrDefault.Value : nudTimeETA.Text),
                         IsInProduction = false,
-                        Units = int.Parse(string.IsNullOrWhiteSpace(nudUnitsManual.Text) ? "1" : nudUnitsManual.Text)
+                        Units = int.Parse(string.IsNullOrWhiteSpace(nudUnitsManual.Text) ? "1" : nudUnitsManual.Text),
+                        Company = (Company)lbxCompany.SelectedItem
+
                     };
+                    ((Company)lbxCompany.SelectedItem).MaxCodeActual = code;
                     UnitOfWork.DalCases.CreateCase(objCase);
+                    CreateCaseControl();
                 }
             }
 
             UnitOfWork.SaveData();
             InitialLoad();
+            var copySelection = (Company)lbxCompany.SelectedItem;
+            ChargeList();
+            lbxCompany.SelectedItem = copySelection;
             SearchAndCleanControl(tpManual.Controls);
             SearchAndCleanControl(tpScan.Controls);
         }
@@ -185,14 +168,9 @@ namespace LabTrack.Forms
         {
             var singleOrDefault = UnitOfWork.ListConfigurations().SingleOrDefault(x => x.Name == "MaxUnitsPerCase");
 
-            if (singleOrDefault != null && iCode.Units >= int.Parse(singleOrDefault.Value))
-            {
-                MessageBox.Show(Resources.CreateCases_ValidateCase_you_can_t_add_more_units_to_this_case);
-                return true;
-            }
-            //if (iCode.DateFinish == null) return false;
-            //MessageBox.Show($"you can't add more units to this case was closed {iCode.DateFinish}");
-            return true;
+            if (singleOrDefault == null || iCode.Units < int.Parse(singleOrDefault.Value)) return true;
+            MessageBox.Show(Resources.CreateCases_ValidateCase_you_can_t_add_more_units_to_this_case);
+            return false;
         }
 
         private void txtCode_Enter(object sender, EventArgs e)
@@ -210,7 +188,6 @@ namespace LabTrack.Forms
             nudUnitsScaner.Text = Resources.CreateCases_txtBarCodeScanned_Enter__0;
         }
 
-
         private void AddRemoveUnitsScaner(bool isScanner)
         {
             _objCase.Units = _objCase != null && isScanner
@@ -218,7 +195,6 @@ namespace LabTrack.Forms
                 : int.Parse(nudUnitsManual.Text);
             UnitOfWork.SaveData();
         }
-
 
         private void nudUnits_Click(object sender, EventArgs e)
         {
@@ -242,14 +218,34 @@ namespace LabTrack.Forms
             _objCase.ETA = int.Parse(nudTimeETA.Text);
         }
 
-        private void nudUnitsScaner_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtCodeFind_Enter(object sender, EventArgs e)
         {
             txtCodeFind.Text = string.Empty;
+        }
+
+        private void lbxCompany_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var filterCases = ListCases.Where(x => x.IdCompany == ((Company)lbxCompany.SelectedItem).Id).ToList();
+            FillListBox(lboxCases, filterCases, "Id", "code");
+        }
+
+        private void Search_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtCodeFind.Text))
+            {
+                var nro = int.Parse(txtCodeFind.Text);
+                lboxCases.DataSource = ListCases.Where(x => x.Code == nro).ToList();
+            }
+            else
+            {
+                InitialLoad();
+                ChargeList();
+            }
+        }
+
+        private void lboxCases_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            General.ShowHistoryOfCase((UnitOfWork)UnitOfWork, IsAdministrationOn);
         }
     }
 }

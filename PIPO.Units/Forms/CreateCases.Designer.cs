@@ -52,6 +52,9 @@
             this.tpManual = new System.Windows.Forms.TabPage();
             this.nudTimeETA = new System.Windows.Forms.NumericUpDown();
             this.nudUnitsManual = new System.Windows.Forms.NumericUpDown();
+            this.lbxCompany = new System.Windows.Forms.ListBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Search = new System.Windows.Forms.Button();
             this.tabScan.SuspendLayout();
             this.tpScan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudUnitsScaner)).BeginInit();
@@ -68,6 +71,7 @@
             this.lboxCases.Size = new System.Drawing.Size(257, 407);
             this.lboxCases.TabIndex = 0;
             this.lboxCases.SelectedIndexChanged += new System.EventHandler(this.lboxCases_SelectedIndexChanged);
+            this.lboxCases.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lboxCases_MouseDoubleClick);
             // 
             // btnSave
             // 
@@ -155,7 +159,6 @@
             this.txtCode.Size = new System.Drawing.Size(100, 20);
             this.txtCode.TabIndex = 1;
             this.txtCode.Enter += new System.EventHandler(this.txtCode_Enter);
-            this.txtCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCode_KeyPress);
             // 
             // label1
             // 
@@ -168,9 +171,9 @@
             // 
             // txtCodeFind
             // 
-            this.txtCodeFind.Location = new System.Drawing.Point(111, 32);
+            this.txtCodeFind.Location = new System.Drawing.Point(104, 32);
             this.txtCodeFind.Name = "txtCodeFind";
-            this.txtCodeFind.Size = new System.Drawing.Size(100, 20);
+            this.txtCodeFind.Size = new System.Drawing.Size(67, 20);
             this.txtCodeFind.TabIndex = 5;
             this.txtCodeFind.Enter += new System.EventHandler(this.txtCodeFind_Enter);
             this.txtCodeFind.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodeFind_KeyPress);
@@ -178,7 +181,7 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(7, 33);
+            this.label3.Location = new System.Drawing.Point(12, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(98, 19);
             this.label3.TabIndex = 4;
@@ -206,10 +209,10 @@
             // 
             this.tabScan.Controls.Add(this.tpScan);
             this.tabScan.Controls.Add(this.tpManual);
-            this.tabScan.Location = new System.Drawing.Point(10, 72);
+            this.tabScan.Location = new System.Drawing.Point(10, 141);
             this.tabScan.Name = "tabScan";
             this.tabScan.SelectedIndex = 0;
-            this.tabScan.Size = new System.Drawing.Size(224, 373);
+            this.tabScan.Size = new System.Drawing.Size(224, 304);
             this.tabScan.TabIndex = 11;
             // 
             // tpScan
@@ -222,7 +225,7 @@
             this.tpScan.Location = new System.Drawing.Point(4, 22);
             this.tpScan.Name = "tpScan";
             this.tpScan.Padding = new System.Windows.Forms.Padding(3);
-            this.tpScan.Size = new System.Drawing.Size(216, 347);
+            this.tpScan.Size = new System.Drawing.Size(216, 278);
             this.tpScan.TabIndex = 1;
             this.tpScan.Text = "Scan";
             this.tpScan.UseVisualStyleBackColor = true;
@@ -243,7 +246,6 @@
             0,
             0,
             0});
-            this.nudUnitsScaner.ValueChanged += new System.EventHandler(this.nudUnitsScaner_ValueChanged);
             this.nudUnitsScaner.Click += new System.EventHandler(this.nudUnits_Click);
             // 
             // txtBarCodeScanned
@@ -283,7 +285,7 @@
             this.tpManual.Location = new System.Drawing.Point(4, 22);
             this.tpManual.Name = "tpManual";
             this.tpManual.Padding = new System.Windows.Forms.Padding(3);
-            this.tpManual.Size = new System.Drawing.Size(216, 347);
+            this.tpManual.Size = new System.Drawing.Size(216, 278);
             this.tpManual.TabIndex = 0;
             this.tpManual.Text = "Manual";
             this.tpManual.UseVisualStyleBackColor = true;
@@ -324,11 +326,42 @@
             0});
             this.nudUnitsManual.Click += new System.EventHandler(this.nudUnitsManual_Click);
             // 
+            // lbxCompany
+            // 
+            this.lbxCompany.FormattingEnabled = true;
+            this.lbxCompany.Location = new System.Drawing.Point(12, 84);
+            this.lbxCompany.Name = "lbxCompany";
+            this.lbxCompany.Size = new System.Drawing.Size(218, 56);
+            this.lbxCompany.TabIndex = 12;
+            this.lbxCompany.SelectedIndexChanged += new System.EventHandler(this.lbxCompany_SelectedIndexChanged);
+            // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(11, 62);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(98, 19);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "Company:";
+            // 
+            // Search
+            // 
+            this.Search.Location = new System.Drawing.Point(177, 31);
+            this.Search.Name = "Search";
+            this.Search.Size = new System.Drawing.Size(57, 23);
+            this.Search.TabIndex = 14;
+            this.Search.Text = "Search";
+            this.Search.UseVisualStyleBackColor = true;
+            this.Search.Click += new System.EventHandler(this.Search_Click);
+            // 
             // CreateCases
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(523, 458);
+            this.Controls.Add(this.Search);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.lbxCompany);
             this.Controls.Add(this.tabScan);
             this.Controls.Add(this.txtCodeFind);
             this.Controls.Add(this.label3);
@@ -375,5 +408,8 @@
         private System.Windows.Forms.NumericUpDown nudUnitsScaner;
         private System.Windows.Forms.NumericUpDown nudUnitsManual;
         private System.Windows.Forms.NumericUpDown nudTimeETA;
+        private System.Windows.Forms.ListBox lbxCompany;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button Search;
     }
 }

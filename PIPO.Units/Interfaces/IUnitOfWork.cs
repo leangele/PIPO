@@ -8,7 +8,7 @@ namespace LabTrack.Interfaces
         IDalAreas DalAreas { get; }
         IDalCasesControl DalCasesControl { get; }
         IDalCases DalCases { get; }
-
+        IDalCompany DalCompany { get; }
         IDalStoredProcedures DalStoredProcedures { get; }
         void SaveData();
         List<Configuration> ListConfigurations();

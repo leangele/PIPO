@@ -25,7 +25,7 @@ namespace LabTrack.MDI
 
         private void OpenFile(object sender, EventArgs e)
         {
-            OpenForm("ProductivityForm");
+            OpenForm("Productivity");
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -44,16 +44,11 @@ namespace LabTrack.MDI
             Close();
         }
 
-        private void OpenForm(string form, FormWindowState formWindowState = FormWindowState.Maximized)
+        private void OpenForm(string form, FormWindowState formWindowState = FormWindowState.Maximized, bool val = false)
         {
             var fc = Application.OpenForms;
             var formFound = false;
-            foreach (var frm in fc.Cast<Form>().Where(frm => frm.Name == form))
-            {
-                frm.Focus();
-                formFound = true;
-            }
-            if (formFound) return;
+            if (ConsulStatusForm(form, fc, formFound)) return;
             switch (form)
             {
                 case "CreateCases":
@@ -65,7 +60,7 @@ namespace LabTrack.MDI
                     };
                     a.Show();
                     break;
-                case "ProductivityForm":
+                case "Productivity":
                     var b = new Productivity(_unitOfWork, IsAdministrationOn)
                     {
                         WindowState = formWindowState,
@@ -81,14 +76,7 @@ namespace LabTrack.MDI
                     };
                     c.Show();
                     break;
-                case "FrmReport":
-                    var d = new Report(_unitOfWork, IsAdministrationOn)
-                    {
-                        WindowState = formWindowState,
-                        MdiParent = this
-                    };
-                    d.Show();
-                    break;
+
                 case "formDataCases":
                     var e = new DataCases(_unitOfWork, IsAdministrationOn)
                     {
@@ -101,16 +89,39 @@ namespace LabTrack.MDI
                     var f = new Admin(_unitOfWork, IsAdministrationOn)
                     {
                         WindowState = formWindowState,
+                        MdiParent = this
                     };
                     f.ShowDialog();
                     IsAdministrationOn = f.IsLoged;
                     ActivateDeactivateControls();
 
                     break;
-
-
+                case "FinishCase":
+                    var g = new FinishCase(_unitOfWork, val)
+                    {
+                        WindowState = formWindowState,
+                    };
+                    g.Show();
+                    break;
+                case "FrmReport":
+                    var d = new Forms.Reports("CasePerRangeWithUnits.rpt")
+                    {
+                        WindowState = formWindowState,
+                        MdiParent = this
+                    };
+                    d.Show();
+                    break;
             }
+        }
 
+        private static bool ConsulStatusForm(string form, FormCollection fc, bool formFound)
+        {
+            foreach (var frm in fc.Cast<Form>().Where(frm => frm.Name == form))
+            {
+                frm.Focus();
+                formFound = true;
+            }
+            return formFound;
         }
 
         private void ActivateDeactivateControls()
@@ -126,7 +137,9 @@ namespace LabTrack.MDI
 
         private void administrationToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             OpenForm("formAdmin", FormWindowState.Normal);
+
         }
 
         private void ProductivityControl_Load(object sender, EventArgs e)
@@ -134,10 +147,21 @@ namespace LabTrack.MDI
             if (!_unitOfWork.CheckConection(new CasesControlEntities())) return;
             var b = new Productivity(_unitOfWork, IsAdministrationOn)
             {
-                WindowState = FormWindowState.Normal,
+                WindowState = FormWindowState.Maximized,
                 MdiParent = this
             };
             b.Show();
+        }
+
+        private void searchToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            OpenForm("FinishCase", FormWindowState.Normal, true);
+        }
+
+        private void finishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm("FinishCase", FormWindowState.Normal);
         }
     }
 }

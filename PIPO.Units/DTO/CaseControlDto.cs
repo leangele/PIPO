@@ -12,6 +12,8 @@ namespace LabTrack.DTO
         public string Area { get; set; }
         public int IdArea { get; set; }
         public string Incharge { get; set; }
+        public int Unit { get; set; }
+        public string Company { get; set; }
 
         //public double TimeAverage
         //{

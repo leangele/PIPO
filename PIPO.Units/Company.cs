@@ -12,24 +12,23 @@ namespace LabTrack
     using System;
     using System.Collections.Generic;
     
-    public partial class Area
+    public partial class Company
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Area()
+        public Company()
         {
-            this.TechnitianXAreas = new HashSet<TechnitianXArea>();
+            this.Cases = new HashSet<Case>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string NamePerson { get; set; }
-        public int GroupAreas { get; set; }
-        public string Symbol { get; set; }
-        public string GroupAreasName { get; set; }
-        public bool IsStart { get; set; }
-        public bool IsEnd { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
+        public string Manager { get; set; }
+        public Nullable<int> MaxCodeActual { get; set; }
+        public string NameComplete { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TechnitianXArea> TechnitianXAreas { get; set; }
+        public virtual ICollection<Case> Cases { get; set; }
     }
 }

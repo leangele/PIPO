@@ -29,22 +29,26 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle50 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle60 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle51 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle52 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle53 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle54 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle55 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle56 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle57 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle58 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle59 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -52,6 +56,7 @@
             this.lblGreen = new System.Windows.Forms.Label();
             this.lblWithe = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.cbxNonStared = new System.Windows.Forms.CheckBox();
             this.btnAdmin = new System.Windows.Forms.Button();
             this.dgvData = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewLinkColumn();
@@ -61,7 +66,9 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IdArea = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Company = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbxAreaFilter = new System.Windows.Forms.ComboBox();
             this.lblYellow = new System.Windows.Forms.Label();
             this.lblRed = new System.Windows.Forms.Label();
@@ -73,6 +80,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgvDataEnd = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Unit1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,10 +88,9 @@
             this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IdArea1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Company1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtCode = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cbxNonStared = new System.Windows.Forms.CheckBox();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataEnd)).BeginInit();
@@ -168,11 +175,25 @@
             this.panel7.Size = new System.Drawing.Size(1176, 815);
             this.panel7.TabIndex = 9;
             // 
+            // cbxNonStared
+            // 
+            this.cbxNonStared.AutoSize = true;
+            this.cbxNonStared.Checked = true;
+            this.cbxNonStared.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxNonStared.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.cbxNonStared.Location = new System.Drawing.Point(875, 369);
+            this.cbxNonStared.Name = "cbxNonStared";
+            this.cbxNonStared.Size = new System.Drawing.Size(179, 29);
+            this.cbxNonStared.TabIndex = 37;
+            this.cbxNonStared.Text = "Show No Started";
+            this.cbxNonStared.UseVisualStyleBackColor = true;
+            this.cbxNonStared.CheckedChanged += new System.EventHandler(this.cbxNonStared_CheckedChanged);
+            // 
             // btnAdmin
             // 
-            this.btnAdmin.Location = new System.Drawing.Point(809, 10);
+            this.btnAdmin.Location = new System.Drawing.Point(808, 10);
             this.btnAdmin.Name = "btnAdmin";
-            this.btnAdmin.Size = new System.Drawing.Size(55, 23);
+            this.btnAdmin.Size = new System.Drawing.Size(56, 23);
             this.btnAdmin.TabIndex = 36;
             this.btnAdmin.Text = "Admin";
             this.btnAdmin.UseVisualStyleBackColor = true;
@@ -193,13 +214,15 @@
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn7,
-            this.IdArea});
+            this.Unit,
+            this.IdArea,
+            this.Company});
             this.dgvData.GridColor = System.Drawing.SystemColors.ControlDarkDark;
             this.dgvData.Location = new System.Drawing.Point(0, 49);
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.dgvData.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle50.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.dgvData.RowsDefaultCellStyle = dataGridViewCellStyle50;
             this.dgvData.RowTemplate.ReadOnly = true;
             this.dgvData.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -211,8 +234,8 @@
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "Id";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle41.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle41;
             this.dataGridViewTextBoxColumn1.HeaderText = "ID";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
@@ -223,8 +246,8 @@
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.DataPropertyName = "Area";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle42.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle42;
             this.dataGridViewTextBoxColumn6.HeaderText = "AREA";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
@@ -232,8 +255,8 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "Code";
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle43.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle43;
             this.dataGridViewTextBoxColumn2.HeaderText = "CODE";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -242,10 +265,10 @@
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.DataPropertyName = "DtRecive";
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            dataGridViewCellStyle4.Format = "G";
-            dataGridViewCellStyle4.NullValue = null;
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle44.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            dataGridViewCellStyle44.Format = "G";
+            dataGridViewCellStyle44.NullValue = null;
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle44;
             this.dataGridViewTextBoxColumn3.HeaderText = "RECEIVED";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
@@ -254,9 +277,9 @@
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "dtStart";
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            dataGridViewCellStyle5.Format = "G";
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle45.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            dataGridViewCellStyle45.Format = "G";
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle45;
             this.dataGridViewTextBoxColumn4.HeaderText = "STARTED";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -265,9 +288,9 @@
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "DtFinish";
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            dataGridViewCellStyle6.Format = "G";
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle46.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            dataGridViewCellStyle46.Format = "G";
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle46;
             this.dataGridViewTextBoxColumn5.HeaderText = "FINISH";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
@@ -277,11 +300,21 @@
             // dataGridViewTextBoxColumn7
             // 
             this.dataGridViewTextBoxColumn7.DataPropertyName = "Incharge";
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.dataGridViewTextBoxColumn7.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle47.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.dataGridViewTextBoxColumn7.DefaultCellStyle = dataGridViewCellStyle47;
             this.dataGridViewTextBoxColumn7.HeaderText = "TECHNICIAN";
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            // 
+            // Unit
+            // 
+            this.Unit.DataPropertyName = "Unit";
+            dataGridViewCellStyle48.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Unit.DefaultCellStyle = dataGridViewCellStyle48;
+            this.Unit.HeaderText = "IU";
+            this.Unit.Name = "Unit";
+            this.Unit.ReadOnly = true;
+            this.Unit.Width = 50;
             // 
             // IdArea
             // 
@@ -290,6 +323,15 @@
             this.IdArea.Name = "IdArea";
             this.IdArea.ReadOnly = true;
             this.IdArea.Visible = false;
+            // 
+            // Company
+            // 
+            this.Company.DataPropertyName = "Company";
+            dataGridViewCellStyle49.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Company.DefaultCellStyle = dataGridViewCellStyle49;
+            this.Company.HeaderText = "COMPANY";
+            this.Company.Name = "Company";
+            this.Company.ReadOnly = true;
             // 
             // cbxAreaFilter
             // 
@@ -346,7 +388,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(479, 13);
+            this.label11.Location = new System.Drawing.Point(427, 10);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(108, 25);
             this.label11.TabIndex = 29;
@@ -356,7 +398,7 @@
             // 
             this.lblTime.AutoSize = true;
             this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.Location = new System.Drawing.Point(601, 10);
+            this.lblTime.Location = new System.Drawing.Point(541, 10);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(42, 25);
             this.lblTime.TabIndex = 28;
@@ -364,11 +406,11 @@
             // 
             // btnInfo
             // 
-            this.btnInfo.Location = new System.Drawing.Point(728, 10);
+            this.btnInfo.Location = new System.Drawing.Point(765, 10);
             this.btnInfo.Name = "btnInfo";
-            this.btnInfo.Size = new System.Drawing.Size(75, 23);
+            this.btnInfo.Size = new System.Drawing.Size(37, 23);
             this.btnInfo.TabIndex = 27;
-            this.btnInfo.Text = "Information";
+            this.btnInfo.Text = "Info";
             this.btnInfo.UseVisualStyleBackColor = true;
             this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
             // 
@@ -391,19 +433,21 @@
             this.dgvDataEnd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDataEnd.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn15,
+            this.Unit1,
             this.dataGridViewTextBoxColumn20,
             this.dataGridViewTextBoxColumn16,
             this.dataGridViewTextBoxColumn17,
             this.dataGridViewTextBoxColumn18,
             this.dataGridViewTextBoxColumn19,
             this.dataGridViewTextBoxColumn21,
-            this.IdArea1});
+            this.IdArea1,
+            this.Company1});
             this.dgvDataEnd.GridColor = System.Drawing.SystemColors.ControlDarkDark;
             this.dgvDataEnd.Location = new System.Drawing.Point(0, 569);
             this.dgvDataEnd.Name = "dgvDataEnd";
             this.dgvDataEnd.ReadOnly = true;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
-            this.dgvDataEnd.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle60.BackColor = System.Drawing.Color.White;
+            this.dgvDataEnd.RowsDefaultCellStyle = dataGridViewCellStyle60;
             this.dgvDataEnd.RowTemplate.ReadOnly = true;
             this.dgvDataEnd.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvDataEnd.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -414,8 +458,8 @@
             // dataGridViewTextBoxColumn15
             // 
             this.dataGridViewTextBoxColumn15.DataPropertyName = "Id";
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.dataGridViewTextBoxColumn15.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle51.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.dataGridViewTextBoxColumn15.DefaultCellStyle = dataGridViewCellStyle51;
             this.dataGridViewTextBoxColumn15.HeaderText = "ID";
             this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
             this.dataGridViewTextBoxColumn15.ReadOnly = true;
@@ -423,11 +467,20 @@
             this.dataGridViewTextBoxColumn15.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.dataGridViewTextBoxColumn15.Width = 75;
             // 
+            // Unit1
+            // 
+            this.Unit1.DataPropertyName = "Unit";
+            dataGridViewCellStyle52.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Unit1.DefaultCellStyle = dataGridViewCellStyle52;
+            this.Unit1.HeaderText = "IU";
+            this.Unit1.Name = "Unit1";
+            this.Unit1.ReadOnly = true;
+            // 
             // dataGridViewTextBoxColumn20
             // 
             this.dataGridViewTextBoxColumn20.DataPropertyName = "Area";
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.dataGridViewTextBoxColumn20.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle53.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.dataGridViewTextBoxColumn20.DefaultCellStyle = dataGridViewCellStyle53;
             this.dataGridViewTextBoxColumn20.HeaderText = "AREA";
             this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
             this.dataGridViewTextBoxColumn20.ReadOnly = true;
@@ -435,8 +488,8 @@
             // dataGridViewTextBoxColumn16
             // 
             this.dataGridViewTextBoxColumn16.DataPropertyName = "Code";
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.dataGridViewTextBoxColumn16.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle54.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.dataGridViewTextBoxColumn16.DefaultCellStyle = dataGridViewCellStyle54;
             this.dataGridViewTextBoxColumn16.HeaderText = "CODE";
             this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
             this.dataGridViewTextBoxColumn16.ReadOnly = true;
@@ -445,10 +498,10 @@
             // dataGridViewTextBoxColumn17
             // 
             this.dataGridViewTextBoxColumn17.DataPropertyName = "DtRecive";
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            dataGridViewCellStyle12.Format = "G";
-            dataGridViewCellStyle12.NullValue = null;
-            this.dataGridViewTextBoxColumn17.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle55.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            dataGridViewCellStyle55.Format = "G";
+            dataGridViewCellStyle55.NullValue = null;
+            this.dataGridViewTextBoxColumn17.DefaultCellStyle = dataGridViewCellStyle55;
             this.dataGridViewTextBoxColumn17.HeaderText = "RECEIVED";
             this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
             this.dataGridViewTextBoxColumn17.ReadOnly = true;
@@ -457,9 +510,9 @@
             // dataGridViewTextBoxColumn18
             // 
             this.dataGridViewTextBoxColumn18.DataPropertyName = "dtStart";
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            dataGridViewCellStyle13.Format = "G";
-            this.dataGridViewTextBoxColumn18.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle56.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            dataGridViewCellStyle56.Format = "G";
+            this.dataGridViewTextBoxColumn18.DefaultCellStyle = dataGridViewCellStyle56;
             this.dataGridViewTextBoxColumn18.HeaderText = "STARTED";
             this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
             this.dataGridViewTextBoxColumn18.ReadOnly = true;
@@ -468,9 +521,9 @@
             // dataGridViewTextBoxColumn19
             // 
             this.dataGridViewTextBoxColumn19.DataPropertyName = "DtFinish";
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            dataGridViewCellStyle14.Format = "G";
-            this.dataGridViewTextBoxColumn19.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle57.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            dataGridViewCellStyle57.Format = "G";
+            this.dataGridViewTextBoxColumn19.DefaultCellStyle = dataGridViewCellStyle57;
             this.dataGridViewTextBoxColumn19.HeaderText = "FINISHED";
             this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
             this.dataGridViewTextBoxColumn19.ReadOnly = true;
@@ -479,8 +532,8 @@
             // dataGridViewTextBoxColumn21
             // 
             this.dataGridViewTextBoxColumn21.DataPropertyName = "Incharge";
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.dataGridViewTextBoxColumn21.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle58.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.dataGridViewTextBoxColumn21.DefaultCellStyle = dataGridViewCellStyle58;
             this.dataGridViewTextBoxColumn21.HeaderText = "TECHNICIAN";
             this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
             this.dataGridViewTextBoxColumn21.ReadOnly = true;
@@ -492,6 +545,15 @@
             this.IdArea1.Name = "IdArea1";
             this.IdArea1.ReadOnly = true;
             this.IdArea1.Visible = false;
+            // 
+            // Company1
+            // 
+            this.Company1.DataPropertyName = "Company";
+            dataGridViewCellStyle59.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Company1.DefaultCellStyle = dataGridViewCellStyle59;
+            this.Company1.HeaderText = "Company";
+            this.Company1.Name = "Company1";
+            this.Company1.ReadOnly = true;
             // 
             // txtCode
             // 
@@ -507,25 +569,6 @@
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // cbxNonStared
-            // 
-            this.cbxNonStared.AutoSize = true;
-            this.cbxNonStared.Checked = true;
-            this.cbxNonStared.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxNonStared.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.cbxNonStared.Location = new System.Drawing.Point(875, 367);
-            this.cbxNonStared.Name = "cbxNonStared";
-            this.cbxNonStared.Size = new System.Drawing.Size(174, 29);
-            this.cbxNonStared.TabIndex = 37;
-            this.cbxNonStared.Text = "Show No Stared";
-            this.cbxNonStared.UseVisualStyleBackColor = true;
-            this.cbxNonStared.CheckedChanged += new System.EventHandler(this.cbxNonStared_CheckedChanged);
             // 
             // Productivity
             // 
@@ -558,7 +601,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button btnInfo;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label22;
@@ -567,7 +609,10 @@
         private System.Windows.Forms.ComboBox cbxAreaFilter;
         private System.Windows.Forms.Label lblYellow;
         private System.Windows.Forms.DataGridView dgvData;
+        private System.Windows.Forms.Button btnAdmin;
+        private System.Windows.Forms.CheckBox cbxNonStared;
         private System.Windows.Forms.DataGridViewLinkColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Unit1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
@@ -575,6 +620,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn21;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdArea1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Company1;
         private System.Windows.Forms.DataGridViewLinkColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
@@ -582,9 +628,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdArea;
-        private System.Windows.Forms.Button btnAdmin;
-        private System.Windows.Forms.CheckBox cbxNonStared;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Company;
     }
 }
 

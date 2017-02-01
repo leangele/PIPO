@@ -10,10 +10,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="NamePerson" Type="varchar" MaxLength="50" />
-          <Property Name="GroupAreas" Type="int" />
-          <Property Name="Symbol" Type="varchar" MaxLength="1" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NamePerson" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GroupAreas" Type="int" Nullable="false" />
+          <Property Name="GroupAreasName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Symbol" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="IsStart" Type="bit" Nullable="false" />
+          <Property Name="IsEnd" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Case">
           <Key>
@@ -27,6 +30,7 @@
           <Property Name="IsInProduction" Type="bit" Nullable="false" />
           <Property Name="DateFinish" Type="datetime" />
           <Property Name="TimeInproduction" Type="int" />
+          <Property Name="IdCompany" Type="int" />
         </EntityType>
         <EntityType Name="CaseControl">
           <Key>
@@ -38,6 +42,19 @@
           <Property Name="dtStart" Type="datetime" />
           <Property Name="dtFinish" Type="datetime" />
           <Property Name="idTechnitian" Type="int" Nullable="false" />
+          <Property Name="isClosedByAdmin" Type="bit" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="NameComplete" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="Phone" Type="varchar" MaxLength="10" />
+          <Property Name="Manager" Type="varchar" MaxLength="500" />
+          <Property Name="MaxCodeActual" Type="int" />
         </EntityType>
         <EntityType Name="Configuration">
           <Key>
@@ -48,6 +65,7 @@
           <Property Name="Grouping" Type="varchar" MaxLength="50" />
           <Property Name="Value" Type="varchar(max)" />
           <Property Name="ValueXml" Type="xml" />
+          <Property Name="IsProtected" Type="bit" />
         </EntityType>
         <EntityType Name="Technitian">
           <Key>
@@ -64,6 +82,18 @@
           <Property Name="IdArea" Type="int" />
           <Property Name="Technitian" Type="int" />
         </EntityType>
+        <Association Name="FK_Case_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Case" Type="Self.Case" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Case">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TechnitianXArea_Area">
           <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
           <End Role="TechnitianXArea" Type="Self.TechnitianXArea" Multiplicity="*" />
@@ -97,9 +127,14 @@
           <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Case" EntityType="Self.Case" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CaseControl" EntityType="Self.CaseControl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Configuration" EntityType="Self.Configuration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Technitian" EntityType="Self.Technitian" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TechnitianXArea" EntityType="Self.TechnitianXArea" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Case_Company" Association="Self.FK_Case_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Case" EntitySet="Case" />
+          </AssociationSet>
           <AssociationSet Name="FK_TechnitianXArea_Area" Association="Self.FK_TechnitianXArea_Area">
             <End Role="Area" EntitySet="Area" />
             <End Role="TechnitianXArea" EntitySet="TechnitianXArea" />
@@ -133,17 +168,25 @@
             <Parameter Name="DateEnd" Mode="In" Type="DateTime" />
             <Parameter Name="filter" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Companies" EntityType="CasesControlModel.Company" />
+          <AssociationSet Name="FK_Case_Company" Association="CasesControlModel.FK_Case_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Case" EntitySet="Cases" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Area">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NamePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="GroupAreas" Type="Int32" />
-          <Property Name="Symbol" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NamePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GroupAreas" Type="Int32" Nullable="false" />
+          <Property Name="Symbol" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="TechnitianXAreas" Relationship="CasesControlModel.FK_TechnitianXArea_Area" FromRole="Area" ToRole="TechnitianXArea" />
+          <Property Name="GroupAreasName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsStart" Type="Boolean" Nullable="false" />
+          <Property Name="IsEnd" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Case">
           <Key>
@@ -157,6 +200,8 @@
           <Property Name="IsInProduction" Type="Boolean" Nullable="false" />
           <Property Name="DateFinish" Type="DateTime" Precision="3" />
           <Property Name="TimeInproduction" Type="Int32" />
+          <Property Name="IdCompany" Type="Int32" />
+          <NavigationProperty Name="Company" Relationship="CasesControlModel.FK_Case_Company" FromRole="Case" ToRole="Company" />
         </EntityType>
         <EntityType Name="CaseControl">
           <Key>
@@ -168,6 +213,7 @@
           <Property Name="dtStart" Type="DateTime" Precision="3" />
           <Property Name="dtFinish" Type="DateTime" Precision="3" />
           <Property Name="idTechnitian" Type="Int32" Nullable="false" />
+          <Property Name="isClosedByAdmin" Type="Boolean" />
         </EntityType>
         <EntityType Name="Configuration">
           <Key>
@@ -178,6 +224,7 @@
           <Property Name="Grouping" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ValueXml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsProtected" Type="Boolean" />
         </EntityType>
         <EntityType Name="Technitian">
           <Key>
@@ -228,6 +275,31 @@
           <Property Type="DateTime" Name="dt" Nullable="true" />
           <Property Type="String" Name="Estado" Nullable="false" MaxLength="7" />
         </ComplexType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Manager" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cases" Relationship="CasesControlModel.FK_Case_Company" FromRole="Company" ToRole="Case" />
+          <Property Name="MaxCodeActual" Type="Int32" />
+          <Property Name="NameComplete" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Case_Company">
+          <End Type="CasesControlModel.Company" Role="Company" Multiplicity="0..1" />
+          <End Type="CasesControlModel.Case" Role="Case" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Case">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -237,6 +309,9 @@
           <EntitySetMapping Name="Areas">
             <EntityTypeMapping TypeName="CasesControlModel.Area">
               <MappingFragment StoreEntitySet="Area">
+                <ScalarProperty Name="IsEnd" ColumnName="IsEnd" />
+                <ScalarProperty Name="IsStart" ColumnName="IsStart" />
+                <ScalarProperty Name="GroupAreasName" ColumnName="GroupAreasName" />
                 <ScalarProperty Name="Symbol" ColumnName="Symbol" />
                 <ScalarProperty Name="GroupAreas" ColumnName="GroupAreas" />
                 <ScalarProperty Name="NamePerson" ColumnName="NamePerson" />
@@ -248,6 +323,7 @@
           <EntitySetMapping Name="Cases">
             <EntityTypeMapping TypeName="CasesControlModel.Case">
               <MappingFragment StoreEntitySet="Case">
+                <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
                 <ScalarProperty Name="TimeInproduction" ColumnName="TimeInproduction" />
                 <ScalarProperty Name="DateFinish" ColumnName="DateFinish" />
                 <ScalarProperty Name="IsInProduction" ColumnName="IsInProduction" />
@@ -262,6 +338,7 @@
           <EntitySetMapping Name="CaseControls">
             <EntityTypeMapping TypeName="CasesControlModel.CaseControl">
               <MappingFragment StoreEntitySet="CaseControl">
+                <ScalarProperty Name="isClosedByAdmin" ColumnName="isClosedByAdmin" />
                 <ScalarProperty Name="idTechnitian" ColumnName="idTechnitian" />
                 <ScalarProperty Name="dtFinish" ColumnName="dtFinish" />
                 <ScalarProperty Name="dtStart" ColumnName="dtStart" />
@@ -274,6 +351,7 @@
           <EntitySetMapping Name="Configurations">
             <EntityTypeMapping TypeName="CasesControlModel.Configuration">
               <MappingFragment StoreEntitySet="Configuration">
+                <ScalarProperty Name="IsProtected" ColumnName="IsProtected" />
                 <ScalarProperty Name="ValueXml" ColumnName="ValueXml" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Grouping" ColumnName="Grouping" />
@@ -310,6 +388,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="CasesControlModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="NameComplete" ColumnName="NameComplete" />
+                <ScalarProperty Name="MaxCodeActual" ColumnName="MaxCodeActual" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

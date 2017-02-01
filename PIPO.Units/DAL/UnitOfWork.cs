@@ -13,17 +13,20 @@ namespace LabTrack.DAL
         public static IDalConfig DalConfig { get; set; }
         public IDalStoredProcedures DalStoredProcedures { get; set; }
 
+        public IDalCompany DalCompany { get; set; }
+
 
 
         public UnitOfWork(CasesControlEntities context)
         {
             _context = context;
-
             DalAreas = new DalAreas(_context);
-            DalCasesControl = new DalCasesControl(_context);
             DalCases = new DalCases(_context);
             DalConfig = new DalConfig(_context);
+            DalCompany = new DalCompany(_context);
+            DalCasesControl = new DalCasesControl(_context);
             DalStoredProcedures = new DalStoredProcedures(_context);
+            CheckConection(_context);
         }
 
         public void SaveData()
@@ -31,21 +34,20 @@ namespace LabTrack.DAL
             _context.SaveChanges();
         }
 
-
         public List<Configuration> ListConfigurations()
         {
             return DalConfig.ListConfigurations();
         }
 
-        public bool CheckConection(CasesControlEntities _context)
+        public bool CheckConection(CasesControlEntities context)
         {
             try
             {
-                return _context.Database.Exists();
+                return context.Database.Exists();
             }
             catch (SqlException ex)
             {
-
+                General.ControlErrorEx(ex);
                 return false;
             }
         }

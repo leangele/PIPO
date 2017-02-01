@@ -22,5 +22,8 @@ namespace LabTrack
         public bool IsInProduction { get; set; }
         public Nullable<System.DateTime> DateFinish { get; set; }
         public Nullable<int> TimeInproduction { get; set; }
+        public Nullable<int> IdCompany { get; set; }
+    
+        public virtual Company Company { get; set; }
     }
 }

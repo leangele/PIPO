@@ -33,6 +33,7 @@ namespace LabTrack
         public virtual DbSet<Configuration> Configurations { get; set; }
         public virtual DbSet<Technitian> Technitians { get; set; }
         public virtual DbSet<TechnitianXArea> TechnitianXAreas { get; set; }
+        public virtual DbSet<Company> Companies { get; set; }
     
         public virtual ObjectResult<SearchInformation_Result> SearchInformation(Nullable<System.DateTime> dateStart, Nullable<System.DateTime> dateEnd, string filter)
         {

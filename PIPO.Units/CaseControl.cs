@@ -20,5 +20,6 @@ namespace LabTrack
         public Nullable<System.DateTime> dtStart { get; set; }
         public Nullable<System.DateTime> dtFinish { get; set; }
         public int idTechnitian { get; set; }
+        public Nullable<bool> isClosedByAdmin { get; set; }
     }
 }

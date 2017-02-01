@@ -1,14 +1,13 @@
-﻿using LabTrack.Interfaces;
+﻿using LabTrack.DTO;
+using LabTrack.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using LabTrack.DTO;
 
 namespace LabTrack.DAL
 {
     public class DalCases : IDalCases
     {
-        private CasesControlEntities _context;
+        private readonly CasesControlEntities _context;
 
         public DalCases(CasesControlEntities context)
         {
@@ -32,7 +31,7 @@ namespace LabTrack.DAL
 
         public List<Case> FindCasesByRange(IEnumerable<CaseControlDto> closedThisWeek)
         {
-            var nroCases= (from item in closedThisWeek where item.Code != null select (int) item.Code).ToList();
+            var nroCases = (from item in closedThisWeek where item.Code != null select (int)item.Code).ToList();
             return _context.Cases.Where(x => nroCases.Contains(x.Code)).ToList();
         }
     }

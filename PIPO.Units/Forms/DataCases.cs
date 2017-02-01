@@ -10,7 +10,6 @@ namespace LabTrack.Forms
     public partial class DataCases : Form
     {
         public bool IsAdministrationOn { get; set; }
-        List<CaseControlDto> _listCases;
         private static UnitOfWork _unitOfWork;
 
         readonly List<Configuration> _listConfig;
@@ -47,7 +46,7 @@ namespace LabTrack.Forms
                     .ToList();
             double average, secondTotal;
             var unitsClosedToday = CalculateAverage(closedToday, out average, out secondTotal);
-            var casesAreaOpenToday = lisCases.Where(x => x.IdArea == objArea.Id && x.DtRecive.Value.Date == DateTime.Now.Date).ToList();
+            var casesAreaOpenToday = lisCases.Where(x => x.DtRecive != null && (x.IdArea == objArea.Id && x.DtRecive.Value.Date == DateTime.Now.Date)).ToList();
             lblCasesCosedToday.Text = closedToday.Count.ToString();
             lblCasesOpenToday.Text = casesAreaOpenToday.Count.ToString();
             lblAreaNamePrinted.Text = objArea.Name;
@@ -121,8 +120,8 @@ namespace LabTrack.Forms
         {
             var caseControlDtos = closedThisWeek as IList<CaseControlDto> ?? closedThisWeek.ToList();
             secondTotal = caseControlDtos
-                .Aggregate<CaseControlDto, double>(0, (current, caseControlDto) => current + ((DateTime)caseControlDto.DtFinish)
-                .Subtract(((DateTime)caseControlDto.DtStart)).TotalSeconds);
+                .Aggregate<CaseControlDto, double>(0, (current, caseControlDto) => caseControlDto.DtStart != null ? (caseControlDto.DtFinish != null ? current + ((DateTime)caseControlDto.DtFinish)
+                    .Subtract(((DateTime)caseControlDto.DtStart)).TotalSeconds : 0) : 0);
 
             var unitsClosed = _unitOfWork.DalCases.FindCasesByRange(caseControlDtos).Sum(x => x.Units);
 

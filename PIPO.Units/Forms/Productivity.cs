@@ -3,7 +3,6 @@ using LabTrack.DTO;
 using LabTrack.Properties;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using System.Media;
@@ -15,66 +14,34 @@ namespace LabTrack.Forms
     {
         public int Second { get; set; }
         public int SecondsForLoop { get; set; }
-        public bool IsAdministrationOn { get; set; }
-        //public IUnitOfWork InitOfWork { get; set; }
+        public static bool IsAdministrationOn { get; set; }
+     
         private List<CaseControlDto> _listCases;
-
         private List<CaseControlDto> _listCasesClosed;
         private static UnitOfWork _unitOfWork;
-
         private readonly List<Configuration> _listConfig;
         private List<Area> _listAreas;
-
-        public Productivity(UnitOfWork unitOfWork, bool isAdministrationOn)
-        {
-
-            IsAdministrationOn = isAdministrationOn;
-            _unitOfWork = unitOfWork;
-            InitializeComponent();
-            InitialCharge();
-            _listConfig = _unitOfWork.ListConfigurations();
-            Second = 0;
-            timer1.Interval = 1000;
-            timer1.Start();
-
-        }
-
+        private int _idCaseControl;
         private void InitialCharge()
         {
-            FillListForDataGrid();
-            dgvData.DataSource = _listCases;
-            dgvDataEnd.DataSource = _listCasesClosed;
-            _listAreas = _unitOfWork.DalAreas.ListAreas();
-            _listAreas.Insert(0, new Area { Id = 0, Name = "All Areas" });
-
-            cbxAreaFilter.DataSource = _listAreas;
-            cbxAreaFilter.ValueMember = "id";
-            cbxAreaFilter.DisplayMember = "name";
-        }
-
-        private void FillListForDataGrid(int intFilter = 0)
-        {
-            if (intFilter == 0)
+            try
             {
-                _listCasesClosed = ListCases().Where(x => x.DtFinish != null).OrderByDescending(x => x.DtStart).ToList();
-                _listCases = ListCases().Where(x => x.DtFinish == null).OrderByDescending(x => x.DtStart).ToList();
+                FillListForDataGrid();
+                dgvData.DataSource = _listCases;
+                dgvDataEnd.DataSource = _listCasesClosed;
+                _listAreas = _unitOfWork.DalAreas.ListAreas();
+                _listAreas.Insert(0, new Area { Id = 0, Name = "All Areas" });
+                dgvData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                dgvDataEnd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                cbxAreaFilter.DataSource = _listAreas;
+                cbxAreaFilter.ValueMember = "id";
+                cbxAreaFilter.DisplayMember = "name";
             }
-            else
+            catch (Exception ex)
             {
-                _listCasesClosed =
-                    ListCases()
-                        .Where(x => x.DtFinish != null && x.IdArea == intFilter)
-                        .OrderByDescending(x => x.DtStart)
-                        .ToList();
-                _listCases =
-                    ListCases()
-                        .Where(x => x.DtFinish == null && x.IdArea == intFilter)
-                        .OrderByDescending(x => x.DtStart)
-                        .ToList();
-
+                General.ControlErrorEx(ex);
+                throw;
             }
-            //_listCases.AddRange(listCasesCosed);
-
         }
 
         private void CreateCase()
@@ -95,14 +62,12 @@ namespace LabTrack.Forms
             else
             {
                 string message = $"Case num: {nro} not exist,\r\ndo you want to create it?";
-
-
                 if (AutoClosingMessageBox.Show(message, "Error", 5000, MessageBoxButtons.OKCancel) != DialogResult.OK)
                     return;
                 if (IsAdministrationOn)
                 {
-                    CreateCase(nro);
-                    CreateModifyCaseControl(nro, idArea, objCase);
+                    objCase = CreateCaseDb(nro);
+                    CreateModifyCaseControl(nro, idArea, objCase, true);
                 }
                 else
                 {
@@ -111,134 +76,226 @@ namespace LabTrack.Forms
                     IsAdministrationOn = objAdmin.IsLoged;
                     if (IsAdministrationOn)
                     {
-                        CreateCase(nro);
-                        CreateModifyCaseControl(nro, idArea, objCase);
+                        objCase = CreateCaseDb(nro);
+                        CreateModifyCaseControl(nro, idArea, objCase, true);
                     }
                 }
                 IsAdministrationOn = false;
             }
-            cbxAreaFilter.SelectedValue = IdArea;
-
         }
 
-        private static void CreateCase(int nro)
+        private void ReloadGrids()
         {
-            var objCase = new Case();
-            var singleOrDefault = _unitOfWork.ListConfigurations().SingleOrDefault(x => x.Name == "xETADefault");
-            if (singleOrDefault != null)
-                objCase = new Case
-                {
-                    Code = nro,
-                    DateCreation = DateTime.Now,
-                    ETA = int.Parse(singleOrDefault.Value),
-                    IsInProduction = false,
-                    Units = int.Parse("1")
-                };
-            _unitOfWork.DalCases.CreateCase(objCase);
-            _unitOfWork.SaveData();
+            FillListForDataGrid(((Area)cbxAreaFilter.SelectedItem).Id);
+            dgvData.DataSource = _listCases;
+            dgvDataEnd.DataSource = _listCasesClosed;
         }
 
-        [SuppressMessage("ReSharper", "PossibleInvalidOperationException")]
-        private void CreateModifyCaseControl(int nro, int idArea, Case objCase)
+        private void ProductivityForm_Load(object sender, EventArgs e)
         {
-            var title = "Successfull";
-            var message = string.Empty;
-            var data = _unitOfWork.DalCasesControl.GetCaseControlByIdAreaAndCode(nro, idArea);
-
-            if (data != null)
+            try
             {
-                if (data.dtFinish != null || data.dtStart != null)
+                var singleOrDefault = _listConfig.SingleOrDefault(x => x.Name == "xDaysMaximun");
+                if (singleOrDefault != null)
+                    lblRed.Text =
+                        $"Cases open with more than:\r\n{singleOrDefault.Value} days.";
+                var orDefault = _listConfig.SingleOrDefault(x => x.Name == "xDaysMinimun");
+                if (orDefault != null)
                 {
-                    if (data.dtFinish == null)
+                    var configuration = _listConfig.SingleOrDefault(x => x.Name == "xDaysMaximun");
+                    if (configuration != null)
+                        lblYellow.Text =
+                            $"Cases open between:\r\n{orDefault.Value} " +
+                            $" and  {configuration.Value} days.";
+                }
+                var @default = _listConfig.SingleOrDefault(x => x.Name == "xDaysMinimun");
+                if (@default != null)
+                    lblGreen.Text =
+                        $"Cases open with less than:\r\n{@default.Value} days.";
+            }
+            catch (Exception ex)
+            {
+                General.ControlErrorEx(ex);
+                AutoClosingMessageBox.Show("Error not controled, contact the administrator", "Error", 5000, MessageBoxButtons.OKCancel);
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                lblTime.Text = DateTime.Now.ToString("hh:mm:ss tt");
+                if (Second > 5)
+                {
+                    if (!txtCode.Focused && IsAccessible)
                     {
+                        txtCode.Focus();
+                        Second = 0;
+                    }
+                }
 
-                        data.dtFinish = DateTime.Now;
-                        var diference = ((DateTime)data.dtFinish - (DateTime)data.dtStart).TotalSeconds;
-
-                        var singleOrDefault = _listConfig.SingleOrDefault(x => x.Name == "MinTimeAllowToFinish");
-                        if (singleOrDefault != null)
-                        {
-                            var timeAllow = int.Parse(singleOrDefault.Value);
-
-                            if (diference >= timeAllow)
-                            {
-                                objCase.DateFinish = data.dtFinish;
-                                message = $"Case number {nro}\r\n was Finished at {data.dtFinish}";
-
-                                var seconds =
-                                    ((DateTime)objCase.DateFinish).Subtract(((DateTime)data.dtStart)).TotalSeconds;
-
-                                var time = General.DaysLeft((DateTime)data.dtStart, (DateTime)objCase.DateFinish, true, General.GetHolidays(DateTime.Now.Year));
-                                if (data.dtRecive != null)
-                                {
-                                    objCase.TimeInproduction = (int)seconds;
-                                    objCase.IsInProduction = false;
-                                }
-                            }
-                            else
-                            {
-                                title = "Error";
-                                message =
-                                    $"Case nro {nro} was Started at: {data.dtRecive} you need at less \r\n{timeAllow / 60} minutes to close the case";
-                                AutoClosingMessageBox.Show(message, title, 10000, MessageBoxButtons.OKCancel);
-                                return;
-                            }
-                        }
+                var firstOrDefault = _listConfig.FirstOrDefault(x => x.Name == "ChangeAreasSeconds");
+                if (firstOrDefault != null && SecondsForLoop >= int.Parse(firstOrDefault.Value))
+                {
+                    var i = cbxAreaFilter.SelectedIndex;
+                    if (i >= cbxAreaFilter.Items.Count - 1)
+                    {
+                        i = 1;
+                        cbxAreaFilter.SelectedIndex = i;
                     }
                     else
                     {
-                        title = "Alert";
-                        message =
-                            $"Case nro {nro} was Create and saved at:Recived{data.dtRecive} \r\n Started{data.dtStart}\r\n Finished{data.dtFinish}";
+                        cbxAreaFilter.SelectedIndex = i + 1;
                     }
+                    SecondsForLoop = 0;
+
                 }
-                else
-                {
-                    data.dtStart = DateTime.Now;
-                    title = "Successfull";
-                    message = $"Case number {nro}\r\nWill be started at {data.dtStart}.";
-                }
+                Second++;
+                SecondsForLoop++;
             }
-            else
+            catch (Exception ex)
             {
-                _unitOfWork.DalCasesControl.CreateCaseControl(nro, idArea);
-                title = "Successfull";
-                message = $"Case number {nro}\r\nWill be Created at {DateTime.Now}";
+                General.ControlErrorEx(ex);
+                throw;
             }
-            var rspt = AutoClosingMessageBox.Show(message, title, 10000, MessageBoxButtons.OKCancel);
-            if (rspt != DialogResult.OK)
-            {
-                return;
-            }
-            objCase.IsInProduction = true;
-            _unitOfWork.SaveData();
+
         }
 
-        private void IncloseCase(int idArea = 0)
+        private void btnInfo_Click(object sender, EventArgs e)
         {
-            if (idArea > 0)
+            General.ShowHistoryOfCase(_unitOfWork, IsAdministrationOn);
+        }
+
+        private void MenuItem1_Click(object sender, EventArgs e)
+        {
+            var singleOrDefault = _listCasesClosed.SingleOrDefault(x => x.Id == _idCaseControl);
+            if (singleOrDefault != null)
             {
-                _listCasesClosed =
-                    ListCases()
-                        .Where(x => x.DtFinish != null && x.IdArea == idArea)
-                        .OrderByDescending(x => x.Id)
-                        .ToList();
-                _listCases =
-                    ListCases()
-                        .Where(x => x.DtFinish == null && x.IdArea == idArea)
-                        .OrderByDescending(x => x.Id)
-                        .ToList();
+                var message = $"Are you sure you want to delete\r\nthe finish time of the case:{singleOrDefault.Code}";
+                var rspt = AutoClosingMessageBox.Show(message, "Confirm", 10000, MessageBoxButtons.OKCancel);
+                if (rspt != DialogResult.OK) return;
+            }
+
+            CaseControl caseClosed;
+            if (GetCaseClosed(out caseClosed)) return;
+            caseClosed.dtFinish = null;
+            _unitOfWork.SaveData();
+
+            ReloadGrids();
+        }
+
+        private void MenuItem2_Click(object sender, EventArgs e)
+        {
+            var singleOrDefault = _listCasesClosed.SingleOrDefault(x => x.Id == _idCaseControl);
+            if (singleOrDefault != null)
+            {
+                var message = $"Are you sure you want to delete\r\nthe start and finish time of the case:{singleOrDefault.Code}";
+                var title = "Confirm";
+                var rspt = AutoClosingMessageBox.Show(message, title, 10000, MessageBoxButtons.OKCancel);
+                if (rspt != DialogResult.OK) return;
+            }
+
+            CaseControl caseClosed;
+            if (GetCaseClosed(out caseClosed)) return;
+            caseClosed.dtFinish = null;
+            caseClosed.dtStart = null;
+            _unitOfWork.SaveData();
+
+            ReloadGrids();
+        }
+
+        private void MenuItem3_Click(object sender, EventArgs e)
+        {
+            var singleOrDefault = _listCases.SingleOrDefault(x => x.Id == _idCaseControl);
+            if (singleOrDefault != null)
+            {
+                var message = $"Are you sure you want to delete\r\nthe start date of the case:{singleOrDefault.Code}";
+                var title = "Confirm";
+                var rspt = AutoClosingMessageBox.Show(message, title, 10000, MessageBoxButtons.OKCancel);
+                if (rspt != DialogResult.OK) return;
+            }
+
+            CaseControl caseClosed;
+            if (GetCaseClosed(out caseClosed)) return;
+            caseClosed.dtFinish = null;
+            caseClosed.dtStart = null;
+            _unitOfWork.SaveData();
+
+            ReloadGrids();
+        }
+
+        private void MenuItem4_Click(object sender, EventArgs e)
+        {
+            var singleOrDefault = _listCasesClosed.SingleOrDefault(x => x.Id == _idCaseControl);
+            if (singleOrDefault?.Code == null) return;
+            var casesTrack = _unitOfWork.DalCasesControl.ListCasesByCode((int)singleOrDefault.Code);
+            var trackCasesF = new TrackingCases(casesTrack);
+            trackCasesF.ShowDialog();
+        }
+
+        private void MenuItem5_Click(object sender, EventArgs e)
+        {
+            var singleOrDefault = _listCases.SingleOrDefault(x => x.Id == _idCaseControl);
+            var changeArea = new ChangeArea(_unitOfWork);
+            if (singleOrDefault != null)
+                changeArea.CaseControl = new CaseControl { code = singleOrDefault.Code, Id = singleOrDefault.Id };
+            changeArea.ShowDialog();
+            FillListForDataGrid();
+            dgvData.DataSource = _listCases;
+            dgvDataEnd.DataSource = _listCasesClosed;
+        }
+
+        private void MenuItem6_Click(object sender, EventArgs e)
+        {
+            var singleOrDefault = _listCases.SingleOrDefault(x => x.Id == _idCaseControl);
+            var modifyUnits = new ModifyUnits(_unitOfWork);
+            if (singleOrDefault?.Code != null)
+                modifyUnits.Case = new Case { Code = (int)singleOrDefault.Code };
+            modifyUnits.ShowDialog();
+            FillListForDataGrid();
+            dgvData.DataSource = _listCases;
+            dgvDataEnd.DataSource = _listCasesClosed;
+        }
+
+        private void btnAdmin_Click(object sender, EventArgs e)
+        {
+            var f = new Admin(_unitOfWork, IsAdministrationOn)
+            {
+                WindowState = FormWindowState.Normal,
+            };
+            f.ShowDialog();
+            IsAdministrationOn = f.IsLoged;
+            btnAdmin.Text = IsAdministrationOn ? @"Log out" : @"Admin";
+
+        }
+
+        private void txtCode_Enter(object sender, EventArgs e)
+        {
+            txtCode.BackColor = Color.LightBlue;
+        }
+
+        private void txtCode_Leave(object sender, EventArgs e)
+        {
+            txtCode.BackColor = Color.White;
+        }
+
+        private void cbxAreaFilter_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+            ReloadGrids();
+        }
+
+        private void cbxNonStared_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbxNonStared.Checked)
+            {
+                dgvData.DataSource = ((List<CaseControlDto>)dgvData.DataSource).Where(
+                    x => x.DtStart != null).ToList();
             }
             else
             {
-                _listCasesClosed = ListCases().Where(x => x.DtFinish != null).OrderByDescending(x => x.Id).ToList();
-                _listCases = ListCases().Where(x => x.DtFinish == null).OrderByDescending(x => x.Id).ToList();
+                dgvData.DataSource = _listCases;
             }
-            dgvData.DataSource = _listCases;
-            dgvDataEnd.DataSource = _listCasesClosed;
-            txtCode.Text = string.Empty;
-            var simpleSound = new SoundPlayer(Resources.beep_short_on);
-            simpleSound.Play();
         }
 
         private void txtCode_KeyPress(object sender, KeyPressEventArgs e)
@@ -246,86 +303,23 @@ namespace LabTrack.Forms
             try
             {
                 if (e.KeyChar != Convert.ToChar(Keys.Enter)) return;
+                var singleOrDefault = _listAreas
+                    .SingleOrDefault(x => string.Equals(x.Symbol, txtCode.Text[0].ToString(), StringComparison.CurrentCultureIgnoreCase));
                 CreateCase();
                 IncloseCase(((Area)cbxAreaFilter.SelectedItem).Id);
+
+
+                if (singleOrDefault != null) cbxAreaFilter.SelectedItem = singleOrDefault;
+                SecondsForLoop = 0;
+                var simpleSound = new SoundPlayer(Resources.beep_short_on);
+                simpleSound.Play();
                 e.Handled = true;
             }
             catch (Exception)
             {
-                var message = $"Error not controled, contact the administrator";
-                var title = "Error";
-                AutoClosingMessageBox.Show(message, title, 5000, MessageBoxButtons.OKCancel);
+                AutoClosingMessageBox.Show($"Error not controled, contact the administrator", "Error", 5000);
             }
-
         }
-
-        public List<CaseControlDto> ListCases()
-        {
-            return _unitOfWork.DalCasesControl.ListCases();
-        }
-
-        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        private void ProductivityForm_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                lblRed.Text =
-                                $"Cases open with more than:\r\n{_listConfig.SingleOrDefault(x => x.Name == "xDaysMaximun").Value} days.";
-                lblYellow.Text =
-                    $"Cases open between:\r\n{_listConfig.SingleOrDefault(x => x.Name == "xDaysMinimun").Value} " +
-                    $" and  {_listConfig.SingleOrDefault(x => x.Name == "xDaysMaximun").Value} days.";
-                lblGreen.Text =
-                    $"Cases open with less than:\r\n{_listConfig.SingleOrDefault(x => x.Name == "xDaysMinimun").Value} days.";
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            lblTime.Text = DateTime.Now.ToString("hh:mm:ss tt");
-            if (Second > 5)
-            {
-                if (!txtCode.Focused)
-                {
-                    txtCode.Focus();
-                    Second = 0;
-                }
-            }
-
-            var firstOrDefault = _listConfig.FirstOrDefault(x => x.Name == "ChangeAreasSeconds");
-            if (firstOrDefault != null && SecondsForLoop >= int.Parse(firstOrDefault.Value))
-            {
-                var i = cbxAreaFilter.SelectedIndex;
-                if (i >= cbxAreaFilter.Items.Count - 1)
-                {
-                    i = 1;
-                    cbxAreaFilter.SelectedIndex = i;
-                }
-                else
-                {
-                    cbxAreaFilter.SelectedIndex = i + 1;
-                }
-                SecondsForLoop = 0;
-
-            }
-            Second++;
-            SecondsForLoop++;
-        }
-
-
-
-        private void btnInfo_Click(object sender, EventArgs e)
-        {
-            var dataCases = new DataCases(_unitOfWork, IsAdministrationOn);
-            dataCases.ShowDialog();
-        }
-
-        private int _idCaseControl;
 
         private void dgvDataEnd_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -351,77 +345,24 @@ namespace LabTrack.Forms
 
             m.Show(dgvDataEnd, new Point(e.X, e.Y));
         }
-        private void MenuItem1_Click(object sender, EventArgs e)
+
+        private void dgvData_CellMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var singleOrDefault = _listCasesClosed.SingleOrDefault(x => x.Id == _idCaseControl);
-            if (singleOrDefault != null)
-            {
-                var message = $"Are you sure you want to delete\r\nthe finish time of the case:{singleOrDefault.Code}";
-                var title = "Confirm";
-                var rspt = AutoClosingMessageBox.Show(message, title, 10000, MessageBoxButtons.OKCancel);
-                if (rspt != DialogResult.OK) return;
-            }
+            if (!IsAdministrationOn) return;
+            if (e.Button != MouseButtons.Right || e.ColumnIndex != 0) return;
 
-            CaseControl caseClosed;
-            if (GetCaseClosed(out caseClosed)) return;
-            caseClosed.dtFinish = null;
-            _unitOfWork.SaveData();
-
-            ReloadGrids();
-        }
-
-        private bool GetCaseClosed(out CaseControl caseClosed)
-        {
-            caseClosed = _unitOfWork.DalCasesControl.GetCaseById(_idCaseControl);
-            if (caseClosed == null) return true;
-            return false;
-        }
-
-        private void MenuItem2_Click(object sender, EventArgs e)
-        {
-            var singleOrDefault = _listCasesClosed.SingleOrDefault(x => x.Id == _idCaseControl);
-            if (singleOrDefault != null)
-            {
-                var message = $"Are you sure you want to delete\r\nthe start and finish time of the case:{singleOrDefault.Code}";
-                var title = "Confirm";
-                var rspt = AutoClosingMessageBox.Show(message, title, 10000, MessageBoxButtons.OKCancel);
-                if (rspt != DialogResult.OK) return;
-            }
-
-            CaseControl caseClosed;
-            if (GetCaseClosed(out caseClosed)) return;
-            caseClosed.dtFinish = null;
-            caseClosed.dtStart = null;
-            _unitOfWork.SaveData();
-
-            ReloadGrids();
-        }
-
-        private void ReloadGrids()
-        {
-            FillListForDataGrid(((Area)cbxAreaFilter.SelectedItem).Id);
-            dgvData.DataSource = _listCases;
-            dgvDataEnd.DataSource = _listCasesClosed;
-        }
-
-        private void MenuItem3_Click(object sender, EventArgs e)
-        {
-            var singleOrDefault = _listCases.SingleOrDefault(x => x.Id == _idCaseControl);
-            if (singleOrDefault != null)
-            {
-                var message = $"Are you sure you want to delete\r\nthe start date of the case:{singleOrDefault.Code}";
-                var title = "Confirm";
-                var rspt = AutoClosingMessageBox.Show(message, title, 10000, MessageBoxButtons.OKCancel);
-                if (rspt != DialogResult.OK) return;
-            }
-
-            CaseControl caseClosed;
-            if (GetCaseClosed(out caseClosed)) return;
-            caseClosed.dtFinish = null;
-            caseClosed.dtStart = null;
-            _unitOfWork.SaveData();
-
-            ReloadGrids();
+            _idCaseControl = (int)dgvData.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            var m = new ContextMenu();
+            var menuItem3 = new MenuItem("Remove date start");
+            menuItem3.Click += MenuItem3_Click;
+            m.MenuItems.Add(menuItem3);
+            var menuItem5 = new MenuItem("Change area");
+            menuItem5.Click += MenuItem5_Click;
+            m.MenuItems.Add(menuItem5);
+            var menuItem6 = new MenuItem("Change Units");
+            menuItem6.Click += MenuItem6_Click;
+            m.MenuItems.Add(menuItem6);
+            m.Show(dgvData, new Point(e.X, e.Y));
         }
 
         private void dgvData_RowPrePaint_1(object sender, DataGridViewRowPrePaintEventArgs e)
@@ -430,8 +371,7 @@ namespace LabTrack.Forms
             var dtRecive = _listCases[e.RowIndex].DtRecive;
             var dtStart = _listCases[e.RowIndex].DtStart;
             if (dtRecive == null) return;
-            var difDates = General.DaysLeft((DateTime)dtRecive, DateTime.Now, true,
-                General.GetHolidays(DateTime.Now.Year));
+            var difDates = General.DaysLeft((DateTime)dtRecive, DateTime.Now, true, General.GetHolidays(DateTime.Now.Year));
             var singleOrDefault = _listConfig.SingleOrDefault(x => x.Name == "xDaysMaximun");
             if (singleOrDefault == null) return;
             var xDaysMaximun = int.Parse(singleOrDefault.Value);
@@ -458,7 +398,6 @@ namespace LabTrack.Forms
                 {
                     dgvData.Rows[e.RowIndex].DefaultCellStyle = new DataGridViewCellStyle { BackColor = Color.Red };
                 }
-
             }
             else
             {
@@ -466,68 +405,223 @@ namespace LabTrack.Forms
             }
         }
 
-        private void cbxAreaFilter_SelectedIndexChanged_1(object sender, EventArgs e)
+        private void FillListForDataGrid(int intFilter = 0)
         {
-
-            ReloadGrids();
-        }
-
-        private void dgvData_CellMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (!IsAdministrationOn) return;
-            if (e.Button != MouseButtons.Right || e.ColumnIndex != 0) return;
-
-            _idCaseControl = (int)dgvData.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-            var m = new ContextMenu();
-            var menuItem3 = new MenuItem("Remove Date start");
-            menuItem3.Click += MenuItem3_Click;
-            m.MenuItems.Add(menuItem3);
-
-            m.Show(dgvData, new Point(e.X, e.Y));
-        }
-
-        private void MenuItem4_Click(object sender, EventArgs e)
-        {
-            var singleOrDefault = _listCasesClosed.SingleOrDefault(x => x.Id == _idCaseControl);
-            if (singleOrDefault?.Code == null) return;
-            var casesTrack = _unitOfWork.DalCasesControl.ListCasesByCode((int)singleOrDefault.Code);
-            var trackCasesF = new TrackingCases(casesTrack);
-            trackCasesF.ShowDialog();
-        }
-
-        private void btnAdmin_Click(object sender, EventArgs e)
-        {
-            var f = new Admin(_unitOfWork, IsAdministrationOn)
+            if (intFilter == 0)
             {
-                WindowState = FormWindowState.Normal,
-            };
-            f.ShowDialog();
-            IsAdministrationOn = f.IsLoged;
-            btnAdmin.Text = IsAdministrationOn ? @"Log out" : @"Admin";
-
-        }
-
-        private void txtCode_Enter(object sender, EventArgs e)
-        {
-            txtCode.BackColor = Color.LightGray;
-        }
-
-        private void txtCode_Leave(object sender, EventArgs e)
-        {
-            txtCode.BackColor = Color.White;
-        }
-
-        private void cbxNonStared_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!cbxNonStared.Checked)
-            {
-                dgvData.DataSource = ((List<CaseControlDto>)dgvData.DataSource).Where(
-                    x => x.DtStart != null ).ToList();
+                _listCasesClosed = ListCases().Where(x => x.DtFinish != null).OrderByDescending(x => x.DtStart).ToList();
+                _listCases = ListCases().Where(x => x.DtFinish == null).OrderByDescending(x => x.DtStart).ToList();
             }
             else
             {
-                dgvData.DataSource = _listCases;
+                _listCasesClosed =
+                    ListCases()
+                        .Where(x => x.DtFinish != null && x.IdArea == intFilter)
+                        .OrderByDescending(x => x.DtStart)
+                        .ToList();
+                _listCases =
+                    ListCases()
+                        .Where(x => x.DtFinish == null && x.IdArea == intFilter)
+                        .OrderByDescending(x => x.DtStart)
+                        .ToList();
             }
+        }
+
+        private void IncloseCase(int idArea = 0)
+        {
+            if (idArea > 0)
+            {
+                _listCasesClosed =
+                    ListCases()
+                        .Where(x => x.DtFinish != null && x.IdArea == idArea)
+                        .OrderByDescending(x => x.Id)
+                        .ToList();
+                _listCases =
+                    ListCases()
+                        .Where(x => x.DtFinish == null && x.IdArea == idArea)
+                        .OrderByDescending(x => x.Id)
+                        .ToList();
+            }
+            else
+            {
+                _listCasesClosed = ListCases()
+                    .Where(x => x.DtFinish != null)
+                    .OrderByDescending(x => x.Id).ToList();
+                _listCases = ListCases()
+                    .Where(x => x.DtFinish == null)
+                    .OrderByDescending(x => x.Id).ToList();
+            }
+            dgvData.DataSource = _listCases;
+            dgvDataEnd.DataSource = _listCasesClosed;
+            txtCode.Text = string.Empty;
+        }
+
+        private static Case CreateCaseDb(int nro)
+        {
+            var objCase = new Case();
+            var singleOrDefault = _unitOfWork.ListConfigurations().SingleOrDefault(x => x.Name == "xETADefault");
+            if (singleOrDefault != null)
+                objCase = new Case
+                {
+                    Code = nro,
+                    DateCreation = DateTime.Now,
+                    ETA = int.Parse(singleOrDefault.Value),
+                    IsInProduction = false,
+                    Units = 1,
+                    IdCompany = 2
+                };
+            _unitOfWork.DalCases.CreateCase(objCase);
+            _unitOfWork.SaveData();
+            return objCase;
+        }
+
+        private static void SaveData(Case objCase)
+        {
+            objCase.IsInProduction = true;
+            _unitOfWork.SaveData();
+        }
+        
+        private bool GetCaseClosed(out CaseControl caseClosed)
+        {
+            caseClosed = _unitOfWork.DalCasesControl.GetCaseById(_idCaseControl);
+            return caseClosed == null;
+        }
+
+        private void CreateModifyCaseControl(int nro, int idArea, Case objCase, bool isUnderGround = false)
+        {
+            try
+            {
+                var title = "Successfull";
+                var message = string.Empty;
+                var data = _unitOfWork.DalCasesControl.GetCaseControlByIdAreaAndCode(nro, idArea);
+
+                if (data != null)
+                {
+                    if (data.dtFinish != null || data.dtStart != null)
+                    {
+                        if (data.dtFinish == null)
+                        {
+                            data.dtFinish = DateTime.Now;
+                            if (data.dtStart != null)
+                            {
+                                var diference = ((DateTime)data.dtFinish - (DateTime)data.dtStart).TotalSeconds;
+
+                                var singleOrDefault = _listConfig.SingleOrDefault(x => x.Name == "MinTimeAllowToFinish");
+                                if (singleOrDefault != null)
+                                {
+                                    var timeAllow = int.Parse(singleOrDefault.Value);
+
+                                    if (diference >= timeAllow)
+                                    {
+                                        SaveFinish(nro, objCase, data, out message, out title);
+                                    }
+                                    else
+                                    {
+                                        title = "Error Time";
+                                        message =
+                                            $"Case nro {nro} was Started at: {data.dtRecive} you need at less \r\n{timeAllow / 60} minutes to close the case";
+                                        AutoClosingMessageBox.Show(message, title, 10000, MessageBoxButtons.OKCancel);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            title = "History";
+                            message =
+                                $"Case nro {nro} was Create and saved at:Recived{data.dtRecive} \r\n Started{data.dtStart}\r\n Finished{data.dtFinish}";
+                        }
+                    }
+                    else
+                    {
+                        data.dtStart = DateTime.Now;
+                        title = "Started";
+                        message = $"Case number {nro}\r\nWill be started at {data.dtStart}.";
+                    }
+                }
+                else
+                {
+                    var areaConsult = _listAreas.SingleOrDefault(x => x.Id == idArea);
+
+                    var today = DateTime.Now;
+                    data = General.CreateCaseControl(_unitOfWork, nro, null, today, areaConsult);
+
+                    title = "Created";
+                    message = $"Case number {nro}\r\nWill be Created at {DateTime.Now}";
+                }
+                if (isUnderGround)
+                {
+                    SaveData(objCase);
+                    return;
+                }
+                var rspt = AutoClosingMessageBox.Show(message, title, 10000, MessageBoxButtons.OKCancel);
+                if (rspt == DialogResult.OK)
+                {
+                    SaveData(objCase);
+                }
+                else
+                {
+                    switch (title)
+                    {
+                        case "Started":
+                            if (data != null) data.dtStart = null;
+                            break;
+                        case "Created":
+                            if (data != null) data.dtRecive = null;
+                            break;
+                        case "Finish":
+                        case "Error Time":
+                            if (data != null) data.dtFinish = null;
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                General.ControlErrorEx(ex);
+                AutoClosingMessageBox.Show($"Error not controled, contact the administrator", "Error", 5000, MessageBoxButtons.OKCancel);
+            }
+        }
+        
+        private static void SaveFinish(int nro, Case objCase, CaseControl data, out string message, out string title)
+        {
+            objCase.DateFinish = data.dtFinish;
+            message = $"Case number {nro}\r\n was Finished at {data.dtFinish}";
+            title = "Finish";
+            if (objCase.DateFinish != null)
+            {
+                if (data.dtStart != null)
+                {
+                    var seconds =
+                        ((DateTime)objCase.DateFinish).Subtract(((DateTime)data.dtStart)).TotalSeconds;
+
+                    //var time = General.DaysLeft((DateTime)data.dtStart, (DateTime)objCase.DateFinish, true,
+                    //General.GetHolidays(DateTime.Now.Year));
+                    if (data.dtRecive == null)
+                        objCase.TimeInproduction = (int)seconds;
+                }
+            }
+            objCase.IsInProduction = false;
+        }
+
+        public List<CaseControlDto> ListCases()
+        {
+            return _unitOfWork.DalCasesControl.ListCases();
+        }
+
+        public Productivity(UnitOfWork unitOfWork, bool isAdministrationOn)
+        {
+
+            IsAdministrationOn = isAdministrationOn;
+            _unitOfWork = unitOfWork;
+            InitializeComponent();
+            InitialCharge();
+            _listConfig = _unitOfWork.ListConfigurations();
+            Second = 0;
+            timer1.Interval = 1000;
+            timer1.Start();
+
         }
     }
 }
