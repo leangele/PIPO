@@ -3,6 +3,7 @@ using LabTrack.DTO;
 using LabTrack.Forms;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -203,17 +204,37 @@ namespace LabTrack
             }
         }
 
-        public static FileLog CreateFileLog()
+        private static FileLog CreateFileLog(string nameForm)
         {
-            return new FileLog(@"c:\LabTrack", "Logs", "LogError.txt");
+            return new FileLog(@"c:\LabTrack", "Logs", "LogError.txt", nameForm);
         }
 
-        public static void ControlErrorEx(Exception ex)
+        public static void ControlErrorEx(Exception ex, string nameForm)
         {
-            var filelog = General.CreateFileLog();
+            var trace = new StackTrace(ex, true);
+
+            Console.WriteLine();
+            var filelog = General.CreateFileLog(nameForm);
             filelog.Text =
-                $"{ex.GetType().FullName}\r\n{ex.Message}\r\n-------------------------------------------------------------\r\n\r\n";
+                $"Date: {DateTime.Now}\r\n" +
+                $"Name: {trace.GetFrame(0).GetMethod().ReflectedType.FullName}\r\n" +
+                $"Form: {nameForm}\r\n" +
+                $"FileName: {trace.GetFrame(0).GetFileName()}\r\n" +
+                $"Line: {trace.GetFrame(0).GetFileColumnNumber()}\r\n" +
+                $"Mesage: {ex.Message}\r\n" +
+                $"Stack: {ex.StackTrace}\r\n" +
+                $"-------------------------------------------------------------------------------------------------------\r\n\r\n";
             General.WriteLog(filelog);
+        }
+
+        public static void OpenAndCloseForm(string nameForm)
+        {
+            var openForms = Application.OpenForms.Cast<Form>().ToList();
+
+            foreach (var f in openForms.Where(f => !f.IsMdiContainer).Where(f => f.Name != nameForm))
+            {
+                f.Close();
+            }
         }
     }
 }

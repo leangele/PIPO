@@ -16,11 +16,12 @@ namespace LabTrack.Forms
 
         private void Reports_Load(object sender, EventArgs e)
         {
-
+            General.OpenAndCloseForm(Name);
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+            //string reportPath = Path.Combine(@"C:\Users\jeffry tobon\Documents\Visual Studio 2015\Projects\PIPO.Units\PIPO.Units", $"Reports\\{ReportName}");
             string reportPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"Reports\\{ReportName}");
             var cryRpt = new ReportDocument();
             cryRpt.Load(reportPath);

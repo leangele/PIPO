@@ -33,7 +33,7 @@ namespace LabTrack.Forms
 
         private void ConfigurationParams_Load(object sender, EventArgs e)
         {
-
+            General.OpenAndCloseForm(Name);
 
         }
 

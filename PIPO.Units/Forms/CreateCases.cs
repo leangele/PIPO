@@ -39,6 +39,7 @@ namespace LabTrack.Forms
 
         private void CreateCases_Load(object sender, EventArgs e)
         {
+            General.OpenAndCloseForm(Name);
             ChargeList();
         }
 

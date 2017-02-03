@@ -69,7 +69,7 @@
             this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IdArea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Company = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cbxAreaFilter = new System.Windows.Forms.ComboBox();
+            this.cbxAreaFilter = new System.Windows.Forms.ListBox();
             this.lblYellow = new System.Windows.Forms.Label();
             this.lblRed = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -606,7 +606,7 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label lblRed;
-        private System.Windows.Forms.ComboBox cbxAreaFilter;
+        private System.Windows.Forms.ListBox cbxAreaFilter;
         private System.Windows.Forms.Label lblYellow;
         private System.Windows.Forms.DataGridView dgvData;
         private System.Windows.Forms.Button btnAdmin;

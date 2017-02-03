@@ -15,7 +15,7 @@ namespace LabTrack.Forms
         public int Second { get; set; }
         public int SecondsForLoop { get; set; }
         public static bool IsAdministrationOn { get; set; }
-     
+
         private List<CaseControlDto> _listCases;
         private List<CaseControlDto> _listCasesClosed;
         private static UnitOfWork _unitOfWork;
@@ -39,7 +39,7 @@ namespace LabTrack.Forms
             }
             catch (Exception ex)
             {
-                General.ControlErrorEx(ex);
+                General.ControlErrorEx(ex, Name);
                 throw;
             }
         }
@@ -55,12 +55,16 @@ namespace LabTrack.Forms
             if (singleOrDefault == null) return;
             var idArea = singleOrDefault.Id;
             var objCase = _unitOfWork.DalCases.FindCaseByCode(nro);
+            var listCasesNoClosed = _unitOfWork.DalCasesControl.ListCasesByCode(nro);
+            if (ValidateIfOpenOtherAreas(listCasesNoClosed, nro, idArea)) return;
+
             if (objCase != null)
             {
                 CreateModifyCaseControl(nro, idArea, objCase);
             }
             else
             {
+
                 string message = $"Case num: {nro} not exist,\r\ndo you want to create it?";
                 if (AutoClosingMessageBox.Show(message, "Error", 5000, MessageBoxButtons.OKCancel) != DialogResult.OK)
                     return;
@@ -84,6 +88,22 @@ namespace LabTrack.Forms
             }
         }
 
+        private static bool ValidateIfOpenOtherAreas(List<CaseControlDto> listCasesNoClosed, int nro, int idArea)
+        {
+            foreach (
+                string message in
+                    listCasesNoClosed.Where(caseControlDto => !caseControlDto.DtFinish.HasValue && caseControlDto.IdArea != idArea)
+                        .Select(
+                            caseControlDto =>
+                                $"Case num: {nro} \r\nstill open by:{caseControlDto.Area},\r\nYu can't create if is not closed by the other area")
+                )
+            {
+                AutoClosingMessageBox.Show(message, "Error", 5000, MessageBoxButtons.OKCancel);
+                return true;
+            }
+            return false;
+        }
+
         private void ReloadGrids()
         {
             FillListForDataGrid(((Area)cbxAreaFilter.SelectedItem).Id);
@@ -95,6 +115,9 @@ namespace LabTrack.Forms
         {
             try
             {
+
+
+                General.OpenAndCloseForm(Name);
                 var singleOrDefault = _listConfig.SingleOrDefault(x => x.Name == "xDaysMaximun");
                 if (singleOrDefault != null)
                     lblRed.Text =
@@ -115,7 +138,7 @@ namespace LabTrack.Forms
             }
             catch (Exception ex)
             {
-                General.ControlErrorEx(ex);
+                General.ControlErrorEx(ex, Name);
                 AutoClosingMessageBox.Show("Error not controled, contact the administrator", "Error", 5000, MessageBoxButtons.OKCancel);
             }
         }
@@ -127,7 +150,7 @@ namespace LabTrack.Forms
                 lblTime.Text = DateTime.Now.ToString("hh:mm:ss tt");
                 if (Second > 5)
                 {
-                    if (!txtCode.Focused && IsAccessible)
+                    if (!txtCode.Focused)
                     {
                         txtCode.Focus();
                         Second = 0;
@@ -155,7 +178,7 @@ namespace LabTrack.Forms
             }
             catch (Exception ex)
             {
-                General.ControlErrorEx(ex);
+                General.ControlErrorEx(ex, Name);
                 throw;
             }
 
@@ -305,6 +328,9 @@ namespace LabTrack.Forms
                 if (e.KeyChar != Convert.ToChar(Keys.Enter)) return;
                 var singleOrDefault = _listAreas
                     .SingleOrDefault(x => string.Equals(x.Symbol, txtCode.Text[0].ToString(), StringComparison.CurrentCultureIgnoreCase));
+
+
+
                 CreateCase();
                 IncloseCase(((Area)cbxAreaFilter.SelectedItem).Id);
 
@@ -315,8 +341,9 @@ namespace LabTrack.Forms
                 simpleSound.Play();
                 e.Handled = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                General.ControlErrorEx(ex, Name);
                 AutoClosingMessageBox.Show($"Error not controled, contact the administrator", "Error", 5000);
             }
         }
@@ -337,12 +364,6 @@ namespace LabTrack.Forms
             var menuItem4 = new MenuItem("Track of the case");
             menuItem4.Click += MenuItem4_Click;
             m.MenuItems.Add(menuItem4);
-            var currentMouseOverRow = dgvDataEnd.HitTest(e.X, e.Y).RowIndex;
-            if (currentMouseOverRow >= 0)
-            {
-                m.MenuItems.Add(new MenuItem($"Do something to row {currentMouseOverRow}"));
-            }
-
             m.Show(dgvDataEnd, new Point(e.X, e.Y));
         }
 
@@ -480,7 +501,7 @@ namespace LabTrack.Forms
             objCase.IsInProduction = true;
             _unitOfWork.SaveData();
         }
-        
+
         private bool GetCaseClosed(out CaseControl caseClosed)
         {
             caseClosed = _unitOfWork.DalCasesControl.GetCaseById(_idCaseControl);
@@ -579,11 +600,11 @@ namespace LabTrack.Forms
             }
             catch (Exception ex)
             {
-                General.ControlErrorEx(ex);
+                General.ControlErrorEx(ex, Name);
                 AutoClosingMessageBox.Show($"Error not controled, contact the administrator", "Error", 5000, MessageBoxButtons.OKCancel);
             }
         }
-        
+
         private static void SaveFinish(int nro, Case objCase, CaseControl data, out string message, out string title)
         {
             objCase.DateFinish = data.dtFinish;

@@ -1,4 +1,5 @@
 ﻿using LabTrack.DAL;
+using System;
 using System.Windows.Forms;
 
 namespace LabTrack.Forms
@@ -17,9 +18,17 @@ namespace LabTrack.Forms
 
         private void ModifyUnits_Load(object sender, System.EventArgs e)
         {
-            Case = UnitOfWork.DalCases.FindCaseByCode(Case.Code);
-            LblCase.Text = Case.Code.ToString();
-            nudUnits.Text = Case.Units.ToString();
+            try
+            {
+                Case = UnitOfWork.DalCases.FindCaseByCode(Case.Code);
+                LblCase.Text = Case.Code.ToString();
+                nudUnits.Text = Case.Units.ToString();
+            }
+            catch (Exception ex)
+            {
+                General.ControlErrorEx(ex, Name);
+            }
+
         }
 
         private void btnSave_Click(object sender, System.EventArgs e)

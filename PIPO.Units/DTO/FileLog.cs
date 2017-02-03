@@ -2,15 +2,16 @@
 {
     public class FileLog
     {
-        private readonly string _fileName;
         public string FolderName { get; set; }
         public string SubFolder { get; set; }
         public string FileName { get; set; }
+        public string FormName { get; set; }
         public string Text { get; set; }
 
-        public FileLog(string folderName, string subFolder, string fileName)
+        public FileLog(string folderName, string subFolder, string fileName, string formName)
         {
-            _fileName = fileName;
+            FileName = fileName;
+            FormName = formName;
             FolderName = folderName;
             SubFolder = subFolder;
         }

@@ -86,6 +86,7 @@
             this.dgvDataEnd.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvDataEnd.Size = new System.Drawing.Size(1031, 243);
             this.dgvDataEnd.TabIndex = 6;
+            this.dgvDataEnd.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvDataEnd_CellMouseClick);
             // 
             // dataGridViewTextBoxColumn15
             // 

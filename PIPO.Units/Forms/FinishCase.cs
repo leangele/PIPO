@@ -2,6 +2,7 @@
 using LabTrack.DTO;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -10,8 +11,10 @@ namespace LabTrack.Forms
     public partial class FinishCase : Form
     {
         public UnitOfWork UnitOfWork { get; set; }
+        private int _idCaseControl;
         private readonly List<Area> _listAreas;
         public bool IsSearch { get; set; }
+        public DateTime Today { get; set; }
         public FinishCase(UnitOfWork unitOfWork, bool isSearch)
         {
             UnitOfWork = unitOfWork;
@@ -24,7 +27,7 @@ namespace LabTrack.Forms
 
         private void FinishCase_Load(object sender, EventArgs e)
         {
-
+            General.OpenAndCloseForm(Name);
             Text = IsSearch ? "Search" : "Finish";
             lblDateClose.Visible = !IsSearch;
             dtpDateClose.Visible = !IsSearch;
@@ -44,41 +47,49 @@ namespace LabTrack.Forms
             string message;
             var display = "error";
 
+
             if (dtpDateClose.Checked)
             {
                 int nro;
                 var idScanner = txtCode.Text[0].ToString();
                 int.TryParse(txtCode.Text.Substring(1), out nro);
-                var areaConsult = _listAreas.SingleOrDefault(x => x.Symbol == idScanner);
-                var today = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dtpDateClose.Value.Day, 18, 00, 00);
-                if (areaConsult != null && areaConsult.IsEnd)
+                var codeObj = UnitOfWork.DalCases.FindCaseByCode(nro);
+                if (codeObj != null)
                 {
-                    var caseControSearch = UnitOfWork.DalCasesControl.GetCaseControlByIdAreaAndCode(nro, areaConsult.Id);
-
-                    if (caseControSearch == null)
+                    var areaConsult = _listAreas.SingleOrDefault(x => x.Symbol == idScanner);
+                    if (areaConsult != null && areaConsult.IsEnd)
                     {
-                        General.CreateCaseControl(UnitOfWork, nro, null, today, areaConsult);
-                        CloseCaseControlsInChain(nro, today);
-                        CloseCase(nro, today);
-                        UnitOfWork.SaveData();
-                        FillGrid(today);
-                        txtCode.Text = string.Empty;
-                        return;
+                        var caseControSearch = UnitOfWork.DalCasesControl.GetCaseControlByIdAreaAndCode(nro,
+                            areaConsult.Id);
+
+                        if (caseControSearch == null)
+                        {
+                            General.CreateCaseControl(UnitOfWork, nro, null, Today, areaConsult);
+                            CloseCaseControlsInChain(nro, Today);
+                            CloseCase(nro, Today);
+                            UnitOfWork.SaveData();
+                            FillGrid(Today);
+                            txtCode.Text = string.Empty;
+                            return;
+                        }
+                        else
+                        {
+                            message = "Case Cosed before.";
+                        }
                     }
                     else
                     {
-                        message = "Case Cosed before.";
+                        message = "This Scanner dont own to finish area";
                     }
-
                 }
                 else
                 {
-                    message = "This Scanner dont own to finish area";
+                    message = "Case not created previusly";
                 }
             }
             else
             {
-                message = "Is necesary select a Date";
+                message = "Is necesary select a valid date";
             }
             if (!string.IsNullOrWhiteSpace(message))
             {
@@ -127,7 +138,7 @@ namespace LabTrack.Forms
 
         private void dtpDateClose_ValueChanged(object sender, EventArgs e)
         {
-            if (dtpDateClose.Value > DateTime.Now)
+            if (dtpDateClose.Value > DateTime.Now.AddDays(1))
             {
                 dtpDateClose.Checked = false;
                 dtpDateClose.ShowCheckBox = false;
@@ -141,9 +152,9 @@ namespace LabTrack.Forms
             {
                 dtpDateClose.Checked = true;
                 dtpDateClose.ShowCheckBox = true;
+                Today = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dtpDateClose.Value.Day, 18, 00, 00);
             }
-            var today = dtpDateClose.Value;
-            FillGrid(today);
+            FillGrid(Today);
         }
 
         private void FillGrid(DateTime today)
@@ -162,6 +173,36 @@ namespace LabTrack.Forms
             var singleOrDefault = UnitOfWork.DalCasesControl.ListCasesByCode(nro).OrderByDescending(x => x.DtRecive).ToList();
             dgvDataEnd.DataSource = singleOrDefault;
             dgvDataEnd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        }
+
+        private void dgvDataEnd_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            try
+            {
+                if (e.Button != MouseButtons.Right || e.ColumnIndex != 0) return;
+                _idCaseControl = (int)dgvDataEnd.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                var m = new ContextMenu();
+                var menuItem1 = new MenuItem("Add/Remove units");
+                menuItem1.Click += MenuItem1_Click;
+                m.MenuItems.Add(menuItem1);
+                m.Show(dgvDataEnd, new Point(e.X, e.Y));
+            }
+            catch (Exception ex)
+            {
+                General.ControlErrorEx(ex, Name);
+
+            }
+
+        }
+
+        private void MenuItem1_Click(object sender, EventArgs e)
+        {
+            var singleOrDefault = ((List<CaseControlDto>)dgvDataEnd.DataSource).SingleOrDefault(x => x.Id == _idCaseControl);
+            var modifyUnits = new ModifyUnits(UnitOfWork);
+            if (singleOrDefault?.Code != null)
+                modifyUnits.Case = new Case { Code = (int)singleOrDefault.Code };
+            modifyUnits.ShowDialog();
+            FillGrid(Today);
         }
     }
 }

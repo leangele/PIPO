@@ -47,7 +47,7 @@ namespace LabTrack.DAL
             }
             catch (SqlException ex)
             {
-                General.ControlErrorEx(ex);
+                General.ControlErrorEx(ex, "Connection Db");
                 return false;
             }
         }
